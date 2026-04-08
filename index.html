@@ -1,0 +1,670 @@
+{*** 쇼핑몰 메인본문 | main/test_260408.php ***}
+{ # header }
+{=includeWidget('proc/_populate.html', 'sno', '100')}
+
+<!-- CSS -->
+<link type="text/css" rel="stylesheet" href="{=setBrowserCache('../js/slider/flickity/flickity-fade.css')}">
+<link type="text/css" rel="stylesheet" href="{=setBrowserCache('../js/slider/flickity/flickity.css')}">
+
+<!-- JS -->
+<script type="text/javascript" src="{=setBrowserCache('../js/slider/flickity/flickity.pkgd.js')}"></script>
+<script type="text/javascript" src="{=setBrowserCache('../js/slider/flickity/flickity-fade.js')}"></script>
+<style>
+    .story-video {
+        position: relative;
+        display: flex;
+    }
+
+    .story-video-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 10rem 25rem;
+        background-image: url("/data/img/main/241023/PC4.png");
+        background-size: cover;
+        background-position: center;
+    }
+
+    @media(max-width: 1024px) {
+        .story-video {
+            margin: 0;
+        }
+
+        .story-video-wrapper {
+            padding: 0;
+            border-top: 1px solid #1b1b1b;
+        }
+    }
+
+    .play-button svg,
+    .volume-control svg {
+        display: none;
+    }
+
+    .play-button.playing .pause-icon {
+        display: block;
+    }
+
+    .play-button:not(.playing) .play-icon {
+        display: block;
+    }
+
+    .volume-control.playing .mute-icon {
+        display: block;
+    }
+
+    .volume-control:not(.playing) .volume-icon {
+        display: block;
+    }
+
+    .story-video button {
+        position: absolute;
+        right: 12px;
+        bottom: 10px;
+        width: 23px;
+        height: 23px;
+        display: flex;
+    }
+
+    .story-video .volume-control {
+        right: 52px;
+    }
+
+    .story-video button svg {
+        width: 23px;
+        height: 23px;
+    }
+
+    .play-button>svg>g {
+        transform: translate(4px, 4px);
+    }
+</style>
+
+{=includeWidget('proc/_populate.html', 'sno', '100')}
+
+<div class="section_common section_01 section_theme" data-theme="dark">
+    <ul class="carousel"
+        data-flickity='{"pageDots": true, "prevNextButtons": false, "fade": true, "imagesLoaded": true, "wrapAround": true}'>
+        <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-2.jpg"
+            data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-2.jpg">
+            <div class="section_tit">
+                <p class="category_tit serif" data-text-color="#000">ALL IN ONE CARE</p>
+                <h4 class="sans" data-text-color="#000">
+                    무제한 샷 올인원 토탈 케어 올쎄라 더블샷</h4>
+                <p class="extra_txt" data-text-color="#000">
+                    QUICK&EASY<br>한 번에 트리플 3샷, 쉽고 빠른 2분 케어
+                </p>
+                <a href="https://dalba.co.kr/goods/goods_view.php?goodsNo=1000000816" class="btn_main_more normal_txt"
+                    data-text-color="#fff">더 알아보기</a>
+            </div>
+        </li>
+
+        <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-1.jpg"
+            data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-1.jpg">
+            <div class="section_tit">
+                <p class="category_tit serif" style="color: #fff;">100 HOURS MOISTURIZING</p>
+                <h2 class="serif" data-text-color="fff">d'Alba Vita Synergy</h2>
+                <p class="extra_txt" data-text-color="#fff">
+                    비타 시너지로 피부 활력을 깨워<br>생기있게 빛나는 피부 케어
+                </p>
+                <a href="https://dalba.co.kr/goods/goods_list.php?cateCd=001002" class="btn_main_more normal_txt"
+                    data-text-color="#fff">더 알아보기</a>
+            </div>
+        </li>
+
+        <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-3.jpg"
+            data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-5.jpg">
+            <div class="section_tit">
+                <p class="category_tit serif" data-text-color="#fff">VEGAN DAILY SUNCARE</p>
+                <h2 class="serif" data-text-color="#fff">d'Alba Sun Solution</h2>
+                <p class="extra_txt" data-text-color="#fff">
+                    민감한 피부도 편안하게<br>가볍고 산뜻한 데일리 선케어
+                </p>
+                <a href="https://www.dalba.co.kr/goods/goods_list.php?cateCd=001003" class="btn_main_more normal_txt"
+                    data-text-color="#fff">더 알아보기</a>
+            </div>
+        </li>
+
+        <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-4.jpg"
+            data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-4.jpg">
+            <div class="section_tit">
+                <p class="category_tit serif" data-text-color="#000">INTENSE MOISTURIZING & NOURISHING CARE</p>
+                <h2 class="serif" data-text-color="#000">d'Alba Skin Recovery Mask</h2>
+                <p class="extra_txt" data-text-color="#000">
+                    피부의 차이를 만드는 한 장의 선택<br>수분과 영양을 더하는 집중 케어
+                </p>
+                <a href="https://dalba.co.kr/goods/goods_list.php?cateCd=001004" class="btn_main_more normal_txt"
+                    data-text-color="#000">더 알아보기</a>
+            </div>
+        </li>
+
+
+    </ul>
+</div>
+<!-- <ul class="main_paging textcenter freight_disp_pro">
+        <li class="active"><a href="javascript:void(0)">1</a></li>
+        <li><a href="javascript:void(0)">2</a></li>
+        <li><a href="javascript:void(0)">3</a></li>
+    </ul>      -->
+
+<div class="story-video-wrapper">
+    <div class="story-video">
+        <video id="story-video" width="100%"
+            src="https://cdn.shopify.com/videos/c/o/v/a32ae5e5c5684938a9777f0e05b5057d.mp4" playsinline="" autoplay=""
+            loop="" muted="" data-object-fit="cover">
+        </video>
+        <button id="volume-control" type="button" class="volume-control playing" data-customaction="mute"
+            aria-describedby="jennie-text">
+            <svg aria-hidden="true" class="mute-icon" focusable="false" viewBox="0 0 19 12" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M4.05 4L10.05 0V12L4.05 8H0V4H4.05ZM18.05 3.89L17.14 3L15 5.14L12.86 3L12 3.86L14.14 6L12 8.14L12.86 9L15 6.86L17.14 9L18 8.14L15.86 6L18.05 3.89Z"
+                    fill="white"></path>
+            </svg>
+            <svg aria-hidden="true" class="volume-icon" focusable="false" viewBox="0 0 23 18" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M4.05 7L10.05 3V15L4.05 11H0V7H4.05ZM18.67 0L18 0.74C19.9626 3.04467 21.0405 5.97288 21.0405 9C21.0405 12.0271 19.9626 14.9553 18 17.26L18.71 18C20.8583 15.4935 22.0391 12.3012 22.0391 9C22.0391 5.69882 20.8583 2.50653 18.71 0H18.67ZM15 3.67C16.2038 5.18573 16.8591 7.06436 16.8591 9C16.8591 10.9356 16.2038 12.8143 15 14.33L15.7 15.06C17.0971 13.3494 17.8602 11.2086 17.8602 9C17.8602 6.79138 17.0971 4.65059 15.7 2.94L15 3.67ZM12 6.67C12.4695 7.37123 12.7201 8.19611 12.7201 9.04C12.7201 9.88389 12.4695 10.7088 12 11.41L12.71 12.14C13.3667 11.2398 13.7206 10.1543 13.7206 9.04C13.7206 7.92571 13.3667 6.84021 12.71 5.94L12 6.67Z"
+                    fill="white"></path>
+            </svg>
+        </button>
+        <button id="playButton" type="button" class="play-button playing">
+            <svg class="icon--pressed pause-icon" focusable="false" aria-hidden="true">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fillrule="evenodd">
+                    <g id="ICON_sprite_SVG" fill="#FFFFFF" fillrule="nonzero">
+                        <g id="ICON_pause">
+                            <g id="Group">
+                                <rect id="Rectangle" x="0" y="0" width="4.6875" height="15"></rect>
+                                <rect id="Rectangle-Copy-2" x="8.4375" y="0" width="4.6875" height="15"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            <svg class="icon--not-pressed play-icon" focusable="false" aria-hidden="true">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fillrule="evenodd">
+                    <g id="ICON_sprite_SVG" fill="#FFFFFF" fillrule="nonzero">
+                        <g id="ICON_play">
+                            <polygon id="Page-1-Copy" points="0 0 0 15 12.700109 7.5008824"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </button>
+    </div>
+
+
+
+    <script>
+        document.getElementById('playButton').addEventListener('click', function () {
+            var video = document.getElementById('story-video');
+            var button = document.getElementById('playButton'); // 버튼 ID를 정확히 지정해야 합니다.
+
+            if (video.paused) {
+                video.play();
+                button.classList.add('playing');
+            } else {
+                video.pause();
+                button.classList.remove('playing');
+            }
+        });
+
+        document.getElementById('volume-control').addEventListener('click', function () {
+            var video = document.getElementById('story-video');
+            var button = this;
+
+            video.muted = !video.muted;
+
+            if (video.muted) {
+                button.classList.add('playing');
+            } else {
+                button.classList.remove('playing');
+            }
+        });
+    </script>
+</div>
+<div class="section_01-2">
+    <a href="https://www.dalba.co.kr/main/html.php?htmid=hometry/introduce.html"><img
+            src="/data/img/main/240314/boutique-2403-main-banner-PC-2.jpg" class="pconly"></a>
+    <a href="https://www.dalba.co.kr/main/html.php?htmid=hometry/introduce.html"><img
+            src="/data/img/main/240314/boutique-2403-main-banner-MO-2.jpg" class="mobileonly"></a>
+</div>
+
+<div class="section_common section_02 section_theme displaynone" data-theme="light">
+    <div class="section_tit">
+        <h2 class="serif">Home Try.<br>
+            Pay after 7 days of <br class="mobileonly"><span class="point_color">free trial.</span></h2>
+        <p class="extra_txt">
+            내 피부에 맞는지 샘플, 테스터가 아닌 본품을 충분히 써보고 구매할 수는 없을까?<br>
+            달바의 시그니처 서비스 홈트라이를 소개합니다
+        </p>
+        <a href="javascript:void(0)" class="btn_main_more normal_txt">홈트라이 신청하기</a>
+    </div>
+</div>
+<div class="section_03 section_theme module-info-img" data-theme="light" data-text-color="#fff"
+    data-background-image="/data/img/main/241023/PC2.png" data-background-image="/data/img/main/241023/MO-4.png">
+    <div class="bestproduct_wrap">
+        <h5 class="serif">Best Product</h5>
+        <ul class="carousel"
+            data-flickity='{"pageDots": false, "prevNextButtons": true, "fade": true, "imagesLoaded": true, "wrapAround": true}'>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-first-spray-serum-upgrade.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000043">화이트 트러플 퍼스트
+                        스프레이 세럼 100ml</p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000043">KRW
+                        29,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000043">#수분광채 #세럼미스트
+                    </p>
+                    <a href="/goods/goods_list.php?cateCd=001001" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-tone-up-sun-cream.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods_view.php?goodsNo=1000000094">워터풀 톤업 선크림 50ml</p>
+                    <p class="normal_txt product_price serif" data-href="/goods_view.php?goodsNo=1000000094">KRW 32,000
+                    </p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000094">#핑크빛물광 #파데프리
+                    </p>
+                    <a href="/goods/goods_list.php?cateCd=001001" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-all-in-one-multi-balm.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000101">더블 세럼 올인원 멀티밤
+                        10g</p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000101">KRW
+                        42,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000101">#이중코어 #탄력미백
+                    </p>
+                    <a href="/goods/goods_list.php?cateCd=001001" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-waterfull-essence-sun-cream.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000101">워터풀 에센스 선크림
+                    </p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000101">KRW
+                        23,900</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000101">#24시간보습유지력
+                        #촉촉산뜻</p>
+                    <a href="/goods/goods_view.php?goodsNo=1000000044" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-return-oil-cream-cleanser.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000068">리턴 오일 크림 클렌저
+                    </p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000068">KRW
+                        21,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000068">#올인원클렌저
+                        #스파워터함유</p>
+                    <a href="/goods/goods_view.php?goodsNo=1000000072" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-double-serum.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000068">화이트 트러플 더블
+                        레이어 리바이탈라이징 세럼 30ml</p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000068">KRW
+                        78,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000068">#100시간보습
+                        #즉각보습</p>
+                    <a href="/goods/goods_list.php?cateCd=001001" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-double-serum-and-cream.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000100">화이트 트러플 더블 세럼
+                        앤 크림 70g</p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000100">KRW
+                        78,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000100">#맞춤크림 #듀얼크림
+                    </p>
+                    <a href="/goods/goods_list.php?cateCd=001001" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-waterfull-mild-sun-cream.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000102">워터풀 마일드 선크림
+                    </p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000102">KRW
+                        32,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000102">#무기자차 #순한선크림
+                    </p>
+                    <a href="/goods/goods_view.php?goodsNo=1000000069" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-waterfull-vegan-sleeping-pack.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000100">워터풀 비건 슬리핑팩
+                        1BOX (4ml * 12)</p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000100">KRW
+                        24,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000100">#밤샘보습 #제형</p>
+                    <a href="/goods/goods_view.php?goodsNo=1000000118" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+            <li class="carousel-cell">
+                <div class="item_wrap">
+                    <div class="main_bestproduct">
+                        <img src="/data/img/main/MAIN-3-BEST-skin-fit-grinding-pact.jpg" alt="product">
+                    </div>
+                    <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000100">스킨 핏 그라인딩 세럼
+                        커버 팩트</p>
+                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000100">KRW
+                        46,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000100">#갈아쓰는팩트 #세럼커버
+                    </p>
+                    <a href="/goods/goods_view.php?goodsNo=1000000081" class="btn_main_more normal_txt">베스트 상품 더보기</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="collection_common section_04 section_theme" data-theme="dark" data-text-color="#000"
+    data-background-image="/data/img/main/240314/boutique-2403-main-banner-PC-4.jpg"
+    data-mobile-background-image="/data/img/main/240314/boutique-2403-main-banner-MO-4-edit.jpg">
+    <div class="collection_wrap clearfix">
+        <div class="floatleft per_50">
+            <h1 class="serif">Natural,<br>
+                but Powerful</h1>
+            <h5>프리미엄 탄력 컬렉션</h5>
+            <p class="normal_txt">
+                화이트 트러플이 선사하는 항산화 탄력
+            </p>
+            <p class="small_txt">
+                피부 본연의 탄력을 되찾아주는<br>
+                화이트트러플의 항산화 에너지 가득한 제품
+            </p>
+            <div class="collection_symbol pconly">
+                <img src="/data/skin/front/dalba2/img/symbol_01.png" alt="symbol">
+            </div>
+        </div>
+        <div class="floatright per_50 clearfix">
+            <p>
+                <a href="javascript:void(0)" class="inline freight_disp_pro" data-text-color="#000">White Truffle 92
+                    advanced Ampoule,<span class="hover_layer"><img src="/data/img/collection/01/pdt_1.png" alt=""><span
+                            class="viewproduct sans btn_buy small_txt"
+                            data-href="/goods/goods_view.php?goodsNo=1000000075">제품보기</span></span></a>
+                <a href="javascript:void(0)" class="inline freight_disp_pro" data-text-color="#000">White Truffle
+                    Supreme Intenseive Spray Serum,<span class="hover_layer"><img
+                            src="/data/img/collection/01/pdt_2.png" alt=""><span
+                            class="viewproduct sans btn_buy small_txt"
+                            data-href="/goods/goods_view.php?goodsNo=1000000097">제품보기</span></span></a>
+                <a href="javascript:void(0)" class="inline freight_disp_pro" data-text-color="#000">Waterfull Sun
+                    Serum<span class="hover_layer"><img src="/data/img/collection/01/pdt_3.png" alt=""><span
+                            class="viewproduct sans btn_buy small_txt"
+                            data-href="/goods/goods_view.php?goodsNo=1000000122">제품보기</span></span></a>
+                <a href="javascript:void(0)" class="inline freight_disp_pro" data-text-color="#000">Double Serum
+                    All-in-One Multi balm<span class="hover_layer"><img src="/data/img/collection/01/pdt_4.png"
+                            alt=""><span class="viewproduct sans btn_buy small_txt"
+                            data-href="/goods/goods_view.php?goodsNo=1000000101">제품보기</span></span></a>
+            </p>
+            <div class="collection_symbol mobileonly">
+                <img src="/data/skin/front/dalba2/img/symbol_01.png" alt="symbol">
+            </div>
+            <a href="/main/html.php?htmid=collection/01.html" class="btn_learnmore serif"
+                data-text-color="#000"><span>LEARN MORE</span><img
+                    src="/data/skin/front/dalba2/img/icon/round_arrow_right_b.svg" alt="round_arrow_right"></a>
+        </div>
+    </div>
+</div>
+<div class="collection_common section_05 section_theme" data-theme="dark" data-text-color="#000"
+    data-background-image="/data/img/main/241023/PC6.png" data-mobile-background-image="/data/img/main/241023/MO-5.png">
+    <div class="collection_wrap clearfix">
+        <div class="floatleft per_50">
+            <h1 class="serif">Clean &<br>
+                Vegan Beauty</h1>
+            <h5>비건 컬렉션</h5>
+            <p class="normal_txt">
+                까다롭고 건강한 아름다움이 깃든 클린뷰티 실천
+            </p>
+            <p class="small_txt">
+                엄격한 이탈리아 V-LABEL 비건 인증을 받은<br>
+                달바의 엄선된 기능성 제품
+            </p>
+            <div class="collection_symbol pconly">
+                <img src="/data/skin/front/dalba2/img/symbol_02.png" alt="symbol">
+            </div>
+
+        </div>
+        <div class="floatright per_50 clearfix">
+            <p>
+                <a href="javascript:void(0)" class="inline freight_disp_pro" data-text-color="#000">Double Layer
+                    Revitalizing Serum,<span class="hover_layer"><img src="/data/img/collection/02/pdt_1.png"
+                            alt=""><span class="viewproduct sans btn_buy small_txt"
+                            data-href="/goods/goods_view.php?goodsNo=1000000068">제품보기</span></span></a>
+                <a href="javascript:void(0)" class="inline freight_disp_pro" data-text-color="#000">White Truffle First
+                    Aromatic Spray Serum,<span class="hover_layer"><img src="/data/img/collection/02/pdt_2.png"
+                            alt=""><span class="viewproduct sans btn_buy small_txt"
+                            data-href="/goods/goods_view.php?goodsNo=1000000102">제품보기</span></span></a>
+                <a href="javascript:void(0)" class="inline freight_disp_pro" data-text-color="#000">Double Serum
+                    All-in-One Multi Balm<span class="hover_layer"><img src="/data/img/collection/02/pdt_3.png"
+                            alt=""><span class="viewproduct sans btn_buy small_txt"
+                            data-href="/goods/goods_view.php?goodsNo=1000000101">제품보기</span></span></a>
+                <a href="javascript:void(0)" class="inline freight_disp_pro" data-text-color="#000">White Truffle Double
+                    Serum & Cream<span class="hover_layer"><img src="/data/img/collection/02/pdt_4.png" alt=""><span
+                            class="viewproduct sans btn_buy small_txt"
+                            data-href="/goods/goods_view.php?goodsNo=1000000100">제품보기</span></span></a>
+            </p>
+            <div class="collection_symbol mobileonly">
+                <img src="/data/skin/front/dalba2/img/symbol_02.png" alt="symbol">
+            </div>
+            <a href="/main/html.php?htmid=collection/02.html" class="btn_learnmore serif"
+                data-text-color="#000"><span>LEARN MORE</span><img
+                    src="/data/skin/front/dalba2/img/icon/round_arrow_right_b.svg" alt="round_arrow_right"></a>
+        </div>
+    </div>
+</div>
+<div class="section_06 section_theme" data-theme="dark">
+    <div class="clearfix">
+        <div class="floatleft per_50" data-background-image="/data/img/main/241023/PC7.png"
+            data-mobile-background-image="/data/img/main/241023/PC7.png">
+            <h4 class="serif">Moist & Watery</h4>
+            <h6>수분보습 컬렉션</h6>
+            <p class="normal_txt">
+                수분 공급과 보습 유지를 도와 건조한 피부를 촉촉하게 만들어주는<br>
+                수분 보습 라인 컬렉션
+            </p>
+            <div class="collection_symbol">
+                <img src="/data/skin/front/dalba2/img/symbol_03.png" alt="symbol">
+            </div>
+            <a href="/main/html.php?htmid=collection/03.html" class="btn_learnmore serif"><span>LEARN MORE</span><img
+                    src="/data/skin/front/dalba2/img/icon/round_arrow_right_b.svg" alt="round_arrow_right"></a>
+        </div>
+        <div class="floatleft per_50" data-background-image="/data/img/main/240314/boutique-2403-main-banner-PC-7-1.jpg"
+            data-mobile-background-image="/data/img/main/240314/boutique-2403-main-banner-MO-7.jpg">
+            <h4 class="serif">Mild Calming</h4>
+            <h6>저자극 · 진정 컬렉션</h6>
+            <p class="normal_txt">
+                민감성 피부 일차자극 및 <br>
+                인체피부 일차자극(저자극) 테스트 완료 제품
+            </p>
+            <div class="collection_symbol">
+                <img src="/data/skin/front/dalba2/img/symbol_04.png" alt="symbol">
+            </div>
+            <a href="/main/html.php?htmid=collection/04.html" class="btn_learnmore serif"><span>LEARN MORE</span><img
+                    src="/data/skin/front/dalba2/img/icon/round_arrow_right_b.svg" alt="round_arrow_right"></a>
+        </div>
+    </div>
+</div>
+<div class="section_07 section_theme displaynone" data-theme="light"
+    data-background-image="/data/img/main/240314/boutique-2403-main-banner-PC-6.jpg"
+    data-mobile-background-image="/data/img/main/MAIN-7-MOBILE.jpg">
+    <div class="findfit_wrap">
+        <h2 class="serif">Find my skin fit</h2>
+        <p class="extra_txt">
+            나의 스킨 라이프 키워드에 맞는 달바 제품을 찾아보세요
+        </p>
+        <ul class="find_tag">
+            <li><a href="javascript:void(0)" class="small_txt">#수분</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#보습</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#탄력개선</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#모공</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#속탄력개선</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#산뜻</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#진정</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#향기</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#피부활력</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#윤기</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#미백</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#각질</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#주름</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#비건</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#저자극</a></li><!--
+            -->
+            <li><a href="javascript:void(0)" class="small_txt">#블랙헤드</a></li><!--
+        -->
+        </ul>
+        <a href="javascript:void(0)" class="btn_main_more normal_txt">나의 제품보기</a>
+    </div>
+</div>
+<div class="section_08 section_theme" data-theme="light">
+    <div class="feed_wrap">
+        <h5 class="serif">@dalba_piedmont</h5>
+        <ul class="feed_contents clearfix">
+            <li class="floatleft per_33"><a href="javascript:void(0)"><img src="/data/img/main/INSTAGRAM_1.jpg"
+                        alt=""></a></li>
+            <li class="floatleft per_33"><a href="javascript:void(0)"><img src="/data/img/main/INSTAGRAM_2.jpg"
+                        alt=""></a></li>
+            <li class="floatleft per_33"><a href="javascript:void(0)"><img src="/data/img/main/INSTAGRAM_3.jpg"
+                        alt=""></a></li>
+            <li class="floatleft per_33"><a href="javascript:void(0)"><img src="/data/img/main/INSTAGRAM_4.jpg"
+                        alt=""></a></li>
+            <li class="floatleft per_33"><a href="javascript:void(0)"><img src="/data/img/main/INSTAGRAM_5.jpg"
+                        alt=""></a></li>
+            <li class="floatleft per_33"><a href="javascript:void(0)"><img src="/data/img/main/INSTAGRAM_6.jpg"
+                        alt=""></a></li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .carousel-cell video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+    }
+
+    .collection_common .collection_wrap .floatright p a {
+        transition: none;
+    }
+
+    .collection_common .collection_wrap .floatright p a .hover_layer {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, -50%);
+        pointer-events: default;
+        z-index: 9;
+        height: 0;
+        overflow: visible;
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .collection_common .collection_wrap .floatright p a .hover_layer img {
+        display: block;
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        pointer-events: none;
+        width: 100%;
+        height: auto;
+        display: block !important;
+    }
+
+    .collection_common .collection_wrap .floatright p a .hover_layer span.viewproduct {
+        display: block;
+        height: 42px;
+        width: 100px;
+        margin: 30px auto;
+        padding: 10px 20px;
+        background-color: transparent;
+        border: 0;
+        color: #000;
+        background-color: #fff;
+        line-height: 1.8em;
+        text-align: center;
+    }
+
+    @media screen and (max-width: 900px) {
+        .collection_common .collection_wrap .floatright p a .hover_layer {
+            width: 70%;
+        }
+
+        .collection_common .collection_wrap .floatright p a .hover_layer span.viewproduct {
+            height: 33px;
+            font-size: 10px;
+            line-height: 1.2em;
+            margin: 0 auto;
+        }
+    }
+</style>
+
+
+<!--{ ? wm_criteo && !empty(criteoInfo) }-->
+<!-- 크리테오 스크립트 설치 ================================================== START -->
+<!-- Criteo 홈페이지 태그 -->
+<script type="text/javascript">
+    window.criteo_q = window.criteo_q || [];
+    var deviceType = /iPad/.test(navigator.userAgent) ? "t" : /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Silk/.test(navigator.userAgent) ? "m" : "d";
+    window.criteo_q.push(
+        { event: "setAccount", account: 111175 },
+        { event: "setEmail", email: '{=criteoInfo.email}', hash_method: '{=criteoInfo.hashType}' },
+        { event: "setZipcode", zipcode: '{=criteoInfo.zipcode}' },
+        { event: "setSiteType", type: deviceType },
+        { event: "viewHome" });
+</script>
+<!-- END Criteo 홈페이지 태그 -->
+<!-- 크리테오 스크립트 설치 ================================================== END -->
+<!--{ / }-->
+
+
+{ # footer }
