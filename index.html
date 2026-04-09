@@ -91,11 +91,11 @@
         <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-1.jpg"
             data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-1.jpg">
             <div class="section_tit">
-                <p class="category_tit serif" style="color: #000; font-size: 24px; font-weight: 300;">100 HOURS
+                <p class="category_tit serif" data-text-color="#000">100 HOURS
                     MOISTURIZING</p>
-                <h2 class="serif" data-text-color="#000" style="font-size: 74px; font-weight: 300;">d'Alba Vita Synergy
+                <h2 class="serif" data-text-color="#000">d'Alba Vita Synergy
                 </h2>
-                <p class="extra_txt" data-text-color="#000" style="font-size: 24px; font-weight: 300;">
+                <p class="extra_txt" data-text-color="#000">
                     비타 시너지로 피부 활력을 깨워<br>생기있게 빛나는 피부 케어
                 </p>
                 <a href="https://dalba.co.kr/goods/goods_list.php?cateCd=001002" class="btn_main_more normal_txt"
@@ -106,11 +106,11 @@
         <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-3.jpg"
             data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-5.jpg">
             <div class="section_tit">
-                <p class="category_tit serif" data-text-color="#000" style="font-size: 24px; font-weight: 300;">VEGAN
+                <p class="category_tit serif" data-text-color="#000">VEGAN
                     DAILY SUNCARE</p>
-                <h2 class="serif" data-text-color="#000" style="font-size: 74px; font-weight: 300;">d'Alba Sun Solution
+                <h2 class="serif" data-text-color="#000">d'Alba Sun Solution
                 </h2>
-                <p class="extra_txt" data-text-color="#000" style="font-size: 24px; font-weight: 300;">
+                <p class="extra_txt" data-text-color="#000">
                     민감한 피부도 편안하게<br>가볍고 산뜻한 데일리 선케어
                 </p>
                 <a href="https://www.dalba.co.kr/goods/goods_list.php?cateCd=001003" class="btn_main_more normal_txt"
@@ -121,11 +121,11 @@
         <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-4.jpg"
             data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-4.jpg">
             <div class="section_tit">
-                <p class="category_tit serif" data-text-color="#000" style="font-size: 24px; font-weight: 300;">INTENSE
+                <p class="category_tit serif" data-text-color="#000">INTENSE
                     MOISTURIZING & NOURISHING CARE</p>
-                <h2 class="serif" data-text-color="#000" style="font-size: 74px; font-weight: 300;">d'Alba Skin Recovery
+                <h2 class="serif" data-text-color="#000">d'Alba Skin Recovery
                     Mask</h2>
-                <p class="extra_txt" data-text-color="#000" style="font-size: 24px; font-weight: 300;">
+                <p class="extra_txt" data-text-color="#000">
                     피부의 차이를 만드는 한 장의 선택<br>수분과 영양을 더하는 집중 케어
                 </p>
                 <a href="https://dalba.co.kr/goods/goods_list.php?cateCd=001004" class="btn_main_more normal_txt"
@@ -136,11 +136,11 @@
         <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-2.jpg"
             data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-2.jpg">
             <div class="section_tit">
-                <p class="category_tit serif" data-text-color="#000" style="font-size: 24px; font-weight: 300;">ALL IN
+                <p class="category_tit serif" data-text-color="#000">ALL IN
                     ONE CARE</p>
-                <h2 class="serif" data-text-color="#000" style="font-size: 74px; font-weight: 300;">
+                <h2 class="serif" data-text-color="#000">
                     d'Alba Allthera Double Shot</h2>
-                <p class="extra_txt" data-text-color="#000" style="font-size: 24px; font-weight: 300;">
+                <p class="extra_txt" data-text-color="#000">
                     QUICK&EASY<br>한 번에 트리플 3샷, 쉽고 빠른 2분 케어
                 </p>
                 <a href="https://dalba.co.kr/goods/goods_view.php?goodsNo=1000000816" class="btn_main_more normal_txt"
@@ -600,6 +600,24 @@
     .collection_common a,
     .section_06 a {
         text-decoration: none !important;
+    }
+
+    /* 메인 배너 텍스트 크기 - PC only (고도몰 breakpoint: 900px) */
+    @media screen and (min-width: 901px) {
+        .section_01 .category_tit {
+            font-size: 24px !important;
+            font-weight: 300 !important;
+        }
+
+        .section_01 .section_tit h2 {
+            font-size: 74px !important;
+            font-weight: 300 !important;
+        }
+
+        .section_01 .extra_txt {
+            font-size: 24px !important;
+            font-weight: 300 !important;
+        }
     }
 
     .section_01 {
