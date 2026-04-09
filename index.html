@@ -224,16 +224,11 @@
         });
     </script>
 </div>
-<div class="section_01-2 hometry_section">
-    <div class="hometry_top">
-        <p class="hometry_desc">나에게 맞는지 충분히 써보고 구매 결정하세요!</p>
-        <div class="hometry_row">
-            <p class="hometry_title">선체험 후 결제</p>
-            <a href="https://www.dalba.co.kr/main/html.php?htmid=hometry/introduce.html"
-                class="hometry_btn">홈트라이 신청하러 가기</a>
-        </div>
-    </div>
-    <p class="hometry_big serif">Home Try</p>
+<div class="section_01-2">
+    <a href="https://www.dalba.co.kr/main/html.php?htmid=hometry/introduce.html"><img
+            src="/data/img/main/240314/boutique-2403-main-banner-PC-2.jpg" class="pconly"></a>
+    <a href="https://www.dalba.co.kr/main/html.php?htmid=hometry/introduce.html"><img
+            src="/data/img/main/240314/boutique-2403-main-banner-MO-2.jpg" class="mobileonly"></a>
 </div>
 
 <div class="section_common section_02 section_theme displaynone" data-theme="light">
@@ -597,100 +592,19 @@
         text-decoration: none !important;
     }
 
+    .section_01 {
+        min-height: calc(100vh - 60px);
+    }
+
+    .section_01 .carousel,
+    .section_01 .carousel-cell {
+        min-height: calc(100vh - 60px);
+    }
+
     .section_02 .btn_main_more:hover {
         background-color: #000 !important;
         color: #fff !important;
         border-color: #000 !important;
-    }
-
-    /* Home Try 섹션 */
-    .hometry_section {
-        background: #fff;
-        padding: 80px 80px 20px;
-        overflow: hidden;
-    }
-
-    .hometry_top {
-        margin-bottom: 20px;
-    }
-
-    .hometry_desc {
-        font-size: 32px;
-        font-weight: 300;
-        line-height: 84%;
-        letter-spacing: -0.05em;
-        color: #000;
-        margin-bottom: 24px;
-    }
-
-    .hometry_row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .hometry_title {
-        font-size: 84px;
-        font-weight: 200;
-        line-height: 84%;
-        letter-spacing: -0.05em;
-        color: #000;
-    }
-
-    .hometry_btn {
-        display: inline-block;
-        background: #000;
-        color: #fff;
-        font-size: 28px;
-        font-weight: 400;
-        line-height: 84%;
-        letter-spacing: -0.05em;
-        padding: 20px 32px;
-        text-decoration: none;
-        white-space: nowrap;
-    }
-
-    .hometry_big {
-        font-size: 22vw;
-        font-weight: 300;
-        line-height: 84%;
-        letter-spacing: 0;
-        color: #000;
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    @media screen and (max-width: 768px) {
-        .hometry_section {
-            padding: 40px 24px 20px;
-        }
-
-        .hometry_desc {
-            font-size: 16px;
-            margin-bottom: 16px;
-        }
-
-        .hometry_row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 24px;
-        }
-
-        .hometry_title {
-            font-size: 36px;
-        }
-
-        .hometry_btn {
-            font-size: 16px;
-            padding: 14px 24px;
-            text-align: center;
-        }
-
-        .hometry_big {
-            font-size: 20vw;
-            margin-top: 10px;
-        }
     }
 
     .section_01 .btn_main_more:hover {
