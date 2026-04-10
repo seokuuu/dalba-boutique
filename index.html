@@ -1,4 +1,4 @@
-{*** 쇼핑몰 메인본문 | main/test_260408.php ***}
+{*** 쇼핑몰 메인본문 | main/index.php ***}
 { # header }
 {=includeWidget('proc/_populate.html', 'sno', '100')}
 
@@ -9,77 +9,7 @@
 <!-- JS -->
 <script type="text/javascript" src="{=setBrowserCache('../js/slider/flickity/flickity.pkgd.js')}"></script>
 <script type="text/javascript" src="{=setBrowserCache('../js/slider/flickity/flickity-fade.js')}"></script>
-<style>
-    .story-video {
-        position: relative;
-        display: flex;
-    }
 
-    .story-video-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-        height: 100%;
-        padding: 10rem 25rem;
-        background-image: url("/data/img/main/241023/PC4.png");
-        background-size: cover;
-        background-position: center;
-    }
-
-    @media(max-width: 1024px) {
-        .story-video {
-            margin: 0;
-        }
-
-        .story-video-wrapper {
-            padding: 0;
-            border-top: 1px solid #1b1b1b;
-        }
-    }
-
-    .play-button svg,
-    .volume-control svg {
-        display: none;
-    }
-
-    .play-button.playing .pause-icon {
-        display: block;
-    }
-
-    .play-button:not(.playing) .play-icon {
-        display: block;
-    }
-
-    .volume-control.playing .mute-icon {
-        display: block;
-    }
-
-    .volume-control:not(.playing) .volume-icon {
-        display: block;
-    }
-
-    .story-video button {
-        position: absolute;
-        right: 12px;
-        bottom: 10px;
-        width: 23px;
-        height: 23px;
-        display: flex;
-    }
-
-    .story-video .volume-control {
-        right: 52px;
-    }
-
-    .story-video button svg {
-        width: 23px;
-        height: 23px;
-    }
-
-    .play-button>svg>g {
-        transform: translate(4px, 4px);
-    }
-</style>
 
 {=includeWidget('proc/_populate.html', 'sno', '100')}
 
@@ -88,8 +18,8 @@
         data-flickity='{"pageDots": true, "prevNextButtons": false, "fade": true, "imagesLoaded": true, "wrapAround": true}'>
 
 
-        <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-1.jpg"
-            data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-1.jpg">
+        <li class="carousel-cell" data-background-image="/data/img/main/260409_main_renewal/260409_main_pc_vita_1.jpg"
+            data-mobile-background-image="/data/img/main/260409_main_renewal/260409_main_mo_vita_1.jpg">
             <div class="section_tit">
                 <p class="category_tit serif" data-text-color="#000">100 HOURS
                     MOISTURIZING</p>
@@ -103,8 +33,8 @@
             </div>
         </li>
 
-        <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-3.jpg"
-            data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-5.jpg">
+        <li class="carousel-cell" data-background-image="/data/img/main/260409_main_renewal/260409_main_pc_sun_02.jpg"
+            data-mobile-background-image="/data/img/main/260409_main_renewal/260409_main_mo_sun_02.jpg">
             <div class="section_tit">
                 <p class="category_tit serif" data-text-color="#000">VEGAN
                     DAILY SUNCARE</p>
@@ -118,23 +48,22 @@
             </div>
         </li>
 
-        <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-4.jpg"
-            data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-4.jpg">
+        <li class="carousel-cell" data-background-image="/data/img/main/260409_main_renewal/260409_main_pc_veganery_3.jpg"
+            data-mobile-background-image="/data/img/main/260409_main_renewal/260409_main_mo_veganery_03.jpg">
             <div class="section_tit">
-                <p class="category_tit serif" data-text-color="#000">INTENSE
-                    MOISTURIZING & NOURISHING CARE</p>
-                <h2 class="serif" data-text-color="#000">d'Alba Skin Recovery
-                    Mask</h2>
+                <p class="category_tit serif" data-text-color="#000">VEGAN DAILY INNER CARE</p>
+                <h2 class="serif" data-text-color="#000">d'Alba Veganery 
+                    </h2>
                 <p class="extra_txt" data-text-color="#000">
-                    피부의 차이를 만드는 한 장의 선택<br>수분과 영양을 더하는 집중 케어
+                    자연주의 비건 이너뷰티,<br>비거너리 바이 달바
                 </p>
                 <a href="https://dalba.co.kr/goods/goods_list.php?cateCd=001004" class="btn_main_more normal_txt"
                     data-text-color="#000">더 알아보기</a>
             </div>
         </li>
 
-        <li class="carousel-cell" data-background-image="/data/img/main/250404/2504-boutique-main-pc-2.jpg"
-            data-mobile-background-image="/data/img/main/250404/2504-boutique-main-mo-2.jpg">
+        <li class="carousel-cell" data-background-image="/data/img/main/260409_main_renewal/260409_main_pc_allthera_04.jpg"
+            data-mobile-background-image="/data/img/main/260409_main_renewal/260409_main_mo_allthera_4.jpg">
             <div class="section_tit">
                 <p class="category_tit serif" data-text-color="#000">ALL IN
                     ONE CARE</p>
@@ -144,7 +73,7 @@
                     QUICK&EASY<br>한 번에 트리플 3샷, 쉽고 빠른 2분 케어
                 </p>
                 <a href="https://dalba.co.kr/goods/goods_view.php?goodsNo=1000000816" class="btn_main_more normal_txt"
-                    data-text-color="#000">더 알아보기</a>
+                    data-text-color="#fff">더 알아보기</a>
             </div>
         </li>
 
@@ -157,82 +86,7 @@
         <li><a href="javascript:void(0)">3</a></li>
     </ul>      -->
 
-<div class="story-video-wrapper">
-    <div class="story-video">
-        <video id="story-video" width="100%"
-            src="https://cdn.shopify.com/videos/c/o/v/a32ae5e5c5684938a9777f0e05b5057d.mp4" playsinline="" autoplay=""
-            loop="" muted="" data-object-fit="cover">
-        </video>
-        <button id="volume-control" type="button" class="volume-control playing" data-customaction="mute"
-            aria-describedby="jennie-text">
-            <svg aria-hidden="true" class="mute-icon" focusable="false" viewBox="0 0 19 12" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M4.05 4L10.05 0V12L4.05 8H0V4H4.05ZM18.05 3.89L17.14 3L15 5.14L12.86 3L12 3.86L14.14 6L12 8.14L12.86 9L15 6.86L17.14 9L18 8.14L15.86 6L18.05 3.89Z"
-                    fill="white"></path>
-            </svg>
-            <svg aria-hidden="true" class="volume-icon" focusable="false" viewBox="0 0 23 18" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M4.05 7L10.05 3V15L4.05 11H0V7H4.05ZM18.67 0L18 0.74C19.9626 3.04467 21.0405 5.97288 21.0405 9C21.0405 12.0271 19.9626 14.9553 18 17.26L18.71 18C20.8583 15.4935 22.0391 12.3012 22.0391 9C22.0391 5.69882 20.8583 2.50653 18.71 0H18.67ZM15 3.67C16.2038 5.18573 16.8591 7.06436 16.8591 9C16.8591 10.9356 16.2038 12.8143 15 14.33L15.7 15.06C17.0971 13.3494 17.8602 11.2086 17.8602 9C17.8602 6.79138 17.0971 4.65059 15.7 2.94L15 3.67ZM12 6.67C12.4695 7.37123 12.7201 8.19611 12.7201 9.04C12.7201 9.88389 12.4695 10.7088 12 11.41L12.71 12.14C13.3667 11.2398 13.7206 10.1543 13.7206 9.04C13.7206 7.92571 13.3667 6.84021 12.71 5.94L12 6.67Z"
-                    fill="white"></path>
-            </svg>
-        </button>
-        <button id="playButton" type="button" class="play-button playing">
-            <svg class="icon--pressed pause-icon" focusable="false" aria-hidden="true">
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fillrule="evenodd">
-                    <g id="ICON_sprite_SVG" fill="#FFFFFF" fillrule="nonzero">
-                        <g id="ICON_pause">
-                            <g id="Group">
-                                <rect id="Rectangle" x="0" y="0" width="4.6875" height="15"></rect>
-                                <rect id="Rectangle-Copy-2" x="8.4375" y="0" width="4.6875" height="15"></rect>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-            <svg class="icon--not-pressed play-icon" focusable="false" aria-hidden="true">
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fillrule="evenodd">
-                    <g id="ICON_sprite_SVG" fill="#FFFFFF" fillrule="nonzero">
-                        <g id="ICON_play">
-                            <polygon id="Page-1-Copy" points="0 0 0 15 12.700109 7.5008824"></polygon>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-        </button>
-    </div>
 
-
-
-    <script>
-        document.getElementById('playButton').addEventListener('click', function () {
-            var video = document.getElementById('story-video');
-            var button = document.getElementById('playButton'); // 버튼 ID를 정확히 지정해야 합니다.
-
-            if (video.paused) {
-                video.play();
-                button.classList.add('playing');
-            } else {
-                video.pause();
-                button.classList.remove('playing');
-            }
-        });
-
-        document.getElementById('volume-control').addEventListener('click', function () {
-            var video = document.getElementById('story-video');
-            var button = this;
-
-            video.muted = !video.muted;
-
-            if (video.muted) {
-                button.classList.add('playing');
-            } else {
-                button.classList.remove('playing');
-            }
-        });
-    </script>
-</div>
 <div class="section_01-2">
     <a href="https://www.dalba.co.kr/main/html.php?htmid=hometry/introduce.html"><img
             src="/data/img/main/240314/boutique-2403-main-banner-PC-2.jpg" class="pconly"></a>
@@ -252,7 +106,7 @@
     </div>
 </div>
 <div class="section_03 section_theme module-info-img" data-theme="light" data-text-color="#000"
-    data-background-image="/data/img/main/241023/PC2.png" data-background-image="/data/img/main/241023/MO-4.png">
+    data-background-image="/data/img/main/260409_main_renewal/260409_pc_best_product_img.jpg" data-mobile- background-image="/data/img/main/260409_main_renewal/260409_mo_best_product_img.jpg">
     <div class="bestproduct_wrap">
         <h5 class="serif">Best Product</h5>
         <ul class="carousel"
@@ -264,11 +118,10 @@
                     </div>
                     <p class="normal_txt product_tit" data-href="/goods/goods_view.php?goodsNo=1000000043">화이트 트러플 퍼스트
                         스프레이 세럼 100ml</p>
-                    <p style="margin-top: 0px;" class="xsmall_txt product_tag"
-                        data-href="/goods/goods_view.php?goodsNo=1000000043">#수분광채 #세럼미스트
+                      <p class="normal_txt product_price serif" data-href="/goods_view.php?goodsNo=1000000094">KRW 29,000
                     </p>
-                    <p class="normal_txt product_price serif" data-href="/goods/goods_view.php?goodsNo=1000000043">KRW
-                        29,000</p>
+                    <p class="xsmall_txt product_tag" data-href="/goods/goods_view.php?goodsNo=1000000094">#수분광채 #세럼미스트
+                    </p>
                     <a href="/goods/goods_list.php?cateCd=001001" class="btn_main_more normal_txt">베스트 상품 더보기</a>
                 </div>
             </li>
@@ -400,8 +253,8 @@
     </div>
 </div>
 <div class="collection_common section_04 section_theme" data-theme="dark" data-text-color="#000"
-    data-background-image="/data/img/main/240314/boutique-2403-main-banner-PC-4.jpg"
-    data-mobile-background-image="/data/img/main/240314/boutique-2403-main-banner-MO-4-edit.jpg">
+    data-background-image="/data/img/main/260409_main_renewal/260409_pc_collection_img1.jpg"
+    data-mobile-background-image="/data/img/main/260409_main_renewal/260409_mo_collection_img1.jpg">
     <div class="collection_wrap clearfix">
         <div class="floatleft per_50">
             <h1 class="serif">Natural,<br>
@@ -448,7 +301,7 @@
     </div>
 </div>
 <div class="collection_common section_05 section_theme" data-theme="dark" data-text-color="#000"
-    data-background-image="/data/img/main/241023/PC6.png" data-mobile-background-image="/data/img/main/241023/MO-5.png">
+    data-background-image="/data/img/main/260409_main_renewal/260409_pc_collection_img2.jpg" data-mobile-background-image="/data/img/main/260409_main_renewal/260409_mo_collection_img2.jpg">
     <div class="collection_wrap clearfix">
         <div class="floatleft per_50">
             <h1 class="serif">Clean &<br>
@@ -496,8 +349,8 @@
 </div>
 <div class="section_06 section_theme" data-theme="dark">
     <div class="clearfix">
-        <div class="floatleft per_50" data-background-image="/data/img/main/241023/PC7.png"
-            data-mobile-background-image="/data/img/main/241023/PC7.png">
+        <div class="floatleft per_50" data-background-image="/data/img/main/260409_main_renewal/260409_pc_collection_img3.jpg"
+            data-mobile-background-image="/data/img/main/260409_main_renewal/260409_mo_collection_img3.jpg">
             <h4 class="serif">Moist & Watery</h4>
             <h6>수분보습 컬렉션</h6>
             <p class="normal_txt">
@@ -510,8 +363,8 @@
             <a href="/main/html.php?htmid=collection/03.html" class="btn_learnmore serif"><span>LEARN MORE</span><img
                     src="/data/skin/front/dalba2/img/icon/round_arrow_right_b.svg" alt="round_arrow_right"></a>
         </div>
-        <div class="floatleft per_50" data-background-image="/data/img/main/240314/boutique-2403-main-banner-PC-7-1.jpg"
-            data-mobile-background-image="/data/img/main/240314/boutique-2403-main-banner-MO-7.jpg">
+        <div class="floatleft per_50" data-background-image="/data/img/main/260409_main_renewal/260409_pc_collection_img4.jpg"
+            data-mobile-background-image="/data/img/main/260409_main_renewal/260409_mo_collection_img4.jpg">
             <h4 class="serif">Mild Calming</h4>
             <h6>저자극 · 진정 컬렉션</h6>
             <p class="normal_txt">
@@ -663,13 +516,6 @@
         fill: #000;
     }
 
-    .carousel-cell video {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        -o-object-fit: cover;
-        object-fit: cover;
-    }
 
     .collection_common .collection_wrap .floatright p a {
         transition: none;
