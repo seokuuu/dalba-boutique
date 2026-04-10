@@ -1,0 +1,382 @@
+{*** 상단 레이아웃 | main/index.php ***}
+<!-- outline/_header.html -->
+<!doctype html>
+<html xml:lang="ko" lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+
+    <meta name="facebook-domain-verification" content="ixwtdnd4k8o3fcg6y8i49oudncppp1" />
+
+    <!-- PG크로스브라우징필수내용 -->
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!-- // PG크로스브라우징필수내용 -->
+
+    <title>{=gMall.mallTitle}</title>
+    <meta name="author" content="{=gMall.mallAuthor}" />
+    <meta name="description" content="{=gMall.mallDescription}" />
+    <meta name="keywords" content="{=gMall.mallKeyword}" />
+    <meta name="robots" content="ALL">
+    <meta name="robots" content="INDEX, FOLLOW" />
+    <meta name="Resource-type" content="Document" />
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/data/skin/front/dalba2/img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/data/skin/front/dalba2/img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/data/skin/front/dalba2/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/data/skin/front/dalba2/img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/data/skin/front/dalba2/img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/data/skin/front/dalba2/img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/data/skin/front/dalba2/img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/data/skin/front/dalba2/img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/data/skin/front/dalba2/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"
+        href="/data/skin/front/dalba2/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/data/skin/front/dalba2/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/data/skin/front/dalba2/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/data/skin/front/dalba2/img/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/data/skin/front/dalba2/img/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--{ ? gMall.robotsFl == 'n' }-->
+    <meta name="robots" content="ALL">
+    <meta name="robots" content="INDEX, FOLLOW" />
+    <!--{ / }-->
+
+    <!--{ ? is_array(gd_isset(headerMeta)) }-->
+    <!-- Add Meta : start -->
+    <!--{ @ headerMeta }-->
+    <!--{ .value_ }-->
+    <!--{ / }-->
+    <!-- Add Meta : end -->
+    <!--{ / }-->
+
+    <!--{ @ snsShareMetaTag }-->
+    {.value_}
+    <!--{ / }-->
+
+    <!--{ ? gMall.mallFavicon }-->
+    <link rel="icon" href="/data/common/favicon.ico" type="image/x-icon" />
+    <!--{ / }-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2/dist/css-vars-ponyfill.min.js"></script>
+    <!-- <script type="text/javascript" src="{=setBrowserCache('../js/flickity/flickity.pkgd.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/slick/slick.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/sticky/sticky.compile.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/sticky/sticky.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/imagesloaded.pkgd.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/masonry.pkgd.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/easings.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/swipe.js')}"></script> -->
+    <script type="text/javascript" src="{=setBrowserCache('../js/common.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/isinveiwport/isInViewport.js')}"></script>
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" type="text/css" href="{=setBrowserCache('../fonts/fonts.css')}" />
+    <link rel="stylesheet" href="https://use.typekit.net/zdr3hvd.css">
+
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../css/reset.css')}">
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../css/common/common.css')}">
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../css/common/layer/layer.css')}">
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../css/layout/layout.css')}">
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../css/goods/list.css')}">
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../css/button.css')}">
+    <link type="text/css" rel="stylesheet"
+        href="{=setBrowserCache(c.PATH_SKIN+'css/'+gThisDirName+'/'+gThisDirName+'.css')}" />
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../js/jquery/chosen/chosen.css')}" />
+    <!--{ ? gThisPageCss }-->
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache(gThisPageCss)}" />
+    <!--{ / }-->
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../css/custom.css')}" />
+
+    <!--{ ? is_array(gd_isset(headerStyle)) }-->
+    <!-- Add style : start -->
+    <!--{ @ headerStyle }-->
+    <link type="text/css" rel="stylesheet" href="{=.value_}" />
+    <!--{ / }-->
+    <!-- Add style : end -->
+    <!--{ / }-->
+
+
+    <!--{ ? gThisDirName == 'signature'}-->
+    <link rel="preconnect" href="https://cdn.dalbasignature.com" crossorigin />
+    <link type="text/css" rel="stylesheet"
+        href="{=setBrowserCache(c.PATH_SKIN+'css/'+gThisDirName+'/common/common.css')}" />
+    <script src="{=setBrowserCache('../js/gsap/gsap.min.js')}"></script>
+    <script src="{=setBrowserCache('../js/gsap/EaselPlugin.min.js')}"></script>
+    <script src="{=setBrowserCache('../js/gsap/ScrollTrigger.min.js')}"></script>
+    <script src="{=setBrowserCache('../js/gsap/ScrollToPlugin.min.js')}"></script>
+    <script src="{=setBrowserCache('../js/gsap/Draggable.min.js')}"></script>
+    <script defer src="{=setBrowserCache(c.PATH_SKIN+'js/'+gThisDirName+'/common/base.js')}"></script>
+    <script defer src="{=setBrowserCache(c.PATH_SKIN+'js/'+gCurrentPageName+'.js')}"></script>
+    <!--{ / }-->
+
+    <script type="text/javascript">
+        <!--{=includeFile(gGlobal.languageJson)}-->
+    </script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/gd_gettext.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/jquery/jquery.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/underscore/underscore-min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/jquery/validation/jquery.validate.min.js')}"></script>
+    <script type="text/javascript"
+        src="{=setBrowserCache('../js/jquery/validation/additional-methods.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/numeral/numeral.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/global/accounting.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/global/money.min.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/jquery/chosen/chosen.jquery.min.js')}"></script>
+    <script type="text/javascript"
+        src="{=setBrowserCache('../js/jquery/placeholder/placeholders.jquery.min.js')}"></script>
+    <![if gt IE 8]>
+    <script type="text/javascript" src="{=setBrowserCache('../js/copyclipboard/clipboard.min.js')}"></script>
+    <![endif]>
+    <script type="text/javascript" src="{=setBrowserCache('../js/jquery/vticker/jquery.vticker.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/gd_ui.js')}"></script>
+
+    <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../js/slider/flickity/flickity.css')}" />
+    <script type="text/javascript" src="{=setBrowserCache('../js/slider/flickity/flickity.pkgd.js')}"></script>
+    <script type="text/javascript" src="{=setBrowserCache('../js/slider/flickity/flickity-fade.js')}"></script>
+    <script type="text/javascript">
+        // 고도몰5 통화정책
+        var gdCurrencyDecimal = { gGlobalCurrency.decimal };
+        var gdCurrencyDecimalFormat = '{gGlobalCurrency.decimalFormat}';
+        var gdCurrencyCode = '{gGlobalCurrency.code}';
+        var gdCurrencyAddDecimal = {=gd_isset(gGlobalCurrency.addDecimal, 0) };
+        var gdCurrencyAddDecimalFormat = '{gGlobalCurrency.addDecimalFormat}';
+        var gdCurrencyAddCode = '{gGlobalCurrency.addCode}';
+        var gdLocale = '{gGlobal.locale}';
+        var gdCurrencySymbol = '{=gd_global_currency_symbol()}';
+        var gdCurrencyString = '{=gd_global_currency_string()}';
+
+        // 환율변환 정책
+        fx.base = "KRW";
+        fx.settings = {
+            from: "KRW",
+            to: gdCurrencyCode
+        };
+        fx.rates = {
+            "KRW": 1,
+            <!--{ @ gGlobalCurrency.perRate }-->
+            "{=.key_}": {=.value_ },
+        < !--{ / }-->
+        }
+    </script>
+
+    <script type="text/javascript" src="{=setBrowserCache('../js/gd_common.js')}"></script>
+
+    <!--{ ? is_array(gd_isset(headerScript)) }-->
+    <!-- Add script : start -->
+    <!--{ @ headerScript }-->
+    <script type="text/javascript" src="{=.value_}"></script>
+    <!--{ / }-->
+    <!-- Add script : end -->
+    <!--{ / }-->
+
+    {=pgScript}
+
+    <style type="text/css">
+        body {
+            < !-- {
+                ? layout.outbg_img
+            }
+
+            -->background: url("{=layout.outbg_img}") repeat left top;
+
+            < !-- {
+                /
+            }
+
+            -->< !-- {
+                ? layout.outbg_color
+            }
+
+            -->background-color: #{=str_replace('#', '', layout.outbg_color)};
+
+            < !-- {
+                /
+            }
+
+            -->
+        }
+
+        /* body > #wrap > #header_warp : 상단 영역 */
+        #header_warp {
+            < !-- {
+                ? layout.topbg_img
+            }
+
+            -->background: url("{=layout.topbg_img}") repeat 0 0;
+
+            < !-- {
+                /
+            }
+
+            -->
+        }
+
+        /* body > #wrap > #container : 메인 영역 */
+        #container {
+            < !-- {
+                ? layout.inbg_img
+            }
+
+            -->background: url("{=layout.inbg_img}") repeat 0 0;
+
+            < !-- {
+                /
+            }
+
+            -->< !-- {
+                ? layout.inbg_color
+            }
+
+            -->background-color: {
+                =layout.inbg_color
+            }
+
+            ;
+
+            < !-- {
+                /
+            }
+
+            -->
+        }
+
+        /* body > #wrap > #footer_wrap : 하단 영역 */
+        #footer_wrap {}
+    </style>
+
+    {=customHeader}
+
+    <!--{ ? wm_criteo }-->
+    <!-- 크리테오 스크립트 설치 ================================================== START -->
+    <!-- Criteo 로더 파일 -->
+    <script type="text/javascript" src="//dynamic.criteo.com/js/ld/ld.js?a=111175" async="true"></script>
+    <!-- END Criteo 로더 파일 -->
+    <!-- 크리테오 스크립트 설치 ================================================== END -->
+    <!--{ / }-->
+</head>
+
+<body
+    class="{userBodyClass} bodywhite <!--{ ? gThisDirName == 'signature'}-->body-signature<!--{ : }-->body-boutique<!--{ / }-->"
+    <!--{=gd_copy_protect()}--> >
+    <!-- cre.ma / 고도몰 로그인 회원 정보 / 스크립트를 수정할 경우 연락주세요 (support@cre.ma) -->
+    <i id="crema-login-name" style="display: none;">{=gSess.memNm}</i>
+    <i id="crema-login-username" style="display: none;">{=gSess.memId}</i>
+    <!-- 웹앤모바일 고객 응대 AI 프로그램을 설치, 플러그인키 세팅 ================================================== START -->
+    <!-- Channel Plugin Scripts -->
+    <script>
+        function parsePureNumber(number) {
+            var ch_pureNumber = number.replace(/[^0-9\.]+/g, '');
+            if (ch_pureNumber === "") {
+                return null;
+            }
+            return parseFloat(ch_pureNumber) || 0;
+        }
+        var settings = {
+            // action banner z index is 199997 ~ 199998
+            "zIndex": 100000,
+            "pluginKey": "430a7547-893e-43d8-97ad-bf19004aacbb" // 플러그인 키
+        };
+        <!--{ ? gd_is_login() === true }-->
+        settings.memberId = "{=gSess.memId}";
+        settings.unsubscribeEmail = "{=gSess.maillingFl}" === "n";
+        settings.unsubscribeTexting = "{=gSess.smsFl}" === "n";
+        settings.profile = {
+            "name": "{=gSess.memNm}",
+            "mobileNumber": "{=gSess.cellPhone}",
+            "email": "{=gSess.email}",
+            "cartCount": parsePureNumber("{=dataCartGoodsCnt()}"),
+            "totalPurchaseCount": parsePureNumber("{=gSess.saleCnt}"),
+            "totalPurchaseAmount": parsePureNumber("{=gd_currency_display(gSess.saleAmt)}"),
+            "groupName": "{=gSess.groupNm}",
+            "isAdult": "{=gSess.adultFl}",
+            "availableMileage": parsePureNumber("{=gd_money_format(gMemberInfo.mileage)}{=gd_display_mileage_unit()}"),
+            "totalDeposit": parsePureNumber("{=gd_money_format(gMemberInfo.deposit)}"),
+            "couponCount": parsePureNumber("{=dataCouponCnt()}"),
+            "age": parsePureNumber("{=dataMemberAge()}")
+        };
+    < !--{ : }-->
+    < !--{ / }-->
+            (function () {
+                var w = window;
+                if (w.ChannelIO) {
+                    return (window.console.error || window.console.log || function () { })('ChannelIO script included twice.');
+                }
+                var ch = function () {
+                    ch.c(arguments);
+                };
+                ch.q = [];
+                ch.c = function (args) {
+                    ch.q.push(args);
+                };
+                w.ChannelIO = ch;
+                function l() {
+                    if (w.ChannelIOInitialized) {
+                        return;
+                    }
+                    w.ChannelIOInitialized = true;
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+                    s.charset = 'UTF-8';
+                    var x = document.getElementsByTagName('script')[0];
+                    x.parentNode.insertBefore(s, x);
+                }
+                if (document.readyState === 'complete') {
+                    l();
+                } else if (window.attachEvent) {
+                    window.attachEvent('onload', l);
+                } else {
+                    window.addEventListener('DOMContentLoaded', l, false);
+                    window.addEventListener('load', l, false);
+                }
+            })();
+        if (settings && settings.memberId && settings.memberId.indexOf('=gSess.memId') >= 0) {
+            console.error('You do not using godomall 5. please visit https://developers.channel.io/docs/guide-for-famous-builders and find correct one');
+        } else {
+            ChannelIO('boot', settings);
+        }
+    </script>
+    <!-- End Channel Plugin -->
+    <!-- 웹앤모바일 고객 응대 AI 프로그램을 설치, 플러그인키 세팅 ================================================== END -->
+
+    <div class="top_area"></div>
+    <div id="wrap">
+
+        <!--{ ? tpls.header_inc }-->
+        <div id="header_wrap">
+            { # header_inc // 상단디자인 }
+        </div>
+        <!--{ / }-->
+        <!-- //header_warp -->
+
+        <div id="container">
+            <div id="contents">
+                <!-- 본문 시작 -->
+
+                <!--{ ? layout.current_page == 'y' && layout.page_name }-->
+                <div class="location_wrap displaynone">
+                    <div class="location_cont">
+                        <em><a href="#" class="local_home">HOME</a> > {=layout.page_name}</em>
+                    </div>
+                </div>
+                <!--{ / }-->
+                <!-- //location_wrap -->
+
+                <div class="sub_content">
+
+                    <!--{ ? tpls.side_inc && layout.outline_sidefloat == 'left' }-->
+                    <div class="side_cont displaynone">
+                        { # side_inc // 측면디자인 }
+                    </div>
+                    <!--{ / }-->
+                    <!-- //side_cont -->
