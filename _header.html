@@ -164,7 +164,7 @@
             "KRW": 1,
             <!--{ @ gGlobalCurrency.perRate }-->
             "{=.key_}": {=.value_ },
-        < !--{ / }-->
+        <!--{ / }-->
         }
     </script>
 
@@ -182,23 +182,23 @@
 
     <style type="text/css">
         body {
-            < !-- {
+            <!-- {
                 ? layout.outbg_img
             }
 
             -->background: url("{=layout.outbg_img}") repeat left top;
 
-            < !-- {
+            <!-- {
                 /
             }
 
-            -->< !-- {
+            --><!-- {
                 ? layout.outbg_color
             }
 
             -->background-color: #{=str_replace('#', '', layout.outbg_color)};
 
-            < !-- {
+            <!-- {
                 /
             }
 
@@ -207,13 +207,13 @@
 
         /* body > #wrap > #header_warp : 상단 영역 */
         #header_warp {
-            < !-- {
+            <!-- {
                 ? layout.topbg_img
             }
 
             -->background: url("{=layout.topbg_img}") repeat 0 0;
 
-            < !-- {
+            <!-- {
                 /
             }
 
@@ -222,17 +222,17 @@
 
         /* body > #wrap > #container : 메인 영역 */
         #container {
-            < !-- {
+            <!-- {
                 ? layout.inbg_img
             }
 
             -->background: url("{=layout.inbg_img}") repeat 0 0;
 
-            < !-- {
+            <!-- {
                 /
             }
 
-            -->< !-- {
+            --><!-- {
                 ? layout.inbg_color
             }
 
@@ -242,7 +242,7 @@
 
             ;
 
-            < !-- {
+            <!-- {
                 /
             }
 
@@ -303,8 +303,8 @@
             "couponCount": parsePureNumber("{=dataCouponCnt()}"),
             "age": parsePureNumber("{=dataMemberAge()}")
         };
-    < !--{ : }-->
-    < !--{ / }-->
+    <!--{ : }-->
+    <!--{ / }-->
             (function () {
                 var w = window;
                 if (w.ChannelIO) {
