@@ -200,8 +200,7 @@
     //상품 재입고 알림 팝업 오픈
     <!--{ ?goodsView['restockUsableFl'] === 'y' && !gGlobal.isFront }-->
         $('.restockSelector').on('click', function (e) {
-            window.open("./popup_goods_restock.php?goodsNo=" + goodsNo, "popupRestock", "top=100, left=200, status=0, width=682px,
-    height = 600px");
+            window.open("./popup_goods_restock.php?goodsNo=" + goodsNo, "popupRestock", "top=100, left=200, status=0, width=682px, height=600px");
     return false;
         });
     <!--{ / }-->
@@ -335,8 +334,7 @@
         $('#option_display_item_' + optionKey + ' input:hidden[name="couponApplyNo[]"]').val('');
         $('#option_display_item_' + optionKey + ' input:hidden[name="couponSalePriceSum[]"]').val('');
         $('#option_display_item_' + optionKey + ' input:hidden[name="couponAddPriceSum[]"]').val('');
-        var couponApplyHtml = "<a href=\"#lyCouponApply\" class=\"btn_open_layer\" data-key=\"" + optionKey + "\"><img
-        src =\"../img/common/btn/btn_coupon_apply.png\" alt=\"{=__('쿠폰적용')}\" /></a>";
+        var couponApplyHtml = "<a href=\"#lyCouponApply\" class=\"btn_open_layer\" data-key=\"" + optionKey + "\"><img src=\"../img/common/btn/btn_coupon_apply.png\" alt=\"{=__('쿠폰적용')}\" /></a>";
         $('#coupon_apply_' + optionKey).html(couponApplyHtml);
         if ($('#cart_tab_coupon_apply_' + optionKey).length) $('#cart_tab_coupon_apply_' +
             optionKey).html(couponApplyHtml);
@@ -553,8 +551,7 @@
             $(".total_price").append("<p class='add_currency'>{=gd_global_add_currency_symbol()} " + 0 +
                 "{=gd_global_add_currency_string()}</p>");
         <!--{ / } -->
-        if ($("#cart_tab_option").length) $("#cart_tab_option
-                    .total_benefit_price").html("{=gd_global_currency_symbol() }0 < b > {=gd_global_currency_string() }</b > ");
+        if ($("#cart_tab_option").length) $("#cart_tab_option .total_benefit_price").html("{=gd_global_currency_symbol()}0<b>{=gd_global_currency_string()}</b>");
 
         } else {
                         var totalPrice = parseFloat($('#frmView input[name="set_total_price"]').val()) -
@@ -733,8 +730,7 @@
         <!--{ ?goodsView['fixedOrderCnt'] == 'goods' || goodsView['fixedOrderCnt'] == 'id' }-->
         <!--{ ?goodsView['fixedOrderCnt'] == 'goods' }-->
         if (minOrderCnt > 1 && goodsTotalCnt < minOrderCnt) {
-        alert(__('최소 구매 수량 미달 : ' + fixedAlertString + ' 최소 %s개 이상
-            구매가능합니다.', minOrderCnt)); submitFl=false; } else if (maxOrderCnt> 0 && goodsTotalCnt > maxOrderCnt) {
+        alert(__('최소 구매 수량 미달 : ' + fixedAlertString + ' 최소 %s개 이상 구매가능합니다.', minOrderCnt)); submitFl=false; } else if (maxOrderCnt> 0 && goodsTotalCnt > maxOrderCnt) {
             alert(__('최대 구매 수량 초과 : ' + fixedAlertString + ' 최대 %s개 이하 구매가능합니다.', maxOrderCnt));
         submitFl = false;
     }
@@ -759,8 +755,7 @@
             }
 
             if (minOrderCnt > 1 && (goodsTotalCnt + data.count) < minOrderCnt) {
-                alert(__('최소 구매 수량 미달
-                : ' + fixedAlertString + ' 최소 % s개 이상 구매가능합니다.', minOrderCnt)); submitFl=false; } else if (minOrderCnt> 1
+                alert(__('최소 구매 수량 미달 : ' + fixedAlertString + ' 최소 %s개 이상 구매가능합니다.', minOrderCnt)); submitFl=false; } else if (minOrderCnt> 1
                 && goodsTotalCnt < minOrderCnt) { alert(__('최소 구매 수량 미달 : ' + fixedAlertString + ' 최소 %s개 이상 구매가능합니다.',
                     minOrderCnt)); submitFl = false;
             } else if (maxOrderCnt > 0 && (goodsTotalCnt + data.count) >
@@ -784,8 +779,7 @@
         var perSalesCnt = goodsOptionCnt[i] % salesUnit;
 
         if (minOrderCnt > 1 && goodsOptionCnt[i] < minOrderCnt) {
-            alert(__('최소 구매 수량 미달
-                        : ' + fixedAlertString + ' 최소 % s개 이상 구매가능합니다.', minOrderCnt)); submitFl=false; break; } else if
+            alert(__('최소 구매 수량 미달 : ' + fixedAlertString + ' 최소 %s개 이상 구매가능합니다.', minOrderCnt)); submitFl=false; break; } else if
                 (maxOrderCnt > 0 && goodsOptionCnt[i] > maxOrderCnt) {
                     alert(__('최대 구매 수량 초과 : ' + fixedAlertString + ' 최대 %s개 이하 구매가능합니다.', maxOrderCnt));
             submitFl = false;
