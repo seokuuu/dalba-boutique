@@ -1,4 +1,9 @@
 {*** 상품상세화면 | goods/goods_view.php ***}
+{ # header }
+
+<!-- goods/goods_view.php -->
+
+<!-- GEO: JSON-LD 구조화 데이터 -->
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -6,7 +11,6 @@
     "name": "{=goodsView['goodsNm']}",
     "description": "{=gd_remove_tag(goodsView['shortDescription'])}",
     "sku": "{=goodsView['goodsCd']}",
-    "image": "<!--{=substr(goodsView['image']['detail']['thumb'][0], strpos(goodsView['image']['detail']['thumb'][0], '/data'))}-->",
     "offers": {
         "@type": "Offer",
         "price": "{=goodsView['goodsPrice']}",
@@ -15,9 +19,6 @@
     }
 }
 </script>
-{ # header }
-
-<!-- goods/goods_view.php -->
 
 <!-- // 시그니처 제품 상세 페이지에 필요한 CSS와 JS 시작 -->
 <link type="text/css" rel="stylesheet" href="{=setBrowserCache('../css/signature/goods.css')}" />
@@ -57,7 +58,7 @@
             'setOptionFl' : '{=goodsView["optionFl"]}',
             'setOptionTextFl'	: '{=goodsView["optionTextFl"]}',
             'setOptionDisplayFl'	: '{=goodsView["optionDisplayFl"]}',
-            'setAddGoodsFl'	: '<!--{ ? is_array(goodsView["addGoods"]) }-->y < !--{ : }--> n < !--{ / }--> ',
+            'setAddGoodsFl'	: '<!--{ ? is_array(goodsView["addGoods"]) }-->y <!--{ : }--> n <!--{ / }--> ',
     'setIntDivision' : '{=c.INT_DIVISION}',
         'setStrDivision' : '{=c.STR_DIVISION}',
             'setMileageUseFl' : '{=mileageData["useFl"]}',
@@ -78,16 +79,16 @@
 
     goodsViewController.init(parameters);
 
-< !--{ ?goodsView['qrCodeFl'] == 'y' && goodsView['qrStyle'] == 'btn' }-->
+<!--{ ?goodsView['qrCodeFl'] == 'y' && goodsView['qrStyle'] == 'btn' }-->
         $('#qrCodeDownloadButton').on('click', function () {
             location.href =
                 './goods_qr_code.php?goodsNo={=goodsView["goodsNo"]}&goodsName={=gd_htmlspecialchars_addslashes(goodsView["goodsNmDetail"])}';
         });
-< !--{ / }-->
+<!--{ / }-->
 
-< !--{ ?goodsView['optionFl']== 'n' && goodsView['orderPossible'] == 'y' }-->
+<!--{ ?goodsView['optionFl']== 'n' && goodsView['orderPossible'] == 'y' }-->
         goodsViewController.goods_calculate('#frmView', 1, 0, "{=gd_isset(goodsView['defaultGoodsCnt'])}");
-< !--{ / }-->
+<!--{ / }-->
 
         /* 상품 이미지 슬라이드 */
         $('.item_photo_info_sec .slider_goods_nav').slick({
@@ -120,31 +121,36 @@
     });
 
 
-< !--{ ?goodsView['benefitPossible'] == 'y' }-->
+<!--{ ?goodsView['benefitPossible'] == 'y' }-->
         gd_benefit_calculation();
-< !--{ / }-->
+<!--{ / }-->
 
-< !--{ ?couponUse == 'y' }-->
+<!--{ ?couponUse == 'y' }-->
         gd_open_layer();
-< !--{ / }-->
+<!--{ / }-->
 
-< !--{ ?goodsView['imgDetailViewFl'] == 'y' }-->
+<!--{ ?goodsView['imgDetailViewFl'] == 'y' }-->
         $("#mainImage img").data("image-zoom", $("#mainImage img").attr('src'));
     // $("#mainImage img").data("image-zoom", $("#testZoom img").attr('src'));
     $("#mainImage img").elevateZoom();
-< !--{ / }-->
+<!--{ / }-->
 
         $('.present').on('click', function (e) {
-< !--{ ?goodsView['optionFl'] != '1' }-->
-// 2025.12.08웹앤모바일 태블릿에서
-if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('display', 'block'); }
-            $('#frmView').animate({ right: '0px', opacity: '1' }, 400); $('.pay_box').hide(); //네이버 페이 등 노출
-            $('.btn_add_cart').hide(); //장바구니 버튼 숨김 $('.btn_add_order').hide(); //바로구매 버튼 숨김 $('.btn_add_hometry').hide();
-    //홈트라이 버튼 노출 $('.btn_add_present').show(); //선물하기 버튼 숨김 $('.no_layer_area').show(); <!--{ : }-->
-    //$('#frmView input[name=\'presentMode\']').val('present');
-    //gd_goods_order('d');
-    //return false;
-    < !--{ / }-- >
+<!--{ ?goodsView['optionFl'] != '1' }-->
+            // 2025.12.08웹앤모바일 태블릿에서
+            if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('display', 'block'); }
+            $('#frmView').animate({ right: '0px', opacity: '1' }, 400);
+            $('.pay_box').hide();           //네이버 페이 등 노출
+            $('.btn_add_cart').hide();      //장바구니 버튼 숨김
+            $('.btn_add_order').hide();     //바로구매 버튼 숨김
+            $('.btn_add_hometry').hide();   //홈트라이 버튼 숨김
+            $('.btn_add_present').show();   //선물하기 버튼 노출
+            $('.no_layer_area').show();
+<!--{ : }-->
+            $('#frmView input[name=\'presentMode\']').val('present');
+            gd_goods_order('d');
+            return false;
+<!--{ / }-->
     });
     /*$('.present').on('click', function(e){
     $('#frmView input[name=\'presentMode\']').val('present');
@@ -192,21 +198,21 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
 
 
     //상품 재입고 알림 팝업 오픈
-    < !--{ ?goodsView['restockUsableFl'] === 'y' && !gGlobal.isFront }-->
+    <!--{ ?goodsView['restockUsableFl'] === 'y' && !gGlobal.isFront }-->
         $('.restockSelector').on('click', function (e) {
             window.open("./popup_goods_restock.php?goodsNo=" + goodsNo, "popupRestock", "top=100, left=200, status=0, width=682px,
     height = 600px");
     return false;
         });
-    < !--{ / }-->
+    <!--{ / }-->
 
-    < !--{ ?goodsReviewAuthList == 'y'}-->
+    <!--{ ?goodsReviewAuthList == 'y'}-->
         gd_load_goodsBoardList(bdGoodsReviewId, goodsNo);
-    < !--{ / }-->
+    <!--{ / }-->
 
-    < !--{ ?goodsQaAuthList == 'y'}-->
+    <!--{ ?goodsQaAuthList == 'y'}-->
         gd_load_goodsBoardList(bdGoodsQaId, goodsNo);
-    < !--{ / }-->
+    <!--{ / }-->
 
         // SNS 공유하기
         $('.target_sns_share').on('click', function () {
@@ -230,10 +236,10 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
             }
         });
 
-    < !--{ ?goodsView['timeSaleFl'] }-->
+    <!--{ ?goodsView['timeSaleFl'] }-->
         $("#displayTimeSale").hide();
     gd_dailyMissionTimer("{=goodsView['timeSaleInfo']['timeSaleDuration']}");
-    < !--{ / }-->
+    <!--{ / }-->
 
     var canGoodsReview = '{canGoodsReview}';
     var canPlusReview = '{plusReviewConfig.isShowGoodsPage}';
@@ -251,15 +257,16 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
         tabCount--;
     }
     if (tabCount < 5) { $('.multiple-topics .tab a').css('width', 100 / tabCount + '%'); }
-    $('.layer-cartaddconfirm').click(function () { location.href = '../order/cart.php'; }); // 배송비 항목을 노출 안함 설정하면 배송비
-        타입을 생성 var deliveryCollectFl = "{=goodsView['delivery']['basic']['collectFl']}"; if ($('#frmView
-    [name = "deliveryCollectFl"]').length> 0) {
+    $('.layer-cartaddconfirm').click(function () { location.href = '../order/cart.php'; });
+    // 배송비 항목을 노출 안함 설정하면 배송비 타입을 생성
+    var deliveryCollectFl = "{=goodsView['delivery']['basic']['collectFl']}";
+    if ($('#frmView [name="deliveryCollectFl"]').length > 0) {
         // 이미 존재 패스
-        } else if (deliveryCollectFl == 'both') {
-            // 선택은 패스
-        } else {
-            $('#frmView').append('<input type="hidden" name="deliveryCollectFl" value="' + deliveryCollectFl + '" />');
-        }
+    } else if (deliveryCollectFl == 'both') {
+        // 선택은 패스
+    } else {
+        $('#frmView').append('<input type="hidden" name="deliveryCollectFl" value="' + deliveryCollectFl + '" />');
+    }
 
     $('.btn_move_cart').click(function () {
         location.href = '../order/cart.php';
@@ -304,7 +311,7 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
         return win;
     }
 
-        < !--{ ?couponUse == 'y' }-->
+        <!--{ ?couponUse == 'y' }-->
         // 쿠폰 오픈 레이어에 따른 분기
         function gd_open_layer() {
             $('.btn_open_layer').bind('click', function (e) {
@@ -386,7 +393,7 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
             }
         });
     }
-        < !--{ / }-->
+        <!--{ / }-->
 
         /**
         * 메인 이미지 변경
@@ -396,15 +403,15 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
         function gd_change_image(keyNo, type) {
             if (typeof keyNo == 'string') {
                 var detailKeyID = new Array();
-        < !--{ @gd_isset(goodsView['image']['detail']['img'])
+        <!--{ @gd_isset(goodsView['image']['detail']['img'])
             } -->
                 detailKeyID[{=.key_ }] = "{=gd_htmlspecialchars_slashes(.value_, 'add')}";
-        < !--{ / }-- >
+        <!--{ / }-->
 
         var magnifyKeyID = new Array();
-        < !--{ @gd_isset(goodsView['image']['magnify']['img']) }-->
+        <!--{ @gd_isset(goodsView['image']['magnify']['img']) }-->
         magnifyKeyID[{=.key_ }] = "{=gd_htmlspecialchars_slashes(.value_, 'add')}";
-        < !--{ / }-->
+        <!--{ / }-->
 
         if (type == 'detail') {
         $('#mainImage').html(detailKeyID[keyNo]);
@@ -412,11 +419,11 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
         $('#magnifyImage').html(magnifyKeyID[keyNo]);
     }
 
-        < !--{ ?goodsView['imgDetailViewFl'] == 'y' }-->
+        <!--{ ?goodsView['imgDetailViewFl'] == 'y' }-->
         $("#mainImage img").data("image-zoom", $("#mainImage img").attr('src'));
     // $("#mainImage img").data("image-zoom", $("#testZoom img").attr('src'));
     $("#mainImage img").elevateZoom();
-        < !--{ / }-->
+        <!--{ / }-->
         }
         }
 
@@ -459,10 +466,10 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
         $(".goods_total_price").html("{=gd_global_currency_symbol()}" + gd_money_format(totalGoodsPrice) +
             "<b>{=gd_global_currency_string()}</b>");
 
-        < !--{ ?addGlobalCurrency }-->
+        <!--{ ?addGlobalCurrency }-->
             $(".goods_total_price").append("<p class='add_currency'>{=gd_global_add_currency_symbol()} " +
                 gd_add_money_format(totalGoodsPrice) + "{=gd_global_add_currency_string()}</p>");
-        < !--{ / } -->
+        <!--{ / } -->
 
         gd_benefit_calculation();
         }
@@ -471,11 +478,11 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
     * 혜택
     */
     function gd_benefit_calculation() {
-        < !--{ ?goodsView['goodsPriceDisplayFl'] == 'n' }-->
+        <!--{ ?goodsView['goodsPriceDisplayFl'] == 'n' }-->
             $('button.goods_cnt').attr('disabled', false);
         $('button.add_goods_cnt').attr('disabled', false);
         return false;
-        < !--{ / } -->
+        <!--{ / } -->
 
         $('input[name="mode"]').val('get_benefit');
     var parameters = $("#frmView").serialize();
@@ -506,10 +513,10 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
                 $(".total_benefit_price").html("-{=gd_global_currency_symbol()}" + gd_money_format(getData.totalDcPrice) +
                     "<b>{=gd_global_currency_string()}</b>");
 
-        < !--{ ?addGlobalCurrency }-->
+        <!--{ ?addGlobalCurrency }-->
                     $(".end_price .total_benefit_price").append("<p class='add_currency'>-{=gd_global_add_currency_symbol()} " +
                         gd_add_money_format(getData.totalDcPrice) + "{=gd_global_add_currency_string()}</p>");
-        < !--{ / } -->
+        <!--{ / } -->
 
                 $("#set_dc_price").val(getData.totalDcPrice);
 
@@ -542,10 +549,10 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
 
         if ($('#frmView input[name="set_total_price"]').val().trim() == '0') {
         $(".total_price").html("{=gd_global_currency_symbol()}0<b>{=gd_global_currency_string()}</b>");
-        < !--{ ?addGlobalCurrency }-->
+        <!--{ ?addGlobalCurrency }-->
             $(".total_price").append("<p class='add_currency'>{=gd_global_add_currency_symbol()} " + 0 +
                 "{=gd_global_add_currency_string()}</p>");
-        < !--{ / } -->
+        <!--{ / } -->
         if ($("#cart_tab_option").length) $("#cart_tab_option
                     .total_benefit_price").html("{=gd_global_currency_symbol() }0 < b > {=gd_global_currency_string() }</b > ");
 
@@ -555,10 +562,10 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
                         $(".total_price").html(" {=gd_global_currency_symbol()} " + gd_money_format(totalPrice) +
                             "<b>{=gd_global_currency_string()}</b>");
 
-        < !--{ ?addGlobalCurrency }-->
+        <!--{ ?addGlobalCurrency }-->
                 $(".total_price").append("<p class='add_currency'>{=gd_global_add_currency_symbol()} " +
                     gd_add_money_format(totalPrice) + "{=gd_global_add_currency_string()}</p>");
-        < !--{ / }-->
+        <!--{ / }-->
         }
 
     $('button.goods_cnt').attr('disabled', false);
@@ -586,12 +593,12 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
         $('#frmView input[name=\'cartMode\']').val(modeStr);
 
         if (modeStr == 'w') {
-        < !--{ ?gd_is_login() === false
+        <!--{ ?gd_is_login() === false
         } -->
             alert("{=__('로그인하셔야 본 서비스를 이용하실 수 있습니다.')}");
         document.location.href = "../member/login.php";
         return false;
-        < !--{ : }-->
+        <!--{ : }-->
 
         var goodsNoCnt = $('#frmView input[name*="goodsNo[]"]').length;
         if (goodsNoCnt == 0) {
@@ -600,15 +607,15 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
 
         $('#frmView input[name="mode"]').val('wishIn');
         $('#frmView').attr('action', '../mypage/wish_list_ps.php');
-        < !--{ / } -->
+        <!--{ / } -->
         } else if (modeStr == 'h') {
 
-        < !--{ ?gd_is_login() === false
+        <!--{ ?gd_is_login() === false
     } -->
         alert("{=__('로그인하셔야 본 서비스를 이용하실 수 있습니다.')}");
     document.location.href = "../member/login.php";
     return false;
-        < !--{ / }-->
+        <!--{ / }-->
 
         //홈트라 일때는 최대수량 1개로 설정
         maxOrderCnt = 1;
@@ -617,74 +624,74 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
     $('#frmView input[name="mode"]').val('cartHomeTry');
     $('#frmView').attr('action', '../order/cart_ps.php');
 
-        < !--{ ?goodsView['optionFl'] == 'y' }-->
+        <!--{ ?goodsView['optionFl'] == 'y' }-->
         var goodsInfo = $('#frmView input[name*=\'optionSno[]\']').length;
-        < !--{ : }-->
+        <!--{ : }-->
         var goodsInfo = $('#frmView input[name="optionSnoInput"]').val();
-        < !--{ / }-->
+        <!--{ / }-->
 
         if (goodsInfo == '') {
         alert("{=__('가격 정보가 없거나 옵션이 선택되지 않았습니다!')}");
         return false;
     }
 
-        < !--{ ?gd_isset(goodsView['optionTextFl']) == 'y' }-->
+        <!--{ ?gd_isset(goodsView['optionTextFl']) == 'y' }-->
         if (!goodsViewController.option_text_valid("#frmView")) {
         alert("{=__('입력 옵션을 확인해주세요.')}");
         return false;
     }
-        < !--{ ?gd_isset(goodsView['stockFl']) == 'y' }-->
+        <!--{ ?gd_isset(goodsView['stockFl']) == 'y' }-->
         var checkOptionCnt = goodsViewController.option_text_cnt_valid("#frmView");
     if (checkOptionCnt) {
         alert(__('재고가 부족합니다. 현재 %s개의 재고가 남아 있습니다.', checkOptionCnt));
         return false;
     }
-        < !--{ / }-->
-        < !--{ / }-->
+        <!--{ / }-->
+        <!--{ / }-->
 
-        < !--{ ?goodsView['addGoods'] }-->
+        <!--{ ?goodsView['addGoods'] }-->
         //추가상품
         if (!goodsViewController.add_goods_valid("#frmView")) {
         alert("{=__('필수 추가 상품을 확인해주세요.')}");
         return false;
     }
-        < !--{ / }-->
+        <!--{ / }-->
         } else {
         $('#frmView input[name="mode"]').val('cartIn');
         $('#frmView').attr('action', '../order/cart_ps.php');
 
-        < !--{ ?goodsView['optionFl'] == 'y' }-->
+        <!--{ ?goodsView['optionFl'] == 'y' }-->
         var goodsInfo = $('#frmView input[name*=\'optionSno[]\']').length;
-        < !--{ : }-->
+        <!--{ : }-->
         var goodsInfo = $('#frmView input[name="optionSnoInput"]').val();
-        < !--{ / } -->
+        <!--{ / } -->
 
         if (goodsInfo == '') {
         alert("{=__('가격 정보가 없거나 옵션이 선택되지 않았습니다!')}");
         return false;
     }
 
-        < !--{ ?gd_isset(goodsView['optionTextFl']) == 'y' }-->
+        <!--{ ?gd_isset(goodsView['optionTextFl']) == 'y' }-->
         if (!goodsViewController.option_text_valid("#frmView")) {
         alert("{=__('입력 옵션을 확인해주세요.')}");
         return false;
     }
-        < !--{ ?gd_isset(goodsView['stockFl']) == 'y' }-->
+        <!--{ ?gd_isset(goodsView['stockFl']) == 'y' }-->
         var checkOptionCnt = goodsViewController.option_text_cnt_valid("#frmView");
     if (checkOptionCnt) {
         alert(__('재고가 부족합니다. 현재 %s개의 재고가 남아 있습니다.', checkOptionCnt));
         return false;
     }
-        < !--{ / }-->
-        < !--{ / }-->
+        <!--{ / }-->
+        <!--{ / }-->
 
-        < !--{ ?goodsView['addGoods'] }-->
+        <!--{ ?goodsView['addGoods'] }-->
         //추가상품
         if (!goodsViewController.add_goods_valid("#frmView")) {
         alert("{=__('필수 추가 상품을 확인해주세요.')}");
         return false;
     }
-        < !--{ / }-->
+        <!--{ / }-->
         }
 
 
@@ -692,14 +699,14 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
     var submitFl = true;
     if (isNaN(goodsTotalCnt)) goodsTotalCnt = 1;
     if (_.isEmpty(goodsOptionCnt)) goodsOptionCnt[0] = 1;
-        < !--{ ?goodsView['fixedSales'] == 'goods' }-->
+        <!--{ ?goodsView['fixedSales'] == 'goods' }-->
         var perSalesCnt = goodsTotalCnt % salesUnit;
 
     if (perSalesCnt !== 0) {
         alert(__('%s개 단위로 묶음 주문 상품입니다.', salesUnit));
         submitFl = false;
     }
-        < !--{ : }-->
+        <!--{ : }-->
         for (i in goodsOptionCnt) {
         if (isNaN(goodsOptionCnt[i])) goodsOptionCnt[i] = 0;
         var perSalesCnt = goodsOptionCnt[i] % salesUnit;
@@ -710,29 +717,29 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
             break;
         }
     }
-        < !--{ / }-->
+        <!--{ / }-->
 
         if (submitFl == true) {
-        < !--{ ?goodsView['fixedOrderCnt'] == 'goods' }-->
+        <!--{ ?goodsView['fixedOrderCnt'] == 'goods' }-->
         var fixedAlertString = '상품당';
-        < !--{ / } -->
-        < !--{ ?goodsView['fixedOrderCnt'] == 'option' }-->
+        <!--{ / } -->
+        <!--{ ?goodsView['fixedOrderCnt'] == 'option' }-->
         var fixedAlertString = '옵션당';
-        < !--{ / }-->
-        < !--{ ?goodsView['fixedOrderCnt'] == 'id' }-->
+        <!--{ / }-->
+        <!--{ ?goodsView['fixedOrderCnt'] == 'id' }-->
         var fixedAlertString = 'ID당';
-        < !--{ / }-->
+        <!--{ / }-->
 
-        < !--{ ?goodsView['fixedOrderCnt'] == 'goods' || goodsView['fixedOrderCnt'] == 'id' }-->
-        < !--{ ?goodsView['fixedOrderCnt'] == 'goods' }-->
+        <!--{ ?goodsView['fixedOrderCnt'] == 'goods' || goodsView['fixedOrderCnt'] == 'id' }-->
+        <!--{ ?goodsView['fixedOrderCnt'] == 'goods' }-->
         if (minOrderCnt > 1 && goodsTotalCnt < minOrderCnt) {
         alert(__('최소 구매 수량 미달 : ' + fixedAlertString + ' 최소 %s개 이상
             구매가능합니다.', minOrderCnt)); submitFl=false; } else if (maxOrderCnt> 0 && goodsTotalCnt > maxOrderCnt) {
             alert(__('최대 구매 수량 초과 : ' + fixedAlertString + ' 최대 %s개 이하 구매가능합니다.', maxOrderCnt));
         submitFl = false;
     }
-            < !--{ / }-->
-            < !--{ ?goodsView['fixedOrderCnt'] == 'id' }-->
+            <!--{ / }-->
+            <!--{ ?goodsView['fixedOrderCnt'] == 'id' }-->
             //ajax로 id구매카운트 체크
             var params = {
         mode: 'check_memberOrderGoodsCount',
@@ -770,8 +777,8 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
             submitFl = false;
         }
     });
-                    < !--{ / }-->
-                    < !--{ : }-->
+                    <!--{ / }-->
+                    <!--{ : }-->
                     for (i in goodsOptionCnt) {
         if (isNaN(goodsOptionCnt[i])) goodsOptionCnt[i] = 0;
         var perSalesCnt = goodsOptionCnt[i] % salesUnit;
@@ -785,7 +792,7 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
             break;
         }
     }
-                        < !--{ / }-->
+                        <!--{ / }-->
                         }
 
     if ((modeStr == 'd' || modeStr == 'pa') && submitFl === false) {
@@ -853,18 +860,18 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
                     return false;
                 }
 
-                        < !--{ ?cartInfo.wishPageMoveDirectFl == 'y' || (cartInfo.wishPageMoveDirectFl == 'n' && cartInfo.moveWishPageDeviceFl == 'mobile') }-->
+                        <!--{ ?cartInfo.wishPageMoveDirectFl == 'y' || (cartInfo.wishPageMoveDirectFl == 'n' && cartInfo.moveWishPageDeviceFl == 'mobile') }-->
                         if (modeStr == 'w') {
                     location.href = "../mypage/wish_list.php";
                     return false;
                 }
-                        < !--{ / }-- >
-                        < !--{ ?cartInfo.moveCartPageFl == 'y' || (cartInfo.moveCartPageFl == 'n' && cartInfo.moveCartPageDeviceFl == 'mobile') }-- >
+                        <!--{ / }-->
+                        <!--{ ?cartInfo.moveCartPageFl == 'y' || (cartInfo.moveCartPageFl == 'n' && cartInfo.moveCartPageDeviceFl == 'mobile') }-->
                         if (typeof modeStr == 'undefined') {
             location.href = "../order/cart.php";
             return false;
         }
-                        < !--{ / } -->
+                        <!--{ / } -->
         target.removeClass('dn');
     $('#layerDim').removeClass('dn');
     target.find('> div').center();
@@ -875,22 +882,22 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
                         });
                         } else if (modeStr == 'h') {
                         //2022-04-07 목요일 홈트라이
-                        < !--{ ?gd_is_login() === false
+                        <!--{ ?gd_is_login() === false
     } -->
         alert("{=__('로그인하셔야 본 서비스를 이용하실 수 있습니다.')}");
     document.location.href = "../member/login.php";
     return false;
-                        < !--{ / }-->
+                        <!--{ / }-->
 
-                        < !--{ ?enableCartHomeTry== true }-->
+                        <!--{ ?enableCartHomeTry== true }-->
         alert('이미 홈트라이 장바구니에 상품이 담겨 있습니다.');
     return false;
-                        < !--{ / }-->
+                        <!--{ / }-->
 
-                        < !--{ ?enableGoodHomeTry== true }-->
+                        <!--{ ?enableGoodHomeTry== true }-->
         alert('이미 홈트라이 신청된 상품입니다.');
     return false;
-                        < !--{ / }-->
+                        <!--{ / }-->
 
                         var $goodsNoList = $('#frmView').find('input[name="goodsNo[]"]');
     if ($goodsNoList.length > 1) {
@@ -904,17 +911,17 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
     }
 
 
-                        < !--{ ?wm_criteo && !empty(criteoInfo) }-->
-                        < !--크리테오 스크립트 설치 ================================================== START-- >
-                        < !--Criteo 장바구니에 추가 태그-- >
+                        <!--{ ?wm_criteo && !empty(criteoInfo) }-->
+                        <!--크리테오 스크립트 설치 ================================================== START-->
+                        <!--Criteo 장바구니에 추가 태그-->
                         var param = $("#frmView").serializeArray();
     criteo_add_cart(param);// 장바구니에 상품 추가
-                        < !--END Criteo 장바구니에 추가 태그-- >
-                        < !--크리테오 스크립트 설치 ================================================== END-- >
-                        < !--{ / }-->
+                        <!--END Criteo 장바구니에 추가 태그-->
+                        <!--크리테오 스크립트 설치 ================================================== END-->
+                        <!--{ / }-->
                         }
 
-                        < !--{ ?goodsView['optionImagePreviewFl'] == 'y' }-->
+                        <!--{ ?goodsView['optionImagePreviewFl'] == 'y' }-->
 
         /**
         * 옵션 선택시 상세 이미지 변경
@@ -922,17 +929,17 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
         * @param integer optionNo 상품 배열 키값 (기본 0)
         */
         function gd_option_image_apply() {
-                        < !--{ ?goodsView['optionDisplayFl'] == 's' }-->
+                        <!--{ ?goodsView['optionDisplayFl'] == 's' }-->
                         var optionImgSrc = $('select[name="optionSnoInput"] option:selected').data('img-src');
-                        < !--{ : goodsView['optionDisplayFl'] == 'd' }-->
+                        <!--{ : goodsView['optionDisplayFl'] == 'd' }-->
                         var optionImgSrc = $('select[name="optionNo_0"] option:selected').data('img-src');
-                        < !--{ / }-- >
+                        <!--{ / }-->
 
                         if (optionImgSrc && optionImgSrc != 'blank') $("#mainImage img").attr("src", optionImgSrc);
                         }
-                        < !--{ / }-->
+                        <!--{ / }-->
 
-                        < !--{ ?goodsView['timeSaleFl'] }-->
+                        <!--{ ?goodsView['timeSaleFl'] }-->
         /**
         * 시간간격 카운트
         * @returns {String}
@@ -959,7 +966,7 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
                                 timer = 0; clearInterval(interval);
                             }
             }, 1000);
-        } < !--{ / }-->
+        } <!--{ / }-->
 
     //-->
 </script>
@@ -1224,11 +1231,11 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
                             $('.btn_add_hometry').hide(); //홈트라이 버튼 노출
                             $('.btn_add_present').show(); //선물하기 버튼 숨김
                             $('.no_layer_area').show();  
-						< !--{ : }-->
+						<!--{ : }-->
                                 $('#frmView input[name=\'presentMode\']').val('present');
                             gd_goods_order('d');
                             return false;
-						< !--{ / } -->
+						<!--{ / } -->
 					}else {
 
 
@@ -3143,27 +3150,24 @@ if ($(window).width() >= 768 && $(window).width() <= 1024) { $('#frmView').css('
     });
 
     // GEO: 상품 이미지 alt 속성 자동 적용
-    $(document).ready(function () {
-        var goodsName = "{=goodsView['goodsNm']}";
-        // 메인 상품 이미지
-        $('#mainImage img, .item_photo_slide img, .item_photo_big img').each(function () {
-            if (!$(this).attr('alt') || $(this).attr('alt') === '' || $(this).attr('alt') === '$0') {
-                $(this).attr('alt', goodsName);
-            }
+    try {
+        $(document).ready(function () {
+            var goodsName = $('meta[property="og:title"]').attr('content') || document.title || '';
+            if (!goodsName) return;
+            $('#mainImage img, .item_photo_slide img, .item_photo_big img').each(function () {
+                var alt = $(this).attr('alt');
+                if (!alt || alt === '' || alt === '$0') $(this).attr('alt', goodsName);
+            });
+            $('.detail_img_front img, .detail_img_back img').each(function () {
+                var alt = $(this).attr('alt');
+                if (!alt || alt === '' || alt === '$0') $(this).attr('alt', goodsName + ' 상세 이미지');
+            });
+            $('.insert-img img').each(function () {
+                var alt = $(this).attr('alt');
+                if (!alt || alt === '' || alt === '$0') $(this).attr('alt', goodsName + ' 상품 설명');
+            });
         });
-        // 상세 이미지
-        $('.detail_img_front img, .detail_img_back img').each(function () {
-            if (!$(this).attr('alt') || $(this).attr('alt') === '' || $(this).attr('alt') === '$0') {
-                $(this).attr('alt', goodsName + ' 상세 이미지');
-            }
-        });
-        // 상품 설명 내 이미지
-        $('.insert-img img').each(function () {
-            if (!$(this).attr('alt') || $(this).attr('alt') === '' || $(this).attr('alt') === '$0') {
-                $(this).attr('alt', goodsName + ' 상품 설명');
-            }
-        });
-    });
+    } catch (e) { /* GEO alt 스크립트 오류 무시 */ }
 
 </script>
 
