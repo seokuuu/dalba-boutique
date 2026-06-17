@@ -1,0 +1,550 @@
+{*** 상품 리스트 | goods/goods_list.php ***}
+{ # header }
+
+
+<div id="goods-list-normal" class="content section_theme sub_content_wrap" data-theme="light">
+    <!-- id 값 추가 시 필터 메뉴 오픈 goods-list-menuopen (goods-list-normal 스위칭)-->
+
+    <div class="location_wrap di displaynone">
+        <div class="location_cont">
+            <em><a href="#" class="local_home">HOME</a> &nbsp;</em>
+            <!--{ ? goodsCategoryList }-->
+            <!--{ @ goodsCategoryList }-->
+            <div class="location_select">
+                <div class="location_tit"><a href="#"><span>{=.cateNm}</span></a></div>
+                <ul>
+                    <!--{ @ .data }-->
+                    <li><a href="?{cateType}Cd={..key_}"><span>{=..value_}</span></a></li>
+                    <!--{ / }-->
+                </ul>
+            </div>
+            <!--{ / }-->
+            <!--{ / }-->
+        </div>
+    </div>
+    <!-- //location_wrap -->
+    <div class="goods_list_item_wrap clearfix">
+        <div class="top_toast_popup_wrap">
+            <div class="top_toast_popup small_txt"><span class="point_color">키워드</span>를 선택해주세요</div>
+        </div>
+        <div class="top_toast_popup_wrap" id="tagResultToast" data-user="{=gSess.memId}">
+            <div class="top_toast_popup small_txt"><span class="point_color" id="userId"></span>님을 위한 총 <span
+                    id="tagCount"></span>개의 제품을 추천해드립니다
+            </div>
+        </div>
+        <div id="searchTagResult" style="display:none"></div>
+        <div class="goods_list_item" id="goodsListWrapper">
+            <div class="btn_filter">
+                <a href="javascript:void(0)"><img src="/data/skin/front/dalba2/img/icon/icon_filter.svg"
+                                                  alt="filtericon"></a>
+            </div>
+            <div class="goods_list_item_tit current_page_title">
+                <div class="current_page_title_inner">
+                    <h4>{=goodsCategoryList[cateCd]['cateNm']}</h4>
+                    <div id="header_hide" class="header_category_list">
+                        <div class="header_gnb">
+                            <div class="gnb">
+                                <!-- 상단 카테고리 출력 시작 -->
+                                {=includeWidget('proc/category_side', 'type', 'top','cateType','cate','menuType','all')}
+                                <!-- 상단 카테고리 출력 끝 -->
+                            </div>
+                            <!-- //gnb -->
+                            <!-- //gnb_allmenu -->
+                        </div>
+                        <!-- //header_gnb -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="layer_black2"></div>
+            <!--{ ? naviDisplay.naviUse =='y' }-->
+            <!--{ ? themeInfo.cateHtml1 }-->
+            <!-- 상단 꾸미기 영역 -->
+            <div class="addition_zone displaynone">
+                {=stripslashes(str_replace('&nbsp;', ' ', themeInfo.cateHtml1))}
+            </div>
+            <!--{ / }-->
+            <!--{ ? dataSubCategory( cateCd,cateType ) }-->
+            <div class="common_tab_2">
+                <ul class="clearfix">
+                    <!--{ @ dataSubCategory( cateCd,cateType ) }-->
+                    <li class="<!--{ ? cateCd == .cateCd }-->on<!--{ / }-->">
+                        <a href="?{cateType}Cd={.cateCd}"><span class="normal_txt">{.cateNm}
+                            <!--{ ? naviDisplay.naviCount =='y' }--><em>({.goodsCnt+0})</em><!--{ / }--></span></a>
+                    </li>
+                    <!--{ / }-->
+                </ul>
+            </div>
+            <!--{ / }-->
+            <!--{ / }-->
+
+            <!-- 설문조사 배너 -->{=pollViewBanner()}<!-- 설문조사 배너 -->
+
+            <!--{ ? themeInfo.recomDisplayFl == 'y'  && widgetGoodsList}-->
+            <!--{ ? themeInfo.cateHtml2 }-->
+            <!-- 추천상품 상단 꾸미기 영역 -->
+            <div class="addition_zone">
+                {=stripslashes(str_replace('&nbsp;', ' ', themeInfo.cateHtml2))}
+            </div>
+            <!-- //추천상품 상단 꾸미기 영역 -->
+            <!--{ / }-->
+
+            <!-- 추천 상품 나오는영역 -->
+            <div class="best_item_view">
+                <div class="best_item_view_tit">
+                    <h3>{=__('추천상품')}</h3>
+                </div>
+                <div class="goods_list">
+                    <div class="goods_list_cont">
+                        <p>{=includeWidget('goods/_goods_display.html')}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- //추천 상품 나오는영역 -->
+            <!--{ / }-->
+
+            <!--{ ? themeInfo.cateHtml3 }-->
+            <div class="addition_zone">
+                {=stripslashes(str_replace('&nbsp;', ' ', themeInfo.cateHtml3))}
+            </div>
+            <!--{ / }-->
+            <div class="goods_pick_list displaynone">
+                <span class="pick_list_num">{=__('상품')} <strong>{=number_format(gd_isset(page->recode['total']))}</strong> {=__('개')}</span>
+                <form name="frmList" action="">
+                    <input type="hidden" name="{cateType}Cd" value="{cateCd}"/>
+                    <div class="pick_list_box">
+                        <ul class="pick_list">
+                            <li>
+                                <input type="radio" id="sort1" class="radio" name="sort" value=""/>
+                                <label for="sort1">{=__('추천순')}</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="sort2" class="radio" name="sort" value="sellcnt"/>
+                                <label for="sort2">{=__('판매인기순')}</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="sort3" class="radio" name="sort" value="price_asc"/>
+                                <label for="sort3">{=__('낮은가격순')}</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="sort4" class="radio" name="sort" value="price_dsc"/>
+                                <label for="sort4">{=__('높은가격순')}</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="sort5" class="radio" name="sort" value="review"/>
+                                <label for="sort5">{=__('상품평순')}</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="sort6" class="radio" name="sort" value="date"/>
+                                <label for="sort6">{=__('등록일순')}</label>
+                            </li>
+                        </ul>
+                        <div class="choice_num_view">
+                            <select class="chosen-select" name="pageNum">
+                                <!--{ @ goodsData.multiple }-->
+                                <option value="{=.value_}"  <!--{ ? pageNum == .value_ }-->selected='selected'
+                                <!--{ / }--> >{=.value_}{=__('개씩보기')}</option>
+                                <!--{ / }-->
+                            </select>
+                        </div>
+                        <!-- //choice_num_view -->
+                    </div>
+                    <!-- //pick_list_box -->
+                </form>
+            </div>
+            <!-- //goods_pick_list -->
+
+            <!--{ ? wm_goods_sort_list }-->
+            <!-- 웹앤모바일 상품리스트 정렬 기능 추가 ================================================== START -->
+            <div class="wm_goods_sort">
+                <div class="wm_goods_sort_wr">
+                    <style>
+                        .wm_goods_sort {display:flex;justify-content: flex-end;padding-right:5px}
+                        .wm_goods_sort .wm_goods_sort_wr {float:right;width:150px}
+                        .wm_goods_sort select {background-color:#fff !important;border:1px solid #e0e0e0 !important;opacity:1 !important}
+                        .wm_goods_sort .chosen-single {background-color:#fff !important;border:1px solid #e0e0e0 !important;opacity:1 !important}
+                    </style>
+                    <script>
+                        $(document).ready(function () {
+                            $(".wm_goods_sort select").change(function (){
+                                location.href = '{=wm_goods_sort_link}&sort=' + $(this).val();
+                            });
+                        });
+                    </script>
+                    <select class="chosen-select" style="width:150px !important">
+                        <!--{ @ wm_goods_sort_list }-->
+                        <option value="{=.sort}" {=.active}>{ = .name }</option>
+                        <!--{ / }-->
+                    </select>
+                </div>
+            </div>
+            <!-- 웹앤모바일 상품리스트 정렬 기능 추가 ================================================== END -->
+            <!--{ / }-->
+
+            <div class="goods_list">
+                <div class="goods_list_cont textcenter">
+                    <!-- 상품 리스트 -->
+                    { # goodsTemplate }
+                    <!-- //상품 리스트 -->
+                </div>
+                <div class="pagination">
+                    {page->getPage()}
+                </div>
+
+            </div>
+            <!-- //goods_list_item -->
+        </div>
+        <div class="findmyfit_wrap">
+            <div class="top_btn">
+                <a href=""><span class="normal_txt">BACK TO SHOP</span></a>
+            </div>
+            <div class="mobileonly btn_close">
+                <a href="javascript:void(0)"><img src="/data/skin/front/dalba2/img/icon/arrow_drop_down.svg" alt=""></a>
+            </div>
+
+            <div class="title">
+                <h4 class="freight_disp_pro">Find My Skin Fit</h4>
+                <p class="extra_txt">나의 스킨 라이프 키워드에 맞는<br> 달바 제품을 찾아보세요</p>
+            </div>
+            <div class="find_img">
+                <img src="/data/skin/front/dalba2/img/img_findmyskin.jpg" alt="">
+            </div>
+            <ul class="find_tag clearfix" id="findMySkinFitTagList"></ul>
+            <a href="javascript:void(0)" class="btn_findmyfit normal_txt active" onclick="executeFindMySkin()">FIND MY
+                SKIN FIT</a>
+        </div>
+        <div class="layer_black"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('form[name=frmList] select[name=pageNum]').change(function () {
+                $('form[name=frmList]').get(0).submit();
+            });
+
+            $('form[name=frmList] input[name=sort]').click(function () {
+                $('form[name=frmList]').get(0).submit();
+            });
+
+            $(':radio[name="sort"][value="{sort}"]').prop("checked", "checked")
+            $(':radio[name="sort"][value="{sort}"]').next().addClass('on');
+
+        });
+    </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            $('.goods_list_item .btn_filter').click(function () {
+                if ($('.sub_content_wrap').attr('id') == 'goods-list-normal') {
+                    $('.sub_content_wrap').attr('id', 'goods-list-menuopen');
+                    // $('.sub_content_wrap').removeAttr('id', 'goods-list-normal');
+                } else {
+                    $('.sub_content_wrap').attr('id', 'goods-list-normal');
+                    // $('.sub_content_wrap').removeAttr('id', 'goods-list-menuopen');
+                }
+            });
+            $('.layer_black, .goods_list_item_wrap .btn_close a').click(function () {
+                $('.sub_content_wrap').attr('id', 'goods-list-normal');
+                // $('.sub_content_wrap').removeAttr('id', 'goods-list-menuopen');
+            });
+        });
+    </script>
+    <script>
+        // Find My Skin Fit ( Tag Search )
+        var searchInstance;
+        var selectTagList = [];
+
+        function getTagList(callback) {
+            var url = "https://www.dalba.co.kr/goods/tagList.php";
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var result = JSON.parse(this.responseText);
+                    callback(result);
+                }
+            };
+            request.open("GET", url);
+            request.send();
+        }
+
+        function getGoodsByTag(tagList, callback) {
+            var url = "https://www.dalba.co.kr/goods/tags.php?";
+            for (var i = 0; i < tagList.length; i++) {
+                var tag = tagList[i];
+                url += 'tags[]=' + tag + '&';
+            }
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var goodsList = JSON.parse(this.responseText);
+                    callback(goodsList);
+                }
+            };
+            request.open("GET", url);
+            request.send();
+        }
+
+        function getFindMySkinFitListComponent(callback) {
+            var url = "https://www.dalba.co.kr/goods/FindMySkinFitListComponent.php";
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    callback(this.responseText);
+                }
+            };
+            request.open("GET", url);
+            request.send();
+        }
+
+        function generateTagList(list) {
+            return list.reduce(function (result, item) {
+                result = [...result, ...item.goodsSearchWord.split(",").map(function (word) {
+                    return word.trim()
+                })];
+                return [...new Set(result)];
+            }, []);
+        }
+
+        function setTagItem(event) {
+            var target = event.target;
+            var tag = target.getAttribute('data-tag');
+            if (selectTagList.indexOf(tag) !== -1) {
+                selectTagList = selectTagList.filter(function (item) {
+                    return item !== tag
+                })
+                target.classList.remove('active');
+            } else {
+                selectTagList.push(tag);
+                target.classList.add('active');
+            }
+        }
+
+        function initTagElement(tagList) {
+            var $parent = document.getElementById('findMySkinFitTagList');
+            $parent.onclick = setTagItem;
+            for (var i = 0; i < tagList.length; i++) {
+                var tag = tagList[i];
+                var li = document.createElement('li');
+                li.innerHTML = '<a href="javascript:void(0)" class="small_txt" data-tag="' + tag + '">#' + tag + '</a>';
+                $parent.appendChild(li);
+            }
+        }
+
+        function initFindMySkinFit() {
+            getTagList(function (list) {
+                initTagElement(generateTagList(list));
+            })
+            getFindMySkinFitListComponent(function (result) {
+                var $el = document.getElementById('searchTagResult');
+                $el.outerHTML = result;
+            });
+        }
+
+        function toastTagSearchResult(count) {
+            var userId = $('#tagResultToast').data('user') || "고객";
+            $('#tagResultToast #userId').text(userId);
+            $('#tagResultToast #tagCount').text(count);
+            $('#tagResultToast').delay(500).fadeIn(500).delay(500).fadeOut(1000);
+        }
+
+        function initTagItemList(goodsList) {
+            var $el = document.getElementById('searchTagResult');
+
+            return new Vue({
+                el: $el,
+                data: {
+                    goodsList: goodsList,
+                    pageLimit: 1000,
+                    currentPage: 1,
+                    currentTag: 'All',
+                },
+                mounted() {
+                    var $el = document.getElementById('searchTagResult');
+                    $($el).css('display', 'block');
+                    $('#goodsListWrapper').remove();
+                    $('.bubblingG_wrapper').removeClass('active');
+                    this.initFindMySkinEvent();
+                    this.closeFindMySkin();
+                    toastTagSearchResult(this.goodsList.length);
+                },
+                methods: {
+                    closeFindMySkin() {
+                        $('.sub_content_wrap').attr('id', 'goods-list-normal');
+                    },
+                    initFindMySkinEvent() {
+                        $('.goods_list_item .btn_filter').click(function () {
+                            if ($('.sub_content_wrap').attr('id') == 'goods-list-normal') {
+                                $('.sub_content_wrap').attr('id', 'goods-list-menuopen');
+                            } else {
+                                $('.sub_content_wrap').attr('id', 'goods-list-normal');
+                            }
+                        });
+                        $('.layer_black, .goods_list_item_wrap .btn_close a').click(function () {
+                            $('.sub_content_wrap').attr('id', 'goods-list-normal');
+                        });
+                    },
+                    filter(goods, index) {
+                        // paging
+                        var startItemIndex = (this.currentPage - 1) * this.pageLimit;
+                        var endItemIndex = this.currentPage * this.pageLimit;
+                        var isPageItem = startItemIndex <= index && endItemIndex > index;
+
+                        if (this.currentTag === 'All') return isPageItem;
+
+                        var hasTag = goods.goodsSearchWord.split(",").map(function (tag) {
+                            return tag.trim()
+                        }).indexOf(this.currentTag);
+                        console.log(hasTag, this.currentTag, goods.goodsSearchWord);
+
+                        return isPageItem && hasTag !== -1;
+                    },
+                    setFilterTag(tag) {
+                        this.currentTag = tag;
+                    },
+                    setPage(page) {
+                        this.currentPage = page;
+                    },
+                    getPriceFormat(price) {
+                        return parseInt(price).toLocaleString('kr');
+                    },
+                    getTagNames(goods) {
+                        return goods.goodsSearchWord.split(",").map(function (tag) {
+                            return '#' + tag.trim()
+                        }).join(' ');
+                    },
+                },
+                computed: {
+                    tagList() {
+                        var tagList = this.goodsList.reduce(function (tree, goods) {
+                            var tagList = goods.goodsSearchWord.split(",");
+                            for (var i = 0; i < tagList.length; i++) {
+                                var tag = tagList[i].trim();
+                                if (tree[tag]) {
+                                    tree[tag].count++;
+                                } else {
+                                    tree[tag] = {
+                                        name: tag,
+                                        count: 1
+                                    };
+                                }
+                            }
+                            return tree;
+                        }, {});
+                        return Object.keys(tagList).map(function (key) {
+                            return tagList[key]
+                        });
+                    },
+                    getPaging() {
+                        var totalPage = Math.ceil(this.goodsList.length / this.pageLimit);
+                        var pageList = [];
+                        for (var i = 0; i < totalPage; i++) {
+                            pageList.push(i + 1);
+                        }
+                        return pageList;
+                    }
+                }
+            });
+        }
+
+        function executeFindMySkin() {
+            if (selectTagList.length == 0) return false;
+            $('.bubblingG_wrapper').addClass('active');
+            getGoodsByTag(selectTagList, function (goodsList) {
+                if (searchInstance) {
+                    searchInstance.goodsList = goodsList;
+                    searchInstance.currentTag = 'All';
+                    $('.sub_content_wrap').attr('id', 'goods-list-normal');
+                    $('.bubblingG_wrapper').removeClass('active');
+                    toastTagSearchResult(goodsList.length);
+                } else {
+                    searchInstance = initTagItemList(goodsList);
+                }
+            });
+        }
+
+        initFindMySkinFit();
+
+    </script>
+
+    <script>
+        //상품리스트 높이
+        function ingredientsHeight() {
+            var maxingredientsHeight = 0;
+            $('.item_gallery_type > ul > li > .item_cont > .item_photo_box').each(function () {
+                var currentingredientsHeight = $(this).outerHeight() + 10;
+                if (currentingredientsHeight > maxingredientsHeight) {
+                    maxingredientsHeight = currentingredientsHeight;
+                    console.log(maxingredientsHeight);
+                }
+            });
+            $('.item_gallery_type > ul > li > .item_cont > .item_photo_box').css('height', maxingredientsHeight);
+        }
+
+        //3depth 타이틀 변경
+        function depthTitleChange() {
+            var currentPageTitle = $('.current_page_title h4').text();
+            $('#header_hide .menu_tit_2depth .depth2 li a').each(function () {
+                var depthTitle = $(this).text();
+                if ($(this).text() == currentPageTitle) {
+                    var depthTitleCheck = $(this).closest('.menu_tit_2depth').find('.extra_txt').text();
+                    console.log(depthTitleCheck);
+                    $('.current_page_title h4').text(depthTitleCheck);
+                }
+            })
+        }
+
+        //전체 카테고리 리스트 드롭박스
+        function allCategorList() {
+            var currentPageTitleNew = $('.current_page_title_inner h4').text();
+            $('.menu_tit_2depth > a').each(function () {
+                if ($(this).text() == currentPageTitleNew) {
+                    $(this).closest('.menu_tit_2depth').addClass('active');
+                }
+            });
+
+            $('.current_page_title_inner').click(function (e) {
+                if ($(this).hasClass('open')) {
+                    if (!$('.current_page_title_inner').has(e.target).length) {
+                        $('.layer_black2').hide();
+                        $('.header_category_list').slideUp();
+                        $('.current_page_title_inner').removeClass('open');
+                    }
+                } else {
+                    $('.layer_black2').show();
+                    $('.header_category_list').slideDown();
+                    $('.current_page_title_inner').addClass('open');
+                }
+            })
+            $('.layer_black2').click(function () {
+                $('.layer_black2').hide();
+                $('.header_category_list').slideUp();
+                $('.current_page_title_inner').removeClass('open');
+            })
+        }
+
+    </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            depthTitleChange();
+            allCategorList();
+        });
+        window.addEventListener('load', function () {
+            ingredientsHeight();
+        });
+    </script>
+
+    <div class="bubblingG_wrapper">
+        <div class="bubblingG">
+        <span id="bubblingG_1">
+        </span>
+            <span id="bubblingG_2">
+        </span>
+            <span id="bubblingG_3">
+        </span>
+        </div>
+    </div>
+</div>
+<!-- //content -->
+
+{ # footer }
