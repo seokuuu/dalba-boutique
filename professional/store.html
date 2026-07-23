@@ -1,0 +1,81 @@
+{***  | professional/kr/store.php ***}
+{ # header }
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=pr4xnb33yf"></script>
+<script defer src="{=setBrowserCache(c.PATH_SKIN+'js/'+gThisDirName+'/common/store.js')}"></script>
+<!-- TODO: store.js는 시그니처용 캐러셀 로직 - 검색 UI에 맞게 professional 전용 스크립트로 교체 필요 -->
+<main id="professional-store" class="main-content font-kr">
+    <section class="store-intro section_theme" data-theme="light">
+        <div class="wrapper">
+            <h2 class="store-intro__title">Store</h2>
+            <p class="store-intro__paragraph">달바 프로페셔널 제품을 살롱에서 만나보세요.</p>
+        </div>
+    </section>
+
+    <section id="store" class="store store--search section_theme" data-theme="light">
+        <div class="store_content wrapper">
+            <div class="store_search">
+                <div class="store_search_box">
+                    <input type="text" id="storeSearchInput" name="storeSearchInput" placeholder="지역, 매장명으로 검색" />
+                    <button type="button" id="btnStoreSearch" class="btn_store_search">매장검색</button>
+                </div>
+                <p class="store_search_count">
+                    검색된 매장은 총 <span id="storeSearchCount">10</span>건 입니다.
+                </p>
+            </div>
+            <!-- //store_search -->
+
+            <!-- TODO: 매장 데이터는 관리자 페이지(운영팀 등록)에서 관리 예정(dalba_pro.md §2 Store 행 참조) -->
+            <!-- 실 데이터 연동 전까지는 샘플 항목으로 레이아웃만 표시 -->
+            <ul id="storeList" class="store_list">
+                <li class="store_list_item">
+                    <div class="store_list_info">
+                        <p class="store_list_name">달바 프로페셔널 청담 살롱 (예시)</p>
+                        <p class="store_list_address">서울 강남구 청담동 000-00</p>
+                        <p class="store_list_phone">02-0000-0000</p>
+                    </div>
+                    <button type="button" class="reserve-modal_button" data-store-index="0">지도에서 보기</button>
+                </li>
+                <li class="store_list_item">
+                    <div class="store_list_info">
+                        <p class="store_list_name">달바 프로페셔널 홍대 살롱 (예시)</p>
+                        <p class="store_list_address">서울 마포구 서교동 000-00</p>
+                        <p class="store_list_phone">02-0000-0000</p>
+                    </div>
+                    <button type="button" class="reserve-modal_button" data-store-index="1">지도에서 보기</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 지도 모달: 시그니처 store.html 패턴 그대로 재사용 -->
+        <div id="reserveModalOverlay" class="reserve-modal_overlay" aria-hidden="true">
+            <div class="reserve-modal" role="dialog" aria-reserve-modal="true" aria-labelledby="reserve-modalAddressTitle">
+                <button type="button" id="closeReserveModalButton" class="reserve-modal_close-btn" aria-label="닫기">
+                    <img src="/data/img/product/detail/signature/icon_close_thin.svg" alt="닫기" />
+                </button>
+                <div class="reserve-modal_container">
+                    <div class="reserve-modal_head">
+                        <div id="reserve-modalAddressTitle" class="reserve-modal_title-en">ADDRESS</div>
+                        <div id="reserveModalTitle" class="reserve-modal_title"></div>
+                        <div id="reserveModalAddress" class="reserve-modal_address"></div>
+                    </div>
+                    <div class="reserve-modal_map">
+                        <div id="naverMapContainer" class="naver-map-container"></div>
+                    </div>
+                    <div class="reserve-modal_body">
+                        <div class="opening-hours">
+                            <div class="opening-hours_title">영업시간</div>
+                            <ul id="reserveModalOpeningHours" class="opening-hours_list">
+                                <!-- 영업시간이 동적으로 생성됩니다 -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="reserve-modal_footer">
+                        <button type="button" id="reserveModalPhoneBtn" class="reserve-modal_btn"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<div class="breadcrumb"></div>
+{ # footer }

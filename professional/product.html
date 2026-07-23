@@ -1,0 +1,145 @@
+{***  | professional/kr/product.php ***}
+{ # header }
+<main id="professional-product" class="product-content font-kr">
+    <section class="hero section_theme" data-theme="dark">
+        <div class="hero__container">
+            <picture class="hero__picture">
+                <source
+                    srcset="/data/img/professional/product/PRODUCT-SECTION1-MO.jpg"
+                    type="image/png"
+                    media="(max-width: 600px)"
+                />
+                <source
+                    srcset="/data/img/professional/product/PRODUCT-SECTION1-PC.jpg"
+                    type="image/png"
+                    media="(min-width: 601px)"
+                />
+                <img loading="lazy" class="hero__image" alt="hero-image" />
+            </picture>
+            <div class="hero__content wrapper">
+                <h2 class="hero__heading font-en-title">
+                    <small class="hero__sub-title sub-title font-en-title">
+                        d'Alba PROFESSIONAL
+                        <p class="upper-title">로제 프리지아 리페어링 헤어 라인</p>
+                    </small>
+                    <span class="hero__accent-title accent-title">
+                        Peptide Exosome™
+                        <br />
+                        REPAIRING RITUAL
+                    </span>
+                    <span class="title-description">
+                        스킨케어 성분으로 스타일링이 오래도록 지속되는
+                        <br />
+                        힘있는 모발로 가꿔주는 달바 프로페셔널 로제 프리지아 라인
+                    </span>
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section id="main-product" class="product section_theme" data-theme="light">
+        <div class="product__container wrapper">
+            <h2 hidden>Main Product</h2>
+            <ul class="product__list product__list--main">
+                <!-- TODO: goodsNo 미확정 - 실제 상품등록 후 href 교체 (dalba_pro.md §8 "상품 6종 등록 주체" 참조) -->
+                <li class="product__item product__item--main">
+                    <a target="_blank" href="/goods/goods_view.php?goodsNo=">
+                        <picture class="product__picture">
+                            <source srcset="/data/img/professional/product/perfume-serum.png" />
+                            <img loading="lazy" class="product__image" alt="product-image" />
+                        </picture>
+                        <p class="product__name">
+                            리페어링 헤어 퍼퓸 세럼<br class="hide-sm" />
+                            [로제 프리지아]
+                        </p>
+                        <ul class="product__info">
+                            <li class="product__info-item"></li>
+                        </ul>
+                    </a>
+                </li>
+                <li class="product__item product__item--main">
+                    <a target="_blank" href="/goods/goods_view.php?goodsNo=">
+                        <picture class="product__picture">
+                            <source srcset="/data/img/professional/product/oil-serum.png" />
+                            <img loading="lazy" class="product__image" alt="product-image" />
+                        </picture>
+                        <p class="product__name">
+                            리페어링 헤어 오일 세럼<br class="hide-sm" />
+                            [로제 프리지아]
+                        </p>
+                        <ul class="product__info">
+                            <li class="product__info-item"></li>
+                        </ul>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="banner section_theme" data-theme="dark">
+        <div class="banner__container">
+            <picture class="banner__picture">
+                <source
+                    srcset="/data/img/professional/product/PRODUCT-SECTION3-MO.jpg"
+                    type="image/png"
+                    media="(max-width: 600px)"
+                />
+                <source
+                    srcset="/data/img/professional/product/PRODUCT-SECTION3-PC.jpg"
+                    type="image/png"
+                    media="(min-width: 601px)"
+                />
+                <img loading="lazy" class="banner__image" alt="banner-image" />
+            </picture>
+            <div class="banner__content wrapper">
+                <h2 class="banner__heading font-en-title">
+                    <span class="banner__accent-title accent-title">
+                        ROSE FREESIA
+                        <br class="hide-sm" />
+                        MOOD
+                    </span>
+                </h2>
+                <p class="banner__paragraph">로제 프리지아, 시그니처 향으로 완성되는 무드</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="new-product" class="product section_theme" data-theme="light">
+        <div class="product__container wrapper">
+            <h2 hidden>Full Line-up</h2>
+            <ul class="product__list product__list--new">
+                <li class="product__item">
+                    <a target="_blank" href="/goods/goods_view.php?goodsNo=">
+                        <picture class="product__picture">
+                            <source srcset="/data/img/professional/product/serum-treatment.png" type="image/png" />
+                            <img loading="lazy" class="product__image" alt="product-image" />
+                        </picture>
+                        <p class="product__name">리페어링 헤어 세럼 트리트먼트 [로제 프리지아]</p>
+                    </a>
+                </li>
+                <li class="product__item">
+                    <a target="_blank" href="/goods/goods_view.php?goodsNo=">
+                        <picture class="product__picture">
+                            <source srcset="/data/img/professional/product/scalp-therapy-shampoo.png" type="image/png" />
+                            <img loading="lazy" class="product__image" alt="product-image" />
+                        </picture>
+                        <p class="product__name">리페어링 스칼프 테라피 세럼 샴푸 [로제 프리지아]</p>
+                    </a>
+                </li>
+                <!-- TODO: Coming Soon 2종 - 확정되면 product__item--soon 형태로 추가 -->
+                <li class="product__item product__item--soon">
+                    <div class="product__coming-soon">
+                        <p class="product__name">Coming Soon</p>
+                    </div>
+                </li>
+                <li class="product__item product__item--soon">
+                    <div class="product__coming-soon">
+                        <p class="product__name">Coming Soon</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</main>
+<div class="breadcrumb"></div>
+{ # footer }
