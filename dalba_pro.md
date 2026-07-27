@@ -1,6 +1,6 @@
 # 달바 프로페셔널(PRO) 몰 구축 — 마스터 개발 문서
 
-> 최종 갱신: 2026-07-22
+> 최종 갱신: 2026-07-27
 > 이 파일 하나로 프로젝트 파악 + 개발 착수 + 진행도 확인이 가능하도록 정리한 단일 문서.
 > 새 세션에서 작업 시작할 때 **이 파일부터 읽으면 됨.** (관련: `달바프로페셔널_구축기획_260703.md`, `CLAUDE.md`, 견적서 `~/Downloads/달바_프로페셔널_견적서_260703.xlsx`)
 
@@ -50,8 +50,14 @@
 ### 기존 가입폼 소스 분석 결과 (260722, `member/join_agreement.php` + `member/join.php` + 위젯 3개 확보 완료)
 - 확보한 파일: `join_agreement.php`(1/3 약관동의+본인인증), `join.php`(2/3 정보입력, 3개 위젯 include), `_join_view.html`(기본정보), `_join_view_business.html`(사업자정보), `_join_view_other.html`(부가정보)
 - **본인인증은 이미 `join_agreement.php`에 내장**(아이핀/휴대폰 라디오 선택 → 팝업). Figma의 "PRO-03-1 휴대폰 본인인증"은 별도 신규 페이지가 아니라 이 기존 스텝에 흡수될 가능성 높음.
-- **⚠️ 파일 업로드 필드 전무 확인** — `_join_view.html`/`_join_view_business.html`/`_join_view_other.html` 어디에도 `type="file"` 없음. `_join_view_other.html`의 관리자 커스텀 확장필드(`joinField.ex`, ex1~ex6)도 SELECT/RADIO/CHECKBOX/TEXT만 지원, FILE 타입 없음. `join.php` `<form>`에 `enctype="multipart/form-data"`도 없음. → **사업자등록증/디자이너자격증 업로드는 관리자 설정 불가, 100% 코드 개발 필요.**
-- **⚠️ 3번째 필수 약관 슬롯 없음 확인** — `join_agreement.php`의 필수(`class="require"`) 체크박스는 `termsAgree1`(이용약관)/`termsAgree2`(개인정보) 2개가 단일 객체(`agreementInfo`/`privateApproval`)에 하드코딩. 배열 기반으로 여러 개 넣을 수 있는 `privateApprovalOption`/`privateConsign`/`privateOffer`는 전부 "선택" 취급이라 필수 검증 대상 아님. → **"살롱·헤어디자이너 거래동의"를 필수로 추가하려면 코드로 3번째 하드코딩 블록 필요, 관리자 설정 불가.**
+- **🔁 파일 업로드 결론 수정 (260727, `member_joinitem.php` 실소스 확인 — 기존 "100% 코드 개발" 은 과대평가였음)**
+  - 프론트 위젯(`_join_view_other.html`)의 커스텀 확장필드(`joinField.ex`, ex1~ex6)는 SELECT/RADIO/CHECKBOX/TEXT만 지원(FILE 없음) — 이건 맞음. **하지만 이게 파일업로드의 유일한 경로가 아니었음.**
+  - **고도몰 기본 기능으로 파일첨부가 별도로 존재** (`member_joinitem.php` 사업자정보 섹션 L354~):
+    - `comCertification[use/require]` = **사업자등록증** 첨부(사용/필수/용량 관리자 설정)
+    - `comAddiCert[N][name/use/require]` = **추가 첨부 항목**(항목명 관리자 지정, 추가/삭제) → **"디자이너 자격증"을 여기서 생성 가능**
+  - 다만 현재 프론트 스킨 `_join_view_business.html`엔 이 파일필드 **렌더링 마크업이 빠져있음**(상호/사번/대표자/업태/종목/주소만). `join.html` L15 `<form>`에 `enctype="multipart/form-data"`도 없음.
+  - → **결론: "순수 신규 개발"이 아니라 ① 관리자에서 comCertification/comAddiCert 켜기 + ② 프론트 스킨에 고도몰 원본 파일필드 마크업 이식 + ③ form enctype 추가 수준.** 착수 전 **고도몰 원본소스 `_join_view_business.html`**(원본소스 보기) 확보해 원본에 렌더 파트가 있는지만 확인하면 됨.
+- **🔁 3번째 필수약관 결론 수정 (260727, `join_agreement.html` 실소스 확인)** — 필수 검증은 **`class="require"` 기반**(L243 `$(':checkbox.require').each(...)`). 기존 필수는 `termsAgree1`(이용약관)/`termsAgree2`(개인정보)만 `class="require"`, 추가약관(3/4/5)은 전부 선택. → **"살롱·헤어디자이너 거래동의" 체크박스에 `class="require"`+name만 붙이면 프론트 필수검증 자동 적용.** 백엔드 저장 필요 여부(법적)만 확정하면 됨(불필요 시 프론트만). "컨트롤러 신규 하드코딩 블록 필요"는 과대평가였음.
 - **🔑 아키텍처 재검토**: `join.php`/`join_agreement.php`는 **dalba.co.kr 전체 공용 가입폼**이라 여기 직접 편집하면 일반 회원가입에도 영향. Figma 시안도 Pro 전용으로 완전히 다른 5단계 디자인. → **"기존 폼에 필드 추가"가 아니라 Pro 전용 신규 컨트롤러+스킨(§5 유형 B)을 새로 만들고, 회원 생성 시점에만 기존 join 로직을 재사용/호출하는 구조가 안전.** 즉 BE 작업량이 애초 "관리자 설정 위주" 예상보다 큼(실제 PHP 컨트롤러 신규 개발 필요).
 
 ### 구매 — **제외로 확정** (260722 Figma 기획 메모, 노드 91:9 기준)
@@ -138,6 +144,74 @@
 
 → 결론(260723 확정): FE는 시그니처 참고해 새로 작성하는 정도로 가볍고, BE도 **"관리자 설정 위주"** 최초 가정과 완전히 달라진 건 아님 — 기존 가입 로직을 그대로 재사용/모방하되, **파일 업로드 처리 + 3번째 필수 약관 검증, 이 2가지만 순수 신규 개발**로 확정. 다만 이 2가지가 컨트롤러 레벨(PHP) 작업이라 "관리자 화면 클릭"으로 끝나는 다른 항목들과는 성격이 다르므로, 견적(§6, 80h 기준)에 이만큼의 컨트롤러 개발 시간이 포함돼있는지는 확인해두는 게 안전.
 
+> ⚠️ 위 "딱 2가지 순수 신규 개발" 은 **260727 실소스 확인으로 더 가벼워짐** — §3 "🔁 파일업로드/3번째약관 결론 수정" 참조. 파일업로드는 고도몰 기본기능(comCertification/comAddiCert)이 있어 **원본 마크업 이식 수준**, 3번째 약관은 **`class="require"` 추가 수준**.
+
+---
+
+## 5-3. 로컬 스킨/구조 생성 현황 (260727)
+
+**실제 스킨 경로는 `data/skin/front/dalba_main/`** (문서 곳곳의 `dalba2`는 오기 — WebFTP `Home data skin front dalba_main` 로 확정). CLAUDE.md 상단 폴더구조도 `dalba_main` 기준이 맞음.
+
+로컬 레포 `professional/` 밑에 **업로드 목적지별 2트리**로 파일 구성 완료 (`professional/webftp/` = 스킨 FTP, `professional/admin/` = 관리자소스):
+
+```
+professional/
+├── webftp/                         # → data/skin/front/dalba_main/ 로 업로드
+│   ├── professional/               # 스킨 HTML (htmid=professional/*.html)
+│   │   ├── index.html  (기존 main.html 리네임)
+│   │   ├── product.html / store.html / articles.html
+│   │   └── pro.html    (신규: Pro 랜딩/접근게이트)
+│   ├── css/professional/           # signature CSS 복제·개조
+│   │   ├── professional.css (=구 signature.css) / index / product / store / articles / pro
+│   │   └── common/ {common(재구성), base, reset, tokens, store}.css
+│   ├── js/professional/            # signature JS 복제, 네임스페이스 window.professional
+│   │   ├── common/base.js  index.js  store.js(검색UI 신규)
+│   ├── member/                     # 축2 Pro 가입 스킨 base + README-pro-join.md
+│   └── outline/_header.html        # professional 분기 추가본
+└── admin/member/                   # member_joinitem.php(참고) + README-admin-config.md
+```
+
+- **축1(마케팅 스킨) = 실동작 코드 생성 완료.** `main.html`(hero/fade-in/horizontal-scroll) 클래스가 index.js 셀렉터와 일치 → 그대로 애니메이션 동작. store는 캐러셀 대신 **검색 UI + 지도모달**로 새로 작성(store.js).
+- **`_header.html`**: signature 블록(그대로) + **professional 전용 블록 신규**(CDN preconnect 제외, GSAP+common.css+base.js+page.js). body class에 `body-professional` else-if 추가. 템플릿 문법 검증(`< !--`/`-- >`/블록 균형) 통과.
+- **축2(가입) = 스테이징 + 개조 가이드**만. 실제 구현은 고도몰 원본소스 `_join_view_business.html` 확보 + BE 컨트롤러 필요 → `professional/webftp/member/README-pro-join.md` 에 라인단위로 정리.
+- ⚠️ **미확보 파일**: `css/signature/common/common.css` 가 다운로드에 빠져 `professional/webftp/css/professional/common/common.css` 를 tokens+reset+base 번들로 **임시 재구성**함. 원본 받으면 교체 필요.
+
+### 남은 업로드/검증 (다음 단계)
+- [ ] webftp 트리를 `data/skin/front/dalba_main/` 해당 위치에 업로드 → `html.php?htmid=professional/index.html` 접속, Network/Console 확인
+- [ ] `professional` 스킨 폴더가 dalba_main 트리에 아직 없음 → "새로운 페이지 추가"로 생성 후 업로드
+- [ ] 로제 프리지아 포인트 컬러 확정 시 `tokens.css --color-primary` 교체
+- [ ] 고도몰 원본소스 `_join_view_business.html` 확보 (축2 파일필드 이식용)
+
+---
+
+## 5-4. Store 매장 리스트 = 고도몰 게시판 연동 (260727 결정·구현)
+
+운영팀 자가관리 요구 → signature식 하드코딩 대신 **매장 전용 게시판 + 커스텀 스킨 + 프론트 지오코딩**으로 구현.
+(라이브 `signature/store.html` 확인: 매장은 store.js 하드코딩 배열을 JS가 렌더 = 게시판 아님. signature는 지도/모달 참고용일 뿐 자가관리 지름길 아님.)
+
+### 동작 흐름
+게시판(매장 등록) → 커스텀 list 스킨이 매장별 `<li data-*>` 렌더 → `store.js`(buildStoreDataFromDOM)가 파싱 → 검색(show/hide) + 지도모달. 좌표는 `data-lat/lng` 우선, 없으면 **주소 네이버 지오코딩**(`naver.maps.Service.geocode`, maps.js에 `&submodules=geocoder` 필요).
+
+### 게시판 설정 (관리자)
+- 유형 **갤러리형**, 게시판 스킨 = **매장 전용 커스텀 스킨 지정**(이게 data-* 렌더). 쓰기권한 **관리자 전용** / 리스트·읽기 전체.
+- ⚠️ 게시판엔 위도/경도 같은 **구조화 커스텀 필드 없음**(제목·내용·대표이미지·첨부만) → 좌표는 지오코딩으로 해결.
+- **에디터 "사용안함" 권장**(본문 평문화 → 라벨 파싱 안정), **기본 게시글 양식**에 입력 틀 등록.
+
+### 데이터 계약 (매장 1개 = 게시글 1개)
+- 매장명 = **제목**, 사진 = **대표이미지**
+- 본문(평문 라벨): `주소:` / `전화:`(또는 전화번호/연락처) / `영업시간:`(세그먼트 `;` 구분, 예 `월-금 10:00-20:00;토 10:00-18:00;일 휴무`) / (선택)`좌표: 37.5,127.0`
+- store.js가 `data-name/address/phone/hours/image/lat/lng` 를 우선 읽고, 없으면 `data-content` 라벨 파싱으로 보충. 리스트 표시용 주소/전화도 없으면 자동 삽입.
+
+### 생성 파일 (로컬)
+- `professional/webftp/js/professional/store.js` — 게시판 DOM 파싱 + 지오코딩 + 검색으로 개조 완료(하드코딩 제거)
+- `professional/webftp/professional/store.html` — maps.js `&submodules=geocoder` 추가, `#storeList`에 게시판 include placeholder + data-* 계약 샘플(테스트용)
+- `professional/webftp/board/skin/professional_store/list.html` — 매장 게시판 커스텀 list 스킨 **초안**(고도몰 변수명 `{.subject}`/`{.content}`/`{.thumbnailUrl}`/루프변수 = **TODO 확인 필요**)
+
+### 착수 blocker
+- [ ] 고도몰 `board/skin/default/list.html` 확보 → 커스텀 스킨의 실제 변수명 확정
+- [ ] 네이버 `ncpKeyId` **Geocoding API 사용 신청** 여부 확인
+- [ ] (동일 패턴) Articles 게시판형도 후속 시 이 방식 재사용 가능
+
 ---
 
 ## 6. 견적 / 일정
@@ -184,8 +258,10 @@
 - [ ] 알림 채널: SMS vs 카카오 알림톡
 - [ ] 회원 데이터 공유 방식 최종 확인 (달바)
 - [ ] (260722 추가) `메인/main`의 `index.html` / `index_0628_bak.html` / `index_test.html` / `test_260408.php` 중 실제 라이브로 지정된 파일이 무엇인지 관리자 메인화면 설정에서 확인 필요
-- [x] ~~회원가입/로그인 관련 템플릿 소스가 로컬에 없음~~ → **확보 완료** (260722, `join_agreement.php`/`join.php`/위젯 3개, §3 참조). 결과: 파일 업로드·3번째 필수 약관 둘 다 코드 개발 필요로 확정, Pro 전용 신규 컨트롤러+스킨 방향으로 아키텍처 재검토 필요
-- [ ] (260722 추가) Pro 약관 "살롱·헤어디자이너 거래 동의" 법률자문 확정 대기
+- [x] ~~회원가입/로그인 관련 템플릿 소스가 로컬에 없음~~ → **확보 완료** (260722~260727: `join_agreement.html`/`join.html`/위젯 3종/`gd_member2.js`/`member_joinitem.php`, §3 참조). **결론 수정(260727)**: 파일업로드는 고도몰 기본기능(comCertification/comAddiCert) 존재 → 원본 마크업 이식 수준, 3번째 약관은 `class="require"` 추가 수준. "둘 다 순수 코드 개발"은 과대평가였음.
+- [ ] (260727 추가) **고도몰 원본소스 `_join_view_business.html`** 확보 — 현재 dalba 스킨엔 파일필드 렌더 마크업이 없어, 원본에 comCertification/comAddiCert 렌더 파트가 있는지 확인 후 이식
+- [ ] (260727 추가) **`css/signature/common/common.css`** 확보 — 다운로드 누락분. professional common.css 를 임시 재구성해둠(§5-3), 원본 받으면 교체
+- [ ] (260722 추가) Pro 약관 "살롱·헤어디자이너 거래 동의" 법률자문 확정 대기 (백엔드 저장 필요 여부와 연결)
 - [ ] (260722 추가) Store/Articles 데이터를 "당분간 브랜드마케팅팀이 관리자 페이지에서 운영"하기로 했는데, 이게 개발 범위에서 완전히 빠지는지 확정 필요
 
 ---

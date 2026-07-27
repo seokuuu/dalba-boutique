@@ -1,0 +1,44 @@
+/* Design Tokens - d'Alba PROFESSIONAL (signature 토큰 복제 base) */
+:root {
+  /* Colors */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-gray-100: #f9f9f9;
+  --color-gray-200: #ebebef;
+  --color-gray-300: #ebeaef;
+  --color-gray-400: #ececec;
+  --color-gray-500: #d8d8d8;
+  --color-gray-600: #b6b6b6;
+  --color-gray-700: #9b9b9b;
+  --color-gray-750: #767676;
+  --color-gray-800: #333;
+  --color-gray-900: #1d1d1d;
+  /* TODO(로제 프리지아): signature 값(#a42135) 그대로 둠. Figma 최종 확정 시 프로페셔널 포인트 컬러로 교체 */
+  --color-primary: #a42135;
+
+  /* Typography */
+  --font-kr: "Pretendard", Arial, Helvetica, sans-serif;
+  --font-en-title: "Classico URW", Arial, Helvetica, sans-serif;
+  --font-en-body: "Meno Display", Arial, Helvetica, sans-serif;
+
+  /* Sizes */
+  --wrapper-padding-xs: 7.5vw;
+  --wrapper-padding-sm: 9.5486vw;
+  --container-max: 104rem;
+
+  /* Z-Index Scale */
+  --z-nav: 100;
+  --z-breadcrumb: 150;
+  --z-footer: 150;
+  --z-main: 15;
+  --z-carousel-control: 10;
+  --z-video-preview: 20;
+
+  /* Motion */
+  --ease-in-out: ease-in-out;
+  --ease-out: ease-out;
+  --duration-150: 0.15s;
+  --duration-200: 0.2s;
+  --duration-300: 0.3s;
+  --duration-450: 0.45s;
+}

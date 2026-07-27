@@ -1,0 +1,40 @@
+{*** 매장 게시판 리스트 (professional store) | board/skin/professional_store/list.html ***}
+<!--
+  ============================================================
+  매장 게시판 커스텀 list 스킨 (board/skin/default/list.html 실변수 반영)
+  ------------------------------------------------------------
+  게시글 1개 = 매장 1개. professional store.js(buildStoreDataFromDOM)가 읽는 형태로 출력.
+  실변수(default list.html 확인): 루프 bdList.list, .subject/.category/.viewListImage/.sno/.regDate/.writer
+
+  ⚠️ 리스트 스킨엔 .content(본문)가 기본 노출되지 않음 → 주소/전화/영업시간을 본문에서 못 뽑을 수 있음.
+     아래 <div class="store_data_raw">{.content}</div> 가 실제로 채워지는지 **라이브 테스트 필요**:
+       · 채워지면  → 본문 라벨(주소:/전화:/영업시간:/좌표:) 방식 그대로 사용(운영팀 UX 좋음)
+       · 비면      → (대안) 제목에 구분자 인코딩 "매장명|주소|전화|좌표" 또는 말머리로 지역만 운용
+  운영팀 입력 규칙(기본 게시글 양식, 에디터 "사용안함" 권장):
+     제목 = 매장명 / 대표이미지 = 매장사진
+     본문:
+       주소: 서울 강남구 청담동 512-8
+       전화: 02-000-0000
+       영업시간: 월-금 10:00-20:00;토 10:00-18:00;일 휴무
+       좌표: 37.5,127.0   (선택 — 없으면 store.js 주소 지오코딩)
+  ============================================================
+-->
+<!--{? bdList.list}-->
+<!--{ @ bdList.list }-->
+<li class="store_list_item"
+    data-sno="{.sno}"
+    data-name="{.subject}"
+    data-category="{.category}"
+    data-image="{=gd_isset(.viewListImage, '')}">
+    <div class="store_list_info">
+        <p class="store_list_name">{.subject}</p>
+        <!--{? .category}--><p class="store_list_region">{.category}</p><!--{/}-->
+    </div>
+    <!-- 본문(있으면). store.js 가 textContent 를 라벨 파싱 → 주소/전화/영업시간/좌표 -->
+    <div class="store_data_raw" hidden>{.content}</div>
+    <button type="button" class="reserve-modal_button">지도에서 보기</button>
+</li>
+<!--{/}-->
+<!--{:}-->
+<li class="store_list_empty">등록된 매장이 없습니다.</li>
+<!--{/}-->

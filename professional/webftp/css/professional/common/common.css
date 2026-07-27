@@ -1,0 +1,12 @@
+/*
+ * common.css - professional 공통 스타일 번들
+ *
+ * ⚠️ 재구성 파일: signature 원본 css/signature/common/common.css 가 다운로드에 누락되어
+ *    signature.css 가 import 하던 공통 모듈(tokens/reset/base)을 그대로 묶어 재구성함.
+ *    _header.html 이 페이지마다 css/{dir}/common/common.css 를 별도 로드하고,
+ *    product.css 도 이 파일을 @import 하므로 최소한 공통 base 는 보장되어야 함.
+ *    → 원본 signature common.css 를 받으면 이 파일을 그것으로 교체할 것.
+ */
+@import "./tokens.css";
+@import "./reset.css";
+@import "./base.css";

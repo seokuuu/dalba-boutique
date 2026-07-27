@@ -1,0 +1,142 @@
+{*** 회원가입 > 가입방법 선택 | member/join_method.php ***}
+{ # header }
+<script src="//developers.kakao.com/sdk/js/kakao.min.js" xmlns="http://www.w3.org/1999/html"></script>
+<style>
+    .member_sns_login > * {
+        margin-top: 10px
+    }
+    .shop_mall_join,
+    .btn_wide_stroke {
+        text-align: center;
+        height: 54px;
+        line-height: 54px;
+        padding: 0;
+    }
+    .shop_mall_join:hover {
+        color: #fff
+    }
+    @media only screen and (max-width:900px){
+        .shop_mall_join,
+        .btn_wide_stroke {
+            height: 33px;
+            line-height: 33px;
+        }
+    }
+</style>
+<div class="content_box sub_content_wrap">
+	<div class="member_wrap">
+		<div class="member_tit">
+			<h2 class="skip">{=__('회원가입')}</h2>
+		</div>
+		<!-- //member_tit -->
+		<div class="member_cont">
+
+			<div class="member_login_box">
+				<div class="member_login_shop">
+					<a href="#" id="btnJoin" class="shop_mall_join btn_member_join btn_wide_fill" >{=__('일반 회원가입')}</a>
+				</div>
+
+				<div class="member_sns_login">
+
+					<!--{? useKakaoLogin}-->
+					<!--{? wm_kakao_sink }-->
+					<!-- 웹앤모바일 카카오 싱크 ================================================== START -->
+					<a href="javascript:loginkakao('bd23d483ec4af682f037808f7363cc30');"><li class="btn_wide_stroke" data-return-url="{=returnUrl}">카카오 회원가입</li></a>
+					<!-- 웹앤모바일 카카오 싱크 ================================================== END -->
+					<!--{/}-->
+					<!--{/}-->
+
+					<!--{? usePaycoLogin}-->
+					<a href="#" class="btn_payco_login js_btn_payco_login btn_member_join btn_wide_stroke" data-payco-type="join_method">{=__('PAYCO')} {=__('회원가입')}</a>
+					<!--{/}-->
+					<!--{? useFacebookLogin}-->
+					<a href="#" class="btn_facebook_login js_btn_facebook_login btn_member_join btn_wide_stroke" data-sns-type="join_method" data-facebook-url="{=facebookUrl}">{=__('FACEBOOK')} {=__('회원가입')}</a>
+					<!--{/}-->
+					<!--{? useNaverLogin}-->
+					<a href="#" class="btn_naver_login js_btn_naver_login btn_member_join btn_wide_stroke" data-naver-type="join_method" data-naver-url="{=facebookUrl}">{=__('네이버')} {=__('회원가입')}</a>
+					<!--{/}-->
+					<!--{? useKakaoLogin}-->
+					{*
+					<a href="#" class="btn_naver_login js_btn_kakao_login btn_member_join btn_wide_stroke" data-kakao-type="join_method" data-return-url="{=returnUrl}">{=__('카카오')} {=__('회원가입')}</a>
+					*}
+					<!--{/}-->
+					<!--{? useWonderLogin}-->
+					<a href="#" class="btn_wonder_login js_btn_wonder_login btn_member_join btn_wide_stroke" data-wonder-type="join_method" data-wonder-url="{=wonderReturnUrl}">{=__('위메프')} {=__('회원가입')}</a>
+					<!--{/}-->
+					<!--{? useAppleLogin}-->
+					<a href="#" class="btn_apple_login js_btn_apple_login btn_member_join btn_wide_stroke">
+						{=__('Apple')} {=__('회원가입')}
+						<div id="appleid-signin" style="display: none"></div>
+					</a>
+					<!--{/}-->
+				</div>
+
+				<strong class="chk_none displaynone">
+					{=__('SNS계정을 연동하여 빠르고 쉽고 안전하게 회원가입 할 수 있습니다.')} <br />
+					{=__('이 과정에서 고객님의 데이터는 철저하게 보호됩니다.')}
+				</strong>
+			</div>
+		</div>
+		<!-- //member_cont -->
+
+		<div class="member_guide_txt">
+			<p>{=__('이미 쇼핑몰 회원이세요?')} <a href="#" id="btnLoginMember">{=__('로그인')}</a></p>
+		</div>
+
+	</div>
+	<!-- //member_wrap -->
+</div>
+<!-- //content_box -->
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#btnJoin').click(function () {
+			location.href = '../member/join_agreement.php?memberFl=personal';
+		});
+		$('#btnLoginMember').click(function () {
+			window.location.href = '../member/login.php';
+		});
+
+		<!--{ ? useAppleLogin }-->
+		$("#apple_btn").on("click", startClicked);
+		function startClicked(){
+			$("#appleid-signin").click();
+		}
+		<!--{ / }-->
+	});
+
+	/**
+	 * KAKAO JS SDK init
+	 */
+	function setKakaoSdkInit(clientSecret)
+	{
+		// Kakao 객체가 이미 초기화 되어있다면 cleanup해주고 다시 init 해준다
+		// Kakao 객체가 중복으로 init되면 함수 실행시 에러 발생하는 현상 방지
+		if (Kakao.isInitialized()) {
+			Kakao.cleanup();
+		}
+		Kakao.init(clientSecret);
+	}
+
+	function loginkakao(clientSecret){
+		setKakaoSdkInit(clientSecret);
+		Kakao.Auth.authorize({
+			redirectUri: 'http://moltz.co.kr/member/kakao/kakao_login.php',
+			state: $('#saveAutoLogin:checked').val() ? $('#saveAutoLogin:checked').val() : 'n',
+		});
+	}
+</script>
+
+<!--{ ? useAppleLogin }-->
+<script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+<script type="text/javascript">
+	AppleID.auth.init({
+		clientId : '{client_id}',
+		scope : 'name email',
+		redirectURI: '{redirectURI}',
+		state: '{state}',
+		// usePopup: true
+	});
+</script>
+<!--{ / }-->
+
+{ # footer }

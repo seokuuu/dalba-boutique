@@ -1,0 +1,471 @@
+.reserve .flickity-button {
+    top: 50%;
+}
+
+.store_tag {
+    display: inline-block;
+    padding: 5px 10px 6px 6px;
+    background-color: #000;
+    color: #fff;
+    font-family: "Pretendard", Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.416px;
+}
+
+.store_title {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.48px;
+}
+
+.store_address {
+    font-weight: 300; 
+    margin-top: 40px;
+    word-break: auto-phrase;
+}
+
+.store-info {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.store-info_item:nth-child(1) {
+    padding: 0 20px;
+}
+
+.store-info_item:nth-child(2) {
+    padding: 0 4px;
+}
+
+.store-info_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    margin: 0 auto;
+    padding: 8.5px 0;
+    border-radius: 50%;
+    border: 1px solid #000;
+}
+
+.store-info_icon_image {
+    width: auto;
+    height: 100%;
+}
+
+.store-info_text {
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: -0.2px;
+}
+
+.store_time {
+    margin-top: 40px;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 126.55%;
+    /* 18.983px */
+    letter-spacing: -0.3px;
+}
+
+.reserve-modal_button {
+    display: block;
+    margin: 32px auto 0;
+    padding: 4px;
+    border-bottom: 1px solid #000;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.26px;
+}
+
+.mobile_carousel_ui {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 40px;
+    font-size: 12px;
+    letter-spacing: -0.36px;
+}
+
+.mobile_carousel_paging {
+    line-height: 1;
+}
+
+.mobile_carousel_button {
+    height: 7px;
+    width: 11px;
+    top: auto;
+}
+
+.mobile_carousel_button.previous {
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.mobile_carousel_button.next {
+    right: 0;
+    transform: rotate(90deg);
+}
+
+/* 지도 모달 */
+.reserve-modal_overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reserve-modal {
+    overflow: auto;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+
+.reserve-modal_container {
+    display: grid;
+    width: 100%;
+    text-align: left;
+}
+
+.reserve-modal_head {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.reserve-modal_title-en {
+    font-family: "Classico URW";
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+}
+
+.reserve-modal_title {
+    margin-top: 47px;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.reserve-modal_address {
+    margin-top: 19px;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 176.471%;
+    letter-spacing: -0.34px;
+    word-break: auto-phrase;
+}
+
+.reserve-modal_tag.store_tag {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-top: 9px;
+}
+
+div.reserve-modal_tag.store_tag:empty {
+    display: none;
+}
+
+.reserve-modal_body {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.opening-hours_title {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 176.471%;
+    letter-spacing: -0.34px;
+}
+
+.opening-hours_list {
+    margin-top: 15px;
+}
+
+.opening-hours_item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 187.5%;
+    letter-spacing: -0.32px;
+    color: #a5a5a5;
+}
+
+.opening-hours_item:hover {
+    font-weight: 500;
+    color: #000;
+}
+
+.reserve-modal_footer {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    text-align: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    /* margin-top: 24px; */
+}
+
+.reserve-modal_btn {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #000;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 176.471%;
+    letter-spacing: -0.34px;
+}
+
+.reserve-modal_link {
+    text-align: center;
+    font-size: 17px;
+    line-height: 176.471%;
+    letter-spacing: -0.34px;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+}
+
+.reserve-modal_map {
+    position: relative;
+    background: #f5eee7;
+}
+
+.reserve-modal_map:before,
+.reserve-modal_map:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 105;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.reserve-modal_map:before {
+    background: #fff;
+    mix-blend-mode: color;
+}
+
+.reserve-modal_map:after {
+    background: #e09225;
+    mix-blend-mode: overlay;
+}
+
+.naver-map-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.naver-map-container::before {
+    content: "네이버 지도 영역";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.naver-map-container.has-map::before {
+    display: none;
+}
+
+@media (min-width: 601px) {
+    .reserve-modal_overlay {
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.3);
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .reserve-modal_overlay.open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .reserve-modal {
+        width: 90%;
+        max-width: 1000px;
+        height: 90%;
+        max-height: 730px;
+    }
+
+    .reserve-modal_close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 110;
+        width: 50px;
+        height: 50px;
+        padding: 17px;
+        border-radius: 50%;
+        background: #fff;
+    }
+
+    .reserve-modal_container {
+        height: 100%;
+        /* 38.5% (max 385px) | 61.5% (max 615px) based on 1000px parent */
+        grid-template-columns: clamp(0px, 38.5%, 385px) clamp(0px, 61.5%, 615px);
+        grid-template-rows:
+            clamp(0px, 41.0958904109589%, 300px) clamp(0px, 41.0958904109589%, 300px) clamp(0px, 17.80821917808219%, 130px);
+    }
+
+    .reserve-modal_head {
+        grid-column: 1;
+        grid-row: 1;
+        padding-top: 60px;
+        padding-bottom: 22px;
+    }
+
+    .reserve-modal_map {
+        grid-column: 2;
+        grid-row: 1 / -1;
+        /* span all rows */
+    }
+
+    .reserve-modal_body {
+        grid-column: 1;
+        grid-row: 2;
+        padding-bottom: 45px;
+    }
+
+    .reserve-modal_address {
+        text-align: left;
+    }
+
+    .reserve-modal_footer {
+        grid-column: 1;
+        grid-row: 3;
+    }
+}
+
+@media screen and (max-width: 900px) {
+
+    .store_title,
+    .reserve-modal_title,
+    .opening-hours_title {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    .reserve_content,
+    .reserve-modal_address {
+        font-size: 14px;
+        letter-spacing: -0.28px;
+    }
+
+    .reserve_content {
+        padding: 30px 0 60px;
+    }
+
+    .store_address {
+        margin-top: 48px;
+    }
+
+    .store-info_text {
+        font-size: 10px;
+    }
+
+    .store_time {
+        font-size: 14px;
+        line-height: 136.27%;
+        letter-spacing: -0.28px;
+    }
+
+    .reserve-modal_close-btn {
+        width: 40px;
+        height: 40px;
+        padding: 13px;
+    }
+
+    .reserve-modal_title-en {
+        font-size: 15px;
+        letter-spacing: -0.3px;
+    }
+
+    .reserve-modal_btn {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .reserve-modal_link {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 690px) {
+    .reserve-modal_overlay {
+        display: flex;
+        z-index: 100;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .reserve-modal_overlay.open {
+        transform: translateY(0);
+    }
+
+    .reserve-modal_close-btn {
+        display: none;
+    }
+
+    .reserve-modal_container {
+        gap: 60px;
+        padding-top: 110px;
+        padding-bottom: 110px;
+    }
+
+    .reserve-modal_head {
+        text-align: center;
+    }
+
+    .reserve-modal_title {
+        margin-top: 38px;
+    }
+
+    .reserve-modal_address {
+        margin-top: 8px;
+        line-height: normal;
+    }
+
+    .reserve-modal_map {
+        height: 350px;
+    }
+
+    .opening-hours_title {
+        text-align: center;
+    }
+
+    .opening-hours_list {
+        margin-top: 30px;
+    }
+
+    .opening-hours_item {
+        line-height: 200%;
+    }
+
+    .mobile_carousel_ui {
+        display: flex;
+    }
+}

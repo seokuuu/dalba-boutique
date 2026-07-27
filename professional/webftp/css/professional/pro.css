@@ -1,0 +1,91 @@
+/*
+ * pro.css - d'Alba PROFESSIONAL / Pro 랜딩(접근 게이트)
+ * tokens/base 는 professional.css(공통)에서 로드됨. gThisPageCss 로 이 파일 지정.
+ */
+@import "./common/common.css";
+
+.pro-gate {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pro-gate__inner {
+    max-width: 52rem;
+    text-align: center;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+}
+
+.pro-gate__logo-image {
+    width: 22rem;
+    max-width: 60%;
+    height: auto;
+}
+
+.pro-gate__lead {
+    margin-top: 3.2rem;
+    font-size: 1.7rem;
+    line-height: 1.7;
+    color: var(--color-gray-800);
+}
+
+.pro-gate__actions {
+    margin-top: 4rem;
+}
+
+.pro-gate__btn {
+    display: inline-block;
+    padding: 1.6rem 4rem;
+    font-size: 1.6rem;
+    text-decoration: none;
+    border-radius: 0.4rem;
+    transition: opacity var(--duration-200) var(--ease-out);
+}
+
+.pro-gate__btn--primary {
+    background: var(--color-gray-900);
+    color: var(--color-white);
+}
+
+.pro-gate__btn--primary:hover {
+    opacity: 0.85;
+}
+
+.pro-gate__kakao {
+    margin-top: 6rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--color-gray-300);
+}
+
+.pro-gate__kakao-title {
+    font-family: var(--font-en-title);
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    color: var(--color-gray-750);
+}
+
+.pro-gate__kakao-desc {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: var(--color-gray-800);
+}
+
+.pro-gate__kakao-link {
+    display: inline-block;
+    margin-top: 1.6rem;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .pro-gate__inner {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+    .pro-gate__lead {
+        font-size: 1.5rem;
+    }
+}

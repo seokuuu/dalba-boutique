@@ -1,0 +1,598 @@
+h2 {
+    line-height: normal;
+}
+
+.main-content {
+    position: relative;
+    z-index: var(--z-main);
+    will-change: scroll-position;
+    background-color: var(--color-gray-300);
+}
+
+.more-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    color: var(--color-white);
+}
+
+.more-link .wrapper {
+    position: absolute;
+    bottom: min(30vw, 120px);
+    text-align: right;
+}
+
+.more-link__text {
+    display: block;
+    font-size: 13px;
+    line-height: normal;
+    letter-spacing: -0.26px;
+    text-decoration: underline;
+    text-underline-position: under;
+}
+.more-link__button {
+    height: 42px;
+    min-width: 130px;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    font-weight: 500;
+    color: #ffffff;
+    transition: all 0.4s;
+}
+.more-link__button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    /* height: calc(var(--vh, 1vh) * 100); */
+    min-height: 100vh;
+    /* min-height: calc(var(--vh, 1vh) * 100); */
+}
+
+.hero__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.hero__container {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.hero__container.is-fade-out {
+    -webkit-animation: fade-out var(--duration-300) linear forwards;
+    animation: fade-out var(--duration-300) linear forwards;
+}
+
+.hero__container.is-fade-in {
+    -webkit-animation: fade-in var(--duration-300) linear forwards;
+    animation: fade-in var(--duration-300) linear forwards;
+}
+
+@-webkit-keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.slide-up-text {
+    background-size: cover;
+    overflow: hidden;
+    color: #fff;
+}
+
+.slide-up-text__container {
+    position: relative;
+    height: 100%;
+}
+
+.slide-up-text__content {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.slide-up-text__heading {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 0.625rem;
+    text-transform: uppercase;
+}
+
+.slide-up-text__paragraph {
+    display: none;
+}
+
+.carousel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    will-change: transform;
+    background-color: #fff;
+    padding: min(25vw, 100px) 0;
+    overflow: hidden;
+}
+
+.carousel__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    top: 0;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    will-change: transform;
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
+}
+
+.carousel__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 10px;
+    will-change: transform;
+    overflow-x: visible;
+}
+
+.carousel__item {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: max(60vw, 240px);
+    height: auto;
+}
+
+.carousel__item:nth-of-type(even) {
+    width: max(35vw, 140px);
+}
+
+.carousel__video {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.carousel__image {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.carousel__picture {
+    width: 100%;
+    height: 100%;
+}
+
+.carousel__control {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 0 0.9375rem;
+    height: 100%;
+}
+
+.carousel__control--prev {
+    left: 0;
+}
+.carousel__control--prev svg {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.carousel__control--next {
+    right: 0;
+}
+
+.discover {
+    position: relative;
+    bottom: -100vw;
+    z-index: var(--z-carousel-control);
+    background-size: cover;
+    overflow: hidden;
+}
+
+.discover.is-sticky {
+    position: sticky;
+}
+
+.discover__picture {
+    width: 100%;
+    height: 100%;
+}
+
+.discover__image {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.discover__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: var(--z-main);
+    width: 100%;
+    height: 100%;
+}
+
+.discover__heading {
+    padding-top: min(25vw, 100px);
+}
+
+.discover__main-title {
+    display: block;
+    color: var(--color-white);
+    text-align: center;
+}
+
+.products {
+    display: none;
+}
+
+.en-page .more-link__text {
+    text-decoration: none;
+}
+
+.en-page .discover__main-title {
+    text-transform: uppercase;
+}
+
+@media (min-width: 601px) {
+    .slide-up-text {
+        height: 100vh;
+        min-height: 100vh;
+    }
+
+    .slide-up-text__content {
+        padding-top: 20px;
+        width: auto;
+        text-align: left;
+    }
+
+    .slide-up-text__paragraph {
+        display: block;
+        margin-top: 35px;
+    }
+
+    .more-link .wrapper {
+        text-align: left;
+    }
+    .carousel {
+        padding: 0;
+        height: 100vh;
+        min-height: 100vh;
+    }
+
+    .carousel__container {
+        position: sticky;
+        height: 100%;
+    }
+
+    .carousel__list {
+        gap: 30px;
+        padding: 0 40% 0 70%;
+    }
+
+    .carousel__item {
+        width: max(34.722vw, 600px);
+        height: 66.248vh;
+    }
+
+    .carousel__item:nth-of-type(even) {
+        width: max(23.148vw, 400px);
+    }
+
+    .carousel__control {
+        display: none;
+    }
+
+    .discover {
+        bottom: 0;
+        background-image: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            from(#000000),
+            color-stop(50%, #240c00),
+            color-stop(60%, #411e02),
+            color-stop(70%, #713b03),
+            color-stop(80%, #ad7028),
+            to(#ffe4af)
+        );
+        background-image: linear-gradient(
+            180deg,
+            #000000 0%,
+            #240c00 50%,
+            #411e02 60%,
+            #713b03 70%,
+            #ad7028 80%,
+            #ffe4af 100%
+        );
+        background-image: url("https://dalbasignature.s3.us-east-2.amazonaws.com/assets/MAIN/background_02.jpeg");
+        background-position: 50% 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: var(--color-white);
+    }
+
+    .discover__container {
+        height: 100vh;
+        min-height: 100vh;
+    }
+
+    .discover__content {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .discover__heading {
+        padding-top: 17vh;
+    }
+
+    .discover__picture {
+        display: none;
+    }
+
+    .products {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-bottom: 12vh;
+    }
+
+    .products::after {
+        display: block;
+        position: relative;
+        -webkit-transform: translateY(clamp(-28px, -1.446vw, -19.6656px));
+        transform: translateY(clamp(-22px, -1.2731481481481481vw, -16px));
+        z-index: 10;
+        border-top: 5px solid #444;
+        background-image: -webkit-gradient(linear, left bottom, left top, from(#000), to(#333));
+        background-image: linear-gradient(to top, #000, #333);
+        width: 100%;
+        height: clamp(19.6656px, 1.446vw, 28px);
+        content: "";
+    }
+    .products__list {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        position: relative;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+        align-items: flex-end;
+        -webkit-transform: translateX(clamp(50px, 4.166vw, 80px));
+        transform: translateX(clamp(50px, 4.166vw, 80px));
+
+        width: clamp(893.2928px, 65.683vw, 1261px);
+    }
+
+    .products__item {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        position: relative;
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+        align-items: flex-end;
+    }
+
+    .products__item--capsule {
+        left: 0;
+        width: clamp(342.3664px, 25.174vw, 483px);
+        transform: translateY(clamp(4px, 0.3472vw, 6px));
+    }
+
+    .products__item--color-correction {
+        margin-left: clamp(-230px, -11.979166666666668vw, -161.2987012987013px); /* 1920px 기준값: min */
+        width: clamp(113.41330020703934px, 8.333333333333332vw, 160px); /* 1920px 기준값: max */
+    }
+
+    .products__item--double-ampoule {
+        width: clamp(116.93260663507111px, 8.59375vw, 165px);
+        margin-left: clamp(-33px, -1.736vw, -23.6096px);
+    }
+
+    .products__item--essence-toner {
+        -webkit-transform: translateY(clamp(7.8744px, 0.579vw, 11px));
+        transform: translateY(clamp(7.8744px, 0.579vw, 11px));
+        margin-left: clamp(-96px, -4.8vw, -68px);
+        width: clamp(187.89502702702703px, 13.802083333333334vw, 265px);
+    }
+
+    .products__item--essence-toner .products__image {
+        -webkit-transform: rotate(-5deg);
+        transform: rotate(-5deg);
+    }
+
+    .products__item--liposome {
+        -webkit-transform: translateY(clamp(-4px, -0.289vw, -3px));
+        transform: translateY(clamp(-4px, -0.289vw, -3px));
+        margin-left: clamp(-67px, -3.472vw, -47.2192px);
+        width: clamp(106.1879365079365px, 7.8125vw, 150px);
+    }
+
+    .products__item--spray-ampoule {
+        right: 0;
+        -webkit-transform: translateY(clamp(-11px, -0.579vw, -7.8744px));
+        transform: translateY(clamp(-11px, -0.579vw, -7.8744px));
+        margin-left: clamp(-65px, -5.208333333333334vw, -90vw);
+        width: clamp(248.16324324324324px, 18.229166666666664vw, 350px);
+    }
+
+    .products__item--toning-patch {
+        margin-left: clamp(-210px, -10.9375vw, -148.89794594594593px);
+        width: clamp(340.3381621621621px, 25vw, 480px);
+        transform: translateY(7px);
+    }
+
+    .products__anchor {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-line-pack: center;
+        z-index: 5;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        /* border: 0.5px solid #d9d9d9; */
+        border-radius: 50%;
+        width: clamp(27.54px, 2.025vw, 39px);
+        height: clamp(27.54px, 2.025vw, 39px);
+    }
+
+    .products__item--capsule .products__anchor {
+        -webkit-transform: translate(clamp(-17px, -0.868vw, -11.8048px), clamp(-24px, -1.25vw, -17px));
+        transform: translate(clamp(-17px, -0.868vw, -11.8048px), clamp(-24px, -1.25vw, -17px));
+    }
+    .products__item--color-correction .products__anchor {
+        -webkit-transform: translate(clamp(-33px, -1.736vw, -23.6096px), clamp(-28px, -1.447vw, -19.6792px));
+        transform: translate(clamp(-33px, -1.736vw, -23.6096px), clamp(-28px, -1.447vw, -19.6792px));
+    }
+    .products__item--double-ampoule .products__anchor {
+        -webkit-transform: translate(clamp(-22px, -1.157vw, -15.7352px), clamp(-30px, -1.591vw, -21.6376px));
+        transform: translate(clamp(-22px, -1.157vw, -15.7352px), clamp(-30px, -1.591vw, -21.6376px));
+    }
+    .products__item--essence-toner .products__anchor {
+        -webkit-transform: translate(clamp(-94px, -4.918vw, -66.8848px), clamp(-8px, -0.434vw, -5.9024px));
+        transform: translate(clamp(-94px, -4.918vw, -66.8848px), clamp(-8px, -0.434vw, -5.9024px));
+    }
+    .products__item--liposome .products__anchor {
+        -webkit-transform: translate(clamp(-48px, -2.5vw, -34px), clamp(-30px, -1.591vw, -21.6376px));
+        transform: translate(clamp(-48px, -2.5vw, -34px), clamp(-30px, -1.591vw, -21.6376px));
+    }
+    .products__item--spray-ampoule .products__anchor {
+        -webkit-transform: translate(clamp(-156px, -8.102vw, -110.1872px), clamp(-44px, -2.315vw, -31.484px));
+        transform: translate(clamp(-156px, -8.102vw, -110.1872px), clamp(-44px, -2.315vw, -31.484px));
+    }
+
+    .products__item--toning-patch .products__anchor {
+        -webkit-transform: translate(
+            clamp(-95px, -4.947916666666666vw, -67.1011794871795px),
+            clamp(-25px, -1.3020833333333335vw, -17.65820512820513px)
+        );
+        transform: translate(
+            clamp(-95px, -4.947916666666666vw, -67.1011794871795px),
+            clamp(-25px, -1.3020833333333335vw, -17.65820512820513px)
+        );
+    }
+
+    .products__icon {
+        width: 60%;
+        height: auto;
+    }
+
+    .discover .more-link {
+        display: none;
+    }
+}
+
+@media (min-width: 961px) {
+    .more-link__text {
+        font-size: 19px;
+        letter-spacing: -0.19px;
+    }
+    .more-link__button {
+        height: auto;
+        font-size: 15px;
+        padding: 15px 25px;
+
+    }
+}

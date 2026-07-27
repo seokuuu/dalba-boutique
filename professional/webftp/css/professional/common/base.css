@@ -1,0 +1,230 @@
+.show-sm,
+.show-md,
+.show-lg {
+    display: none;
+}
+
+.wrapper {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: var(--wrapper-padding-xs);
+    padding-left: var(--wrapper-padding-xs);
+    width: 100%;
+}
+
+.font-kr {
+    font-weight: 300;
+    font-family: var(--font-kr);
+    letter-spacing: -0.57px;
+}
+
+.font-en-body {
+    font-weight: 400;
+    font-family: var(--font-en-body);
+    letter-spacing: -0.19px;
+}
+
+.font-en-title {
+    font-weight: 400;
+    font-family: var(--font-en-title);
+    letter-spacing: -0.36px;
+}
+
+.main-title {
+    display: block;
+    font-weight: 300;
+    font-size: 38px;
+    letter-spacing: -1.14px;
+}
+
+.accent-title {
+    font-size: 40px;
+    letter-spacing: -0.8px;
+    text-transform: uppercase;
+}
+
+.sub-title {
+    display: block;
+    font-size: 23px;
+    letter-spacing: -0.46px;
+}
+
+.upper-title {
+    font-size: 20px;
+    margin-bottom: 1rem;
+}
+
+.paragraph {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 133.333%;
+    letter-spacing: -0.45px;
+    word-break: keep-all;
+}
+
+.small-paragraph {
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: -0.36px;
+}
+
+.text-transform-none {
+    text-transform: none;
+}
+
+.collapse-panel-close {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: -webkit-transform var(--duration-300) var(--ease-in-out);
+    width: 5px;
+    height: 5px;
+}
+
+.collapse-panel-close:before,
+.collapse-panel-close:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: -webkit-transform var(--duration-300) var(--ease-in-out);
+    -webkit-transition: -webkit-transform var(--duration-300) var(--ease-in-out);
+    transition: transform var(--duration-300) var(--ease-in-out);
+    transition: transform var(--duration-300) var(--ease-in-out),
+        -webkit-transform var(--duration-300) var(--ease-in-out);
+    transition: transform var(--duration-300) var(--ease-in-out),
+        -webkit-transform var(--duration-300) var(--ease-in-out);
+    transition: transform var(--duration-300) var(--ease-in-out),
+        -webkit-transform var(--duration-300) var(--ease-in-out);
+    transition: transform var(--duration-300) var(--ease-in-out),
+        -webkit-transform var(--duration-300) var(--ease-in-out);
+    transition: transform var(--duration-300) var(--ease-in-out),
+        -webkit-transform var(--duration-300) var(--ease-in-out);
+    background-color: var(--color-black);
+    width: 5px;
+    height: 1px;
+    content: "";
+}
+
+.collapse-panel-close:after {
+    -webkit-transform: translate(-50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.collapse-panel-close.is-active:after {
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.video-player {
+    position: relative;
+    background-position: 50% 50%;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.video-player__video {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    background-color: transparent;
+}
+
+.breadcrumb.is-sticky {
+    position: sticky;
+}
+
+@media (max-width: 399px) {
+    .main-title {
+        font-weight: 300;
+        font-size: 35px;
+        letter-spacing: -1.14px;
+    }
+
+    .main-title .font-en-title {
+        font-size: 37px;
+        line-height: 0;
+        letter-spacing: -0.8px;
+    }
+
+    .sub-title {
+        font-size: 21px;
+        letter-spacing: -0.46px;
+    }
+
+    .paragraph {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 601px) {
+    .show-sm {
+        display: block;
+    }
+
+    .hide-sm {
+        display: none;
+    }
+
+    .wrapper {
+        padding-right: var(--wrapper-padding-sm);
+        padding-left: var(--wrapper-padding-sm);
+    }
+}
+
+@media (min-width: 961px) {
+    .show-md {
+        display: block;
+    }
+}
+
+@media (min-width: 1201px) {
+    .show-lg {
+        display: block;
+    }
+    .main-title {
+        font-size: 60px;
+        letter-spacing: -1.8px;
+    }
+
+    .accent-title {
+        font-size: 65px;
+        letter-spacing: -1.3px;
+    }
+
+    .sub-title {
+        font-size: 30px;
+        line-height: normal;
+        letter-spacing: -0.6px;
+    }
+
+	.upper-title {
+		font-size: 35px;
+	}
+
+    .paragraph {
+        font-size: 19px;
+        line-height: 131.579%;
+        letter-spacing: -0.57px;
+    }
+
+    .small-paragraph {
+        font-size: 15px;
+        line-height: 25px;
+        letter-spacing: -0.45px;
+    }
+
+    .en-page .main-title {
+        letter-spacing: -1.2px;
+    }
+
+    .en-page .paragraph {
+        letter-spacing: -0.19px;
+    }
+}

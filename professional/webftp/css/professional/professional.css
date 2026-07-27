@@ -1,0 +1,215 @@
+/* CSS 모듈 import */
+@import "./common/tokens.css";
+@import "./common/reset.css";
+@import "./common/base.css";
+
+.fade-in-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    z-index: 1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#231911), to(#19140f));
+    background-image: linear-gradient(to bottom, #231911, #19140f);
+    height: 100vh;
+    /* height: calc(var(--vh, 1vh) * 100); */
+    min-height: 100vh;
+    /* min-height: calc(var(--vh, 1vh) * 100); */
+    text-align: center;
+}
+
+.fade-in-text--second {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#19140f), to(var(--color-black)));
+    background-image: linear-gradient(to bottom, #19140f, var(--color-black));
+}
+
+.fade-in-text__paragraph {
+    -webkit-font-smoothing: antialiased;
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+    font-size: 0;
+    -ms-scroll-chaining: none;
+    overscroll-behavior: none;
+    text-rendering: optimizeLegibility;
+    text-transform: initial;
+}
+
+.fade-in-text__paragraph + .fade-in-text__paragraph {
+    margin-top: 40px;
+}
+
+.fade-in-text__word {
+    position: relative;
+    -webkit-transition: color var(--duration-300) linear;
+    transition: color var(--duration-300) linear;
+    margin: 0 -0.15px;
+    font-size: 18px;
+    line-height: 166.667%;
+    will-change: color;
+}
+
+.fade-in-text__word--title {
+    margin: 0 -0.4px;
+    font-size: 40px;
+    line-height: 125%;
+}
+
+.horizontal-scroll {
+    position: relative;
+    will-change: transform;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.horizontal-scroll__list {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.horizontal-scroll__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    clip-path: inset(0 0 0 0);
+    will-change: clip-path;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.horizontal-scroll__picture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.horizontal-scroll__image {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.horizontal-scroll__content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    top: min(35vw, 140px);
+    left: 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: min(12.5vw, 50px);
+    z-index: 2;
+    will-change: transform;
+    color: var(--color-white);
+}
+
+.horizontal-scroll__heading {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    line-height: normal;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: min(15vw, 60px);
+}
+
+.horizontal-scroll__accent-title {
+    line-height: 0;
+}
+
+.en-page .horizontal-scroll__heading {
+    line-height: 1.25;
+}
+
+.en-page .discover__main-title {
+    text-transform: uppercase;
+}
+
+
+.signature-story__link-list {
+    display: flex;
+    gap: 80px;
+    margin-top: 70px;
+}
+
+.signature-story__link {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--color-white);
+    letter-spacing: -0.48px;
+    transition-property: opacity, visibility, transform;
+    transition-duration: 0.6s;
+    transition-timing-function: ease-in-out;
+    transform: translateY(100%);
+}
+.signature-story__link-list.active .signature-story__link {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media (min-width: 601px) {
+    .horizontal-scroll__content {
+        top: min(16.666vw, 120px);
+    }
+}
+@media (min-width: 961px) {
+    .fade-in-text__word {
+        font-size: 25px;
+        line-height: 144%;
+        letter-spacing: -0.5px;
+    }
+    .fade-in-text__word--title {
+        font-size: 55px;
+        letter-spacing: -1.1px;
+    }
+
+    .horizontal-scroll__content {
+        top: min(11.863vw, 205px);
+        gap: 30px;
+    }
+
+    .horizontal-scroll__heading {
+        gap: min(5.787vw, 100px);
+    }
+}
+
+@media (min-width: 1201px) {
+    .en-page .horizontal-scroll__paragraph .accent-title {
+        font-size: 65px;
+        letter-spacing: -1.3px;
+    }
+}

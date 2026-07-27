@@ -1,0 +1,112 @@
+/*
+ * articles.css - d'Alba PROFESSIONAL Articles(게시판형)
+ * signature 대응 없음 → 신규. tokens/base 는 professional.css(공통)에서 로드됨.
+ * TODO: 고도몰 기본 게시판 위젯 연동 시 실제 마크업에 맞춰 셀렉터 조정
+ */
+@import "./common/common.css";
+
+.articles-intro {
+    padding-top: 12rem;
+    padding-bottom: 4rem;
+    text-align: center;
+}
+
+.articles-intro__title {
+    font-family: var(--font-en-title);
+    font-size: 4.2rem;
+    letter-spacing: 0.02em;
+    color: var(--color-gray-900);
+}
+
+.articles-intro__paragraph {
+    margin-top: 1.6rem;
+    font-size: 1.6rem;
+    color: var(--color-gray-750);
+}
+
+.articles {
+    padding-bottom: 12rem;
+}
+
+.articles__container {
+    max-width: var(--container-max);
+}
+
+.articles__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 2.4rem;
+}
+
+.articles__item {
+    display: block;
+}
+
+.articles__item a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.articles__picture {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--color-gray-100);
+    border-radius: 0.4rem;
+}
+
+.articles__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-450) var(--ease-out);
+}
+
+.articles__item a:hover .articles__image {
+    transform: scale(1.04);
+}
+
+.articles__category {
+    margin-top: 2rem;
+    font-family: var(--font-en-title);
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+}
+
+.articles__title {
+    margin-top: 1rem;
+    font-size: 1.8rem;
+    line-height: 1.5;
+    color: var(--color-gray-900);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.articles__date {
+    margin-top: 1.2rem;
+    font-size: 1.4rem;
+    color: var(--color-gray-600);
+}
+
+@media (max-width: 960px) {
+    .articles__list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .articles-intro {
+        padding-top: 8rem;
+    }
+    .articles-intro__title {
+        font-size: 3.2rem;
+    }
+    .articles__list {
+        grid-template-columns: 1fr;
+        gap: 3.2rem;
+    }
+}

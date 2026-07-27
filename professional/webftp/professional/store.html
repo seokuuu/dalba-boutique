@@ -1,8 +1,7 @@
-{***  | professional/kr/store.php ***}
-{ # header }
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=pr4xnb33yf"></script>
-<script defer src="{=setBrowserCache(c.PATH_SKIN+'js/'+gThisDirName+'/common/store.js')}"></script>
-<!-- TODO: store.js는 시그니처용 캐러셀 로직 - 검색 UI에 맞게 professional 전용 스크립트로 교체 필요 -->
+{***  | professional/store.php ***} { # header }
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=pr4xnb33yf&submodules=geocoder"></script>
+<script defer src="{=setBrowserCache(c.PATH_SKIN+'js/'+gThisDirName+'/store.js')}"></script>
+<!-- store.js = professional 전용 검색 UI + 네이버지도 모달 (자체 DOMContentLoaded init, 중복로드 guard 있음) -->
 <main id="professional-store" class="main-content font-kr">
     <section class="store-intro section_theme" data-theme="light">
         <div class="wrapper">
@@ -24,24 +23,44 @@
             </div>
             <!-- //store_search -->
 
-            <!-- TODO: 매장 데이터는 관리자 페이지(운영팀 등록)에서 관리 예정(dalba_pro.md §2 Store 행 참조) -->
-            <!-- 실 데이터 연동 전까지는 샘플 항목으로 레이아웃만 표시 -->
+            <!--
+              매장 리스트 = 고도몰 "매장 게시판" 커스텀 스킨이 렌더 (운영팀 자가관리).
+              게시판 연동 시 아래 <ul id="storeList"> 내부를 게시판 리스트 위젯 include 로 교체:
+                <ul id="storeList" class="store_list">
+                    {=includeWidget('board/professional_store/list.html', ['bdId'=>'<매장게시판ID>'])}
+                </ul>
+              그 스킨은 각 매장을 store.js 가 읽는 data-* 계약(아래 샘플과 동일 구조)으로 출력해야 함.
+              ⚠️ 위젯/변수 문법은 board/skin/default/list.html 확인 후 확정 (professional/webftp/board/skin/professional_store/list.html 초안 참조).
+
+              데이터 계약(store.js buildStoreDataFromDOM 이 읽음):
+                data-name / data-address / data-phone / data-hours("요일 시간;요일 시간;...") / data-image
+                data-lat / data-lng (선택 — 없으면 주소 지오코딩)
+            -->
+            <!-- TEST/FALLBACK: 게시판 연동 전 레이아웃·동작 확인용 샘플. 연동 시 위 include 로 교체하고 제거. -->
             <ul id="storeList" class="store_list">
-                <li class="store_list_item">
+                <li class="store_list_item"
+                    data-name="달바 프로페셔널 청담 살롱 (예시)"
+                    data-address="서울 강남구 청담동 512-8"
+                    data-phone="02-0000-0000"
+                    data-hours="월요일 10:00-20:00;화요일 10:00-20:00;수요일 10:00-20:00;목요일 10:00-20:00;금요일 10:00-20:00;토요일 10:00-18:00;일요일 휴무">
                     <div class="store_list_info">
                         <p class="store_list_name">달바 프로페셔널 청담 살롱 (예시)</p>
-                        <p class="store_list_address">서울 강남구 청담동 000-00</p>
+                        <p class="store_list_address">서울 강남구 청담동 512-8</p>
                         <p class="store_list_phone">02-0000-0000</p>
                     </div>
-                    <button type="button" class="reserve-modal_button" data-store-index="0">지도에서 보기</button>
+                    <button type="button" class="reserve-modal_button">지도에서 보기</button>
                 </li>
-                <li class="store_list_item">
+                <li class="store_list_item"
+                    data-name="달바 프로페셔널 홍대 살롱 (예시)"
+                    data-address="서울 마포구 서교동 358-101"
+                    data-phone="02-0000-0000"
+                    data-hours="월요일 11:00-21:00;화요일 11:00-21:00;수요일 11:00-21:00;목요일 11:00-21:00;금요일 11:00-21:00;토요일 11:00-19:00;일요일 휴무">
                     <div class="store_list_info">
                         <p class="store_list_name">달바 프로페셔널 홍대 살롱 (예시)</p>
-                        <p class="store_list_address">서울 마포구 서교동 000-00</p>
+                        <p class="store_list_address">서울 마포구 서교동 358-101</p>
                         <p class="store_list_phone">02-0000-0000</p>
                     </div>
-                    <button type="button" class="reserve-modal_button" data-store-index="1">지도에서 보기</button>
+                    <button type="button" class="reserve-modal_button">지도에서 보기</button>
                 </li>
             </ul>
         </div>
