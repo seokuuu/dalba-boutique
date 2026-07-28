@@ -17,9 +17,9 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <!-- // PG크로스브라우징필수내용 -->
 
-    <title>{=gMall.mallTitle}</title>
+    <title><!--{ ? gThisDirName == 'signature'}-->달바 시그니처 부티크<!--{ : }-->{=gMall.mallTitle}<!--{ / }--></title>
     <meta name="author" content="{=gMall.mallAuthor}" />
-    <meta name="description" content="{=gMall.mallDescription}" />
+    <meta name="description" content="<!--{ ? gThisDirName == 'signature'}-->더 프리미엄 리프팅 리추얼, 달바 시그니처<!--{ : }-->{=gMall.mallDescription}<!--{ / }-->" />
     <meta name="keywords" content="{=gMall.mallKeyword}" />
     <meta name="robots" content="ALL">
     <meta name="robots" content="INDEX, FOLLOW" />
@@ -47,6 +47,11 @@
     <meta name="robots" content="ALL">
     <meta name="robots" content="INDEX, FOLLOW" />
     <!--{ / }-->
+	
+	<!--{ ? gThisDirName == 'signature'}-->
+	<meta property="og:title" content="달바 시그니처 부티크">
+	<meta property="og:description" content="더 프리미엄 리프팅 리추얼, 달바 시그니처">
+	<!--{ / }-->
 
     <!--{ ? is_array(gd_isset(headerMeta)) }-->
     <!-- Add Meta : start -->
