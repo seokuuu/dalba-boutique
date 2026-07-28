@@ -1,6 +1,6 @@
 /*
- * pro.css - d'Alba PROFESSIONAL / Pro 랜딩(접근 게이트)
- * tokens/base 는 professional.css(공통)에서 로드됨. gThisPageCss 로 이 파일 지정.
+ * pro.css - d'Alba PROFESSIONAL / Pro 랜딩 (Figma PRO-PC-kr-01-1)
+ * 핑크 배경 + 중앙 카드(왼쪽 로그인 / 오른쪽 가입안내)
  */
 @import "./common/common.css";
 
@@ -9,83 +9,147 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 8rem 2rem;
+    background: #e9cdd4 url("/data/img/professional/pro/PRO-BG.png") center/cover no-repeat;
 }
 
-.pro-gate__inner {
-    max-width: 52rem;
+.pro-card {
+    display: flex;
+    width: 100%;
+    max-width: 88rem;
+    background: var(--color-white);
+    border-radius: 0.6rem;
+    box-shadow: 0 2rem 6rem rgba(60, 20, 30, 0.18);
+    overflow: hidden;
+}
+
+.pro-card__col {
+    flex: 1;
+    padding: 6rem 5rem;
+}
+
+.pro-card__title {
+    font-size: 2.2rem;
+    letter-spacing: 0.02em;
+    color: var(--color-gray-900);
+    margin-bottom: 3.2rem;
+}
+
+/* 로그인 */
+.pro-login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.pro-login__input {
+    height: 4.8rem;
+    padding: 0 1.4rem;
+    border: 1px solid var(--color-gray-500);
+    border-radius: 0.3rem;
+    font-size: 1.4rem;
+    color: var(--color-gray-900);
+}
+.pro-login__input::placeholder {
+    color: var(--color-gray-600);
+}
+
+.pro-login__submit {
+    height: 4.8rem;
+    margin-top: 0.8rem;
+    background: var(--color-gray-900);
+    color: var(--color-white);
+    border: 0;
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: opacity var(--duration-200) var(--ease-out);
+}
+.pro-login__submit:hover {
+    opacity: 0.88;
+}
+
+.pro-login__links {
+    margin-top: 2rem;
     text-align: center;
-    padding-top: 10rem;
-    padding-bottom: 10rem;
+    font-size: 1.35rem;
+    color: var(--color-gray-600);
+}
+.pro-login__links a {
+    color: var(--color-gray-700);
+    text-decoration: none;
+}
+.pro-login__divider {
+    margin: 0 1rem;
+    color: var(--color-gray-400);
 }
 
-.pro-gate__logo-image {
-    width: 22rem;
-    max-width: 60%;
-    height: auto;
+/* 가입 안내 */
+.pro-inquiry {
+    border-left: 1px solid var(--color-gray-300);
 }
-
-.pro-gate__lead {
-    margin-top: 3.2rem;
-    font-size: 1.7rem;
+.pro-inquiry__lead {
+    font-size: 1.5rem;
     line-height: 1.7;
     color: var(--color-gray-800);
 }
-
-.pro-gate__actions {
-    margin-top: 4rem;
+.pro-inquiry__lead strong {
+    font-weight: 600;
 }
-
-.pro-gate__btn {
-    display: inline-block;
-    padding: 1.6rem 4rem;
-    font-size: 1.6rem;
+.pro-inquiry__kakao {
+    position: relative;
+    margin-top: 2.4rem;
+    padding-left: 3.4rem;
+    font-size: 1.4rem;
+    line-height: 1.65;
+    color: var(--color-gray-750);
+}
+.pro-inquiry__kakao strong {
+    color: var(--color-gray-900);
+}
+.pro-inquiry__kakao-ico {
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    background: #fae100;
+    color: #3c1e1e;
+    border-radius: 0.6rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pro-inquiry__btn {
+    display: block;
+    margin-top: 3.2rem;
+    height: 4.8rem;
+    line-height: 4.8rem;
+    text-align: center;
+    border: 1px solid var(--color-gray-900);
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    color: var(--color-gray-900);
     text-decoration: none;
-    border-radius: 0.4rem;
-    transition: opacity var(--duration-200) var(--ease-out);
+    transition: background var(--duration-200) var(--ease-out), color var(--duration-200) var(--ease-out);
 }
-
-.pro-gate__btn--primary {
+.pro-inquiry__btn:hover {
     background: var(--color-gray-900);
     color: var(--color-white);
 }
 
-.pro-gate__btn--primary:hover {
-    opacity: 0.85;
-}
-
-.pro-gate__kakao {
-    margin-top: 6rem;
-    padding-top: 4rem;
-    border-top: 1px solid var(--color-gray-300);
-}
-
-.pro-gate__kakao-title {
-    font-family: var(--font-en-title);
-    font-size: 1.3rem;
-    letter-spacing: 0.08em;
-    color: var(--color-gray-750);
-}
-
-.pro-gate__kakao-desc {
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    color: var(--color-gray-800);
-}
-
-.pro-gate__kakao-link {
-    display: inline-block;
-    margin-top: 1.6rem;
-    font-size: 1.5rem;
-    color: var(--color-primary);
-    text-decoration: none;
-}
-
-@media (max-width: 600px) {
-    .pro-gate__inner {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
+@media (max-width: 720px) {
+    .pro-card {
+        flex-direction: column;
+        max-width: 44rem;
     }
-    .pro-gate__lead {
-        font-size: 1.5rem;
+    .pro-card__col {
+        padding: 4rem 3rem;
+    }
+    .pro-inquiry {
+        border-left: 0;
+        border-top: 1px solid var(--color-gray-300);
     }
 }

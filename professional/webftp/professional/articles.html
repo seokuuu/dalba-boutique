@@ -3,48 +3,105 @@
     <section class="articles-intro section_theme" data-theme="light">
         <div class="wrapper">
             <h2 class="articles-intro__title">Articles</h2>
-            <p class="articles-intro__paragraph">달바 프로페셔널의 새로운 소식과 디자이너 인터뷰를 만나보세요.</p>
         </div>
     </section>
 
     <section id="articles" class="articles section_theme" data-theme="light">
         <div class="articles__container wrapper">
-            <!-- TODO: 고도몰 기본 게시형 연동 (dalba_pro.md §2 Articles 행 참조) -->
-            <!-- 실제 게시판 위젯/컨트롤러 연결 전까지는 샘플 카드로 레이아웃만 표시 -->
+            <!-- 카테고리 탭 (Figma ARTICLES-PC-kr-01) -->
+            <nav class="articles__tabs" aria-label="Articles category">
+                <button type="button" class="articles__tab is-active" data-filter="NEWS">NEWS</button>
+                <button type="button" class="articles__tab" data-filter="EVENT">EVENT</button>
+                <button type="button" class="articles__tab" data-filter="COLLABORATION">COLLABORATION</button>
+            </nav>
+
+            <!-- TODO: 고도몰 게시판 연동 시 아래 리스트를 위젯 include 로 교체 (store와 동일 패턴).
+                 각 카드에 data-category 를 게시판 말머리(category)로 출력하면 아래 탭 필터가 그대로 동작 -->
             <ul class="articles__list">
-                <li class="articles__item">
+                <li class="articles__item" data-category="EVENT">
                     <a href="javascript:void(0)">
                         <picture class="articles__picture">
                             <img loading="lazy" class="articles__image" src="/data/img/professional/articles/sample-01.jpg" alt="article-image" />
                         </picture>
-                        <p class="articles__category">NEWS</p>
-                        <p class="articles__title">달바 프로페셔널, 리페어링 헤어 라인 신규 출시 (예시)</p>
-                        <p class="articles__date">2026.08.14</p>
+                        <p class="articles__category">EVENT</p>
+                        <p class="articles__title">달바 프로페셔널 리페어링 헤어 퍼퓸 세럼 (예시)</p>
+                        <p class="articles__date">2026.07.06</p>
                     </a>
                 </li>
-                <li class="articles__item">
+                <li class="articles__item" data-category="NEWS">
                     <a href="javascript:void(0)">
                         <picture class="articles__picture">
                             <img loading="lazy" class="articles__image" src="/data/img/professional/articles/sample-02.jpg" alt="article-image" />
                         </picture>
-                        <p class="articles__category">INTERVIEW</p>
-                        <p class="articles__title">디자이너 인터뷰: 로제 프리지아 라인을 말하다 (예시)</p>
-                        <p class="articles__date">2026.08.14</p>
+                        <p class="articles__category">NEWS</p>
+                        <p class="articles__title">달바 프로페셔널 리페어링 헤어 퍼퓸 세럼 (예시)</p>
+                        <p class="articles__date">2026.07.06</p>
                     </a>
                 </li>
-                <li class="articles__item">
+                <li class="articles__item" data-category="COLLABORATION">
                     <a href="javascript:void(0)">
                         <picture class="articles__picture">
                             <img loading="lazy" class="articles__image" src="/data/img/professional/articles/sample-03.jpg" alt="article-image" />
                         </picture>
+                        <p class="articles__category">COLLABORATION</p>
+                        <p class="articles__title">달바 프로페셔널 리페어링 헤어 퍼퓸 세럼 (예시)</p>
+                        <p class="articles__date">2026.07.06</p>
+                    </a>
+                </li>
+                <li class="articles__item" data-category="EVENT">
+                    <a href="javascript:void(0)">
+                        <picture class="articles__picture">
+                            <img loading="lazy" class="articles__image" src="/data/img/professional/articles/sample-04.jpg" alt="article-image" />
+                        </picture>
+                        <p class="articles__category">EVENT</p>
+                        <p class="articles__title">달바 프로페셔널 리페어링 헤어 퍼퓸 세럼 (예시)</p>
+                        <p class="articles__date">2026.07.06</p>
+                    </a>
+                </li>
+                <li class="articles__item" data-category="NEWS">
+                    <a href="javascript:void(0)">
+                        <picture class="articles__picture">
+                            <img loading="lazy" class="articles__image" src="/data/img/professional/articles/sample-05.jpg" alt="article-image" />
+                        </picture>
                         <p class="articles__category">NEWS</p>
-                        <p class="articles__title">Peptide Exosome™, 그 시작 (예시)</p>
-                        <p class="articles__date">2026.08.14</p>
+                        <p class="articles__title">달바 프로페셔널 리페어링 헤어 퍼퓸 세럼 (예시)</p>
+                        <p class="articles__date">2026.07.06</p>
+                    </a>
+                </li>
+                <li class="articles__item" data-category="COLLABORATION">
+                    <a href="javascript:void(0)">
+                        <picture class="articles__picture">
+                            <img loading="lazy" class="articles__image" src="/data/img/professional/articles/sample-06.jpg" alt="article-image" />
+                        </picture>
+                        <p class="articles__category">COLLABORATION</p>
+                        <p class="articles__title">달바 프로페셔널 리페어링 헤어 퍼퓸 세럼 (예시)</p>
+                        <p class="articles__date">2026.07.06</p>
                     </a>
                 </li>
             </ul>
         </div>
     </section>
 </main>
+
+<script type="text/javascript">
+    (function () {
+        var tabs = document.querySelectorAll("#professional-articles .articles__tab");
+        var items = document.querySelectorAll("#professional-articles .articles__item");
+        function applyFilter(cat) {
+            items.forEach(function (li) {
+                li.style.display = li.getAttribute("data-category") === cat ? "" : "none";
+            });
+        }
+        tabs.forEach(function (tab) {
+            tab.addEventListener("click", function () {
+                tabs.forEach(function (t) { t.classList.remove("is-active"); });
+                tab.classList.add("is-active");
+                applyFilter(tab.getAttribute("data-filter"));
+            });
+        });
+        // 기본: 첫 탭(NEWS) 활성
+        if (tabs.length) applyFilter(tabs[0].getAttribute("data-filter"));
+    })();
+</script>
 <div class="breadcrumb"></div>
 { # footer }

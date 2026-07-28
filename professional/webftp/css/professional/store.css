@@ -1,3 +1,173 @@
+/* ============================================================
+   PROFESSIONAL Store 스플릿뷰 (Figma STORE-PC-kr-01)
+   왼쪽 검색+리스트 / 오른쪽 상시 지도. (아래 signature 잔여 스타일은 미사용)
+   ============================================================ */
+.store-intro {
+    padding-top: 10rem;
+    padding-bottom: 3rem;
+    text-align: center;
+}
+.store-intro__title {
+    font-family: var(--font-en-title);
+    font-size: 3.6rem;
+    letter-spacing: 0.02em;
+    color: var(--color-gray-900);
+}
+.store-intro__paragraph {
+    margin-top: 1.4rem;
+    font-size: 1.5rem;
+    color: var(--color-gray-750);
+}
+
+.store--split {
+    padding-bottom: 10rem;
+}
+.store_split {
+    display: flex;
+    gap: 4rem;
+    align-items: stretch;
+    max-width: var(--container-max);
+}
+
+/* 왼쪽 패널 */
+.store_panel {
+    flex: 0 0 36%;
+    max-width: 36%;
+    display: flex;
+    flex-direction: column;
+}
+.store_search_label {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-gray-900);
+    margin-bottom: 1.2rem;
+}
+.store_search_box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-gray-800);
+    padding: 0.8rem 0;
+}
+.store_search_box input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    font-size: 1.5rem;
+    background: transparent;
+    color: var(--color-gray-900);
+}
+.store_search_clear {
+    background: none;
+    border: 0;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: var(--color-gray-600);
+    cursor: pointer;
+    padding: 0 0.6rem;
+}
+.store_search_btn {
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    cursor: pointer;
+    background: transparent
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>")
+        center/contain no-repeat;
+}
+.store_search_count {
+    margin-top: 1.6rem;
+    font-size: 1.4rem;
+    color: var(--color-gray-750);
+}
+
+.store_list {
+    margin-top: 1.6rem;
+    border-top: 1px solid var(--color-gray-300);
+    overflow-y: auto;
+    max-height: 52rem;
+    flex: 1;
+}
+.store_list_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 1.8rem 1.4rem;
+    border-bottom: 1px solid var(--color-gray-300);
+    cursor: pointer;
+    transition: background var(--duration-150) var(--ease-out);
+}
+.store_list_item:hover {
+    background: var(--color-gray-100);
+}
+.store_list_item.is-active {
+    background: var(--color-gray-100);
+    box-shadow: inset 2px 0 0 var(--color-gray-900);
+}
+.store_list_name {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--color-gray-900);
+}
+.store_list_region {
+    display: inline-block;
+    margin-left: 0.6rem;
+    font-size: 1.2rem;
+    color: var(--color-gray-600);
+}
+.store_list_address {
+    margin-top: 0.6rem;
+    font-size: 1.35rem;
+    color: var(--color-gray-750);
+}
+.store_list_phone {
+    margin-top: 0.3rem;
+    font-size: 1.3rem;
+    color: var(--color-gray-600);
+}
+.store_list_arrow {
+    flex: 0 0 auto;
+    font-size: 2.2rem;
+    color: var(--color-gray-500);
+}
+.store_list_empty {
+    padding: 3rem 1.4rem;
+    text-align: center;
+    color: var(--color-gray-600);
+}
+
+/* 오른쪽 지도 */
+.store_map {
+    flex: 1;
+    min-height: 60rem;
+}
+.store_map .naver-map-container {
+    width: 100%;
+    height: 100%;
+    min-height: 60rem;
+    background: var(--color-gray-100);
+}
+
+@media (max-width: 960px) {
+    .store_split {
+        flex-direction: column;
+    }
+    .store_panel,
+    .store_map {
+        flex: none;
+        max-width: 100%;
+        width: 100%;
+    }
+    .store_list {
+        max-height: 40rem;
+    }
+    .store_map,
+    .store_map .naver-map-container {
+        min-height: 40rem;
+    }
+}
+
 .reserve .flickity-button {
     top: 50%;
 }

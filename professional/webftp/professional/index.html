@@ -1,30 +1,23 @@
 {***  | professional/index.php ***} { # header }
 <main id="professional-main" class="main-content font-kr">
     <section class="hero section_theme" data-theme="dark">
+        <!-- TODO(영상): 히어로 영상은 추후 제공 예정 → 지금은 이미지로 대체. 영상 오면 <picture>를 <video>로 복원 -->
         <div class="hero__video-player video-player">
-            <video
-                playsinline
-                webkit-playsinline
-                class="hero__video video-player__video"
-                autoplay
-                muted
-                loop
-                aria-label="메인 비디오"
-                preload="auto"
-                data-poster-desktop="/data/img/professional/main/MAIN-SECTION1-PC.jpg"
-                data-poster-mobile="/data/img/professional/main/MAIN-SECTION1-MO.jpg"
-            >
+            <picture class="hero__picture">
                 <source
-                    src="/data/img/professional/main/MAIN-SECTION1-MO.mp4"
+                    srcset="/data/img/professional/main/MAIN-SECTION1-MO.png"
                     media="(max-width: 600px)"
-                    type="video/mp4"
                 />
                 <source
-                    src="/data/img/professional/main/MAIN-SECTION1-PC.mp4"
+                    srcset="/data/img/professional/main/MAIN-SECTION1-PC.png"
                     media="(min-width: 601px)"
-                    type="video/mp4"
                 />
-            </video>
+                <img
+                    class="hero__image hero__video"
+                    src="/data/img/professional/main/MAIN-SECTION1-PC.png"
+                    alt="d'Alba PROFESSIONAL"
+                />
+            </picture>
         </div>
         <div class="hero__container">
             <h2 class="hero__heading">
@@ -36,7 +29,6 @@
             </h2>
         </div>
     </section>
-    <!-- TODO: 영상 2개 루프 재생 예정(기획 메모 기준) - 현재는 1개 슬롯만 마크업, 두번째 영상 확정되면 hero 섹션 복제 -->
 
     <div class="fade-in-text section_theme" data-theme="light">
         <div class="wrapper">

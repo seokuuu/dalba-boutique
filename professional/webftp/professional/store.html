@@ -1,7 +1,7 @@
 {***  | professional/store.php ***} { # header }
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=pr4xnb33yf&submodules=geocoder"></script>
 <script defer src="{=setBrowserCache(c.PATH_SKIN+'js/'+gThisDirName+'/store.js')}"></script>
-<!-- store.js = professional 전용 검색 UI + 네이버지도 모달 (자체 DOMContentLoaded init, 중복로드 guard 있음) -->
+<!-- store.js = professional 매장 스플릿뷰(왼쪽 검색리스트 + 오른쪽 상시 지도/전매장 마커). Figma STORE-PC-kr-01 -->
 <main id="professional-store" class="main-content font-kr">
     <section class="store-intro section_theme" data-theme="light">
         <div class="wrapper">
@@ -10,88 +10,36 @@
         </div>
     </section>
 
-    <section id="store" class="store store--search section_theme" data-theme="light">
-        <div class="store_content wrapper">
-            <div class="store_search">
-                <div class="store_search_box">
-                    <input type="text" id="storeSearchInput" name="storeSearchInput" placeholder="지역, 매장명으로 검색" />
-                    <button type="button" id="btnStoreSearch" class="btn_store_search">매장검색</button>
+    <section id="store" class="store store--split section_theme" data-theme="light">
+        <div class="store_split wrapper">
+            <!-- 왼쪽: 매장 검색 + 리스트 -->
+            <div class="store_panel">
+                <div class="store_search">
+                    <p class="store_search_label">매장 검색</p>
+                    <div class="store_search_box">
+                        <input type="text" id="storeSearchInput" name="storeSearchInput" placeholder="지역, 매장명으로 검색" />
+                        <button type="button" id="btnStoreClear" class="store_search_clear" aria-label="검색어 지우기">&times;</button>
+                        <button type="button" id="btnStoreSearch" class="store_search_btn" aria-label="매장검색"></button>
+                    </div>
+                    <p class="store_search_count">
+                        검색 된 매장은 총 <span id="storeSearchCount">0</span>건 입니다.
+                    </p>
                 </div>
-                <p class="store_search_count">
-                    검색된 매장은 총 <span id="storeSearchCount">10</span>건 입니다.
-                </p>
-            </div>
-            <!-- //store_search -->
+                <!-- //store_search -->
 
-            <!--
-              매장 리스트 = 고도몰 "매장 게시판" 커스텀 스킨이 렌더 (운영팀 자가관리).
-              게시판 연동 시 아래 <ul id="storeList"> 내부를 게시판 리스트 위젯 include 로 교체:
-                <ul id="storeList" class="store_list">
-                    {=includeWidget('board/professional_store/list.html', ['bdId'=>'<매장게시판ID>'])}
+                <!--
+                  매장 리스트 = 매장 게시판(bdId=salon) 위젯 렌더.
+                  각 <li> = data-name(제목) + data-view-url(상세). store.js 가 상세 fetch → 주소 → 지오코딩 → 마커.
+                  ⚠️ 목록이 비면 includeWidget 커스텀 스킨 파일명 미지원 → 대안 확인(dalba_pro.md §5-4).
+                -->
+                <ul id="storeList" class="store_list" data-bdid="salon">
+                    {=includeWidget('board/_board_article_store.html', ['bdId'=>'salon', 'listCnt'=>100])}
                 </ul>
-              그 스킨은 각 매장을 store.js 가 읽는 data-* 계약(아래 샘플과 동일 구조)으로 출력해야 함.
-              ⚠️ 위젯/변수 문법은 board/skin/default/list.html 확인 후 확정 (professional/webftp/board/skin/professional_store/list.html 초안 참조).
+            </div>
 
-              데이터 계약(store.js buildStoreDataFromDOM 이 읽음):
-                data-name / data-address / data-phone / data-hours("요일 시간;요일 시간;...") / data-image
-                data-lat / data-lng (선택 — 없으면 주소 지오코딩)
-            -->
-            <!-- TEST/FALLBACK: 게시판 연동 전 레이아웃·동작 확인용 샘플. 연동 시 위 include 로 교체하고 제거. -->
-            <ul id="storeList" class="store_list">
-                <li class="store_list_item"
-                    data-name="달바 프로페셔널 청담 살롱 (예시)"
-                    data-address="서울 강남구 청담동 512-8"
-                    data-phone="02-0000-0000"
-                    data-hours="월요일 10:00-20:00;화요일 10:00-20:00;수요일 10:00-20:00;목요일 10:00-20:00;금요일 10:00-20:00;토요일 10:00-18:00;일요일 휴무">
-                    <div class="store_list_info">
-                        <p class="store_list_name">달바 프로페셔널 청담 살롱 (예시)</p>
-                        <p class="store_list_address">서울 강남구 청담동 512-8</p>
-                        <p class="store_list_phone">02-0000-0000</p>
-                    </div>
-                    <button type="button" class="reserve-modal_button">지도에서 보기</button>
-                </li>
-                <li class="store_list_item"
-                    data-name="달바 프로페셔널 홍대 살롱 (예시)"
-                    data-address="서울 마포구 서교동 358-101"
-                    data-phone="02-0000-0000"
-                    data-hours="월요일 11:00-21:00;화요일 11:00-21:00;수요일 11:00-21:00;목요일 11:00-21:00;금요일 11:00-21:00;토요일 11:00-19:00;일요일 휴무">
-                    <div class="store_list_info">
-                        <p class="store_list_name">달바 프로페셔널 홍대 살롱 (예시)</p>
-                        <p class="store_list_address">서울 마포구 서교동 358-101</p>
-                        <p class="store_list_phone">02-0000-0000</p>
-                    </div>
-                    <button type="button" class="reserve-modal_button">지도에서 보기</button>
-                </li>
-            </ul>
-        </div>
-
-        <!-- 지도 모달: 시그니처 store.html 패턴 그대로 재사용 -->
-        <div id="reserveModalOverlay" class="reserve-modal_overlay" aria-hidden="true">
-            <div class="reserve-modal" role="dialog" aria-reserve-modal="true" aria-labelledby="reserve-modalAddressTitle">
-                <button type="button" id="closeReserveModalButton" class="reserve-modal_close-btn" aria-label="닫기">
-                    <img src="/data/img/product/detail/signature/icon_close_thin.svg" alt="닫기" />
-                </button>
-                <div class="reserve-modal_container">
-                    <div class="reserve-modal_head">
-                        <div id="reserve-modalAddressTitle" class="reserve-modal_title-en">ADDRESS</div>
-                        <div id="reserveModalTitle" class="reserve-modal_title"></div>
-                        <div id="reserveModalAddress" class="reserve-modal_address"></div>
-                    </div>
-                    <div class="reserve-modal_map">
-                        <div id="naverMapContainer" class="naver-map-container"></div>
-                    </div>
-                    <div class="reserve-modal_body">
-                        <div class="opening-hours">
-                            <div class="opening-hours_title">영업시간</div>
-                            <ul id="reserveModalOpeningHours" class="opening-hours_list">
-                                <!-- 영업시간이 동적으로 생성됩니다 -->
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="reserve-modal_footer">
-                        <button type="button" id="reserveModalPhoneBtn" class="reserve-modal_btn"></button>
-                    </div>
-                </div>
+            <!-- 오른쪽: 상시 지도 (전 매장 마커) -->
+            <div class="store_map">
+                <div id="naverMapContainer" class="naver-map-container"></div>
             </div>
         </div>
     </section>

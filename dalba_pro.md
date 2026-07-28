@@ -184,33 +184,67 @@ professional/
 
 ---
 
+## 5-5. Figma 시안 실제 확인 (260727, MCP로 5개 페이지 조회)
+
+파일 `YOR7rP6vAL8ugyohPCfy3a`, 섹션 60:9. **페이지별 프레임 node id + 현재 빌드와의 차이**:
+
+| 페이지 | node id | 시안 내용 | 내 빌드와 차이 |
+|---|---|---|---|
+| **메인** | `60:10`(01), `60:1217`(02), `60:115/183/614/659`(03-1~4), `60:1453`(04), `60:129`(05) | 검정 배경 + **제품컷 히어로**(R02 Rose Freesia) + 스크롤 섹션. GNB=**Prata 서체**, Story/Product/Store/Articles/PRO | 히어로 video→**제품 이미지**, GNB 폰트 Prata, 스크롤 섹션 02~05 자산 필요 |
+| **프로덕트** | `60:225`(01) | 핑크 제품컷 풀블리드 + 우측 텍스트 "d'Alba PROFESSIONAL / **헤어도 스킨케어처럼 관리하는 엔젤링 라인**" | 카피 다름(**엔젤링/로제 엔젤링** — 기존 "Peptide Exosome™/로제 프리지아"와 상이, 확인 필요), 히어로 구조 |
+| **스토어** | `60:371`(01) | ⚠️ **왼쪽 검색리스트 + 오른쪽 상시 지도(전체 매장 마커)** 스플릿 뷰. 리스트 아이템=이름+주소+전화+`>`, 선택 시 지도 하이라이트. **모달 아님** | 내 빌드는 "리스트+[지도에서보기] 모달" → **스플릿 뷰로 재작업 필요**(지도 상시노출, 전 매장 마커) |
+| **아티클** | `60:278`(01) | "Articles" + **카테고리 탭(NEWS/EVENT/COLLABORATION)** + 3열 카드(이미지/카테고리/제목/날짜) | 거의 일치, **카테고리 탭만 추가** |
+| **프로** | `60:739`(01-1), `60:788`(01-2), `228:42`(02-1), `60:920`(03-1), `60:1063`(03-2) | 핑크 배경 + 중앙 카드: **왼쪽 Login(아이디/비번/로그인) + 오른쪽 New Account Inquiry**(디자이너 안내+카카오 '달바 아티스트'+[회원가입하고 혜택받기]) | 내 pro.html은 단순 게이트 → **로그인+가입안내 스플릿 카드로 재작업** |
+
+**공통**: GNB **Prata** 서체, 전용 푸터(d'Alba PROFESSIONAL 로고 + 달바글로벌 정보 + Contact 비즈니스 이메일). Variables 미사용(get_variable_defs={}) → 색은 원시값/사진.
+**⚠️ 자산**: 히어로/제품 사진·영상은 전부 raster → 코드로 못 만듦, 팀 export 필요. MCP는 **활성 Figma 탭의 파일만** 읽음(탭 바뀌면 노드 안 잡힘).
+
+### 구현 반영 (260727)
+사용자가 `professional/-레퍼런스 소스(이미지,영상)/` 로 참고 자산 제공(bg-01~05, 무드컷, 909f9e=Tiny Wonder 프로덕트컷, MAIN-SECTION1-PC.mp4). **44MB 영상은 비트레이트 15.5Mbps로 과함 → 미사용(추후 압축본 제공 예정), 이미지로 대체.** Olaplex(bg-04)·타사 무드컷은 라이브 미사용(무드 참고).
+- 자산 배치: `webftp/data/img/professional/{main,product,pro}/` (사용가능 d'Alba 컷만)
+- **메인**: 히어로 `<video>`→`<picture>` 이미지 교체(영상 오면 복원)
+- **프로덕트**: 히어로 Tiny Wonder 이미지 + 카피 Figma 문구("헤어도 스킨케어처럼 관리하는 엔젤링 라인")로 교체. ⚠️ 기존 md "로제 프리지아/Peptide Exosome™"와 상이 → 최종 카피 확정 필요
+- **아티클**: 카테고리 탭(NEWS/EVENT/COLLABORATION) + 필터 JS 추가(게시판 말머리 연동 대비)
+- **스토어**: 모달 → **스플릿뷰**(왼쪽 검색리스트 + 오른쪽 상시 지도, 전 매장 마커, 리스트 클릭 시 하이라이트/이동) 재작업. store.js 전면 개편(전 매장 좌표 확보 후 마커, 검색 시 리스트+마커 필터)
+- **프로**: 게이트 → **로그인 + New Account Inquiry 카드**(핑크 배경) 재작업. 로그인 폼 action은 고도몰 member/login.php 기준 placeholder(연동 확인 필요)
+- 미반영(자산/확정 대기): GNB Prata 서체 적용, 전용 푸터, 로고 이미지(professional-logo), 제품 개별 썸네일, 메인 스크롤섹션 02/04/05·B&A
+
+---
+
 ## 5-4. Store 매장 리스트 = 고도몰 게시판 연동 (260727 결정·구현)
 
 운영팀 자가관리 요구 → signature식 하드코딩 대신 **매장 전용 게시판 + 커스텀 스킨 + 프론트 지오코딩**으로 구현.
 (라이브 `signature/store.html` 확인: 매장은 store.js 하드코딩 배열을 JS가 렌더 = 게시판 아님. signature는 지도/모달 참고용일 뿐 자가관리 지름길 아님.)
 
-### 동작 흐름
-게시판(매장 등록) → 커스텀 list 스킨이 매장별 `<li data-*>` 렌더 → `store.js`(buildStoreDataFromDOM)가 파싱 → 검색(show/hide) + 지도모달. 좌표는 `data-lat/lng` 우선, 없으면 **주소 네이버 지오코딩**(`naver.maps.Service.geocode`, maps.js에 `&submodules=geocoder` 필요).
+### ⚠️ 고도몰 board 소스 3종 확인 결과 (260727, 실소스)
+- `list.html`(목록): 루프 `bdList.list`, 필드 `.sno/.subject/.category(말머리)/.viewListImage/.regDate/.writer` — **본문 없음**
+- `_board_article.html`(리스트 위젯): `.sno/.subject/.isNew`만 — **본문 없음**
+- `view.html`(상세): **본문 = `bdView.data.workedContents`** (`.seem_cont` 안에 렌더) — 본문은 여기만 있음
+- → **목록/위젯 어디에도 주소·전화(본문)가 안 실림.** 그래서 "지도 클릭 시 상세(view)를 fetch 해 본문 파싱" 방식으로 확정.
+
+### 동작 흐름 (최종)
+매장 게시판 위젯(`_board_article_store.html`)이 `#storeList`에 `<li data-name data-view-url>` 렌더 → `store.js`가 이름/검색 처리. **"지도에서 보기" 클릭 → `data-view-url`(view.php) fetch → 본문 `.seem_cont`에서 라벨 파싱 → 좌표(`data-lat/lng` 우선, 없으면 주소 지오코딩) → 지도모달.** (본문/좌표가 목록에 실려오면 fetch 없이 즉시 사용)
 
 ### 게시판 설정 (관리자)
-- 유형 **갤러리형**, 게시판 스킨 = **매장 전용 커스텀 스킨 지정**(이게 data-* 렌더). 쓰기권한 **관리자 전용** / 리스트·읽기 전체.
-- ⚠️ 게시판엔 위도/경도 같은 **구조화 커스텀 필드 없음**(제목·내용·대표이미지·첨부만) → 좌표는 지오코딩으로 해결.
+- 유형 **갤러리형**, 쓰기권한 **관리자 전용** / 리스트·읽기 전체.
 - **에디터 "사용안함" 권장**(본문 평문화 → 라벨 파싱 안정), **기본 게시글 양식**에 입력 틀 등록.
+- store 페이지는 위젯 include 방식이라 게시판 자체 스킨은 기본값으로 둬도 됨(위젯 스킨만 커스텀).
 
 ### 데이터 계약 (매장 1개 = 게시글 1개)
-- 매장명 = **제목**, 사진 = **대표이미지**
-- 본문(평문 라벨): `주소:` / `전화:`(또는 전화번호/연락처) / `영업시간:`(세그먼트 `;` 구분, 예 `월-금 10:00-20:00;토 10:00-18:00;일 휴무`) / (선택)`좌표: 37.5,127.0`
-- store.js가 `data-name/address/phone/hours/image/lat/lng` 를 우선 읽고, 없으면 `data-content` 라벨 파싱으로 보충. 리스트 표시용 주소/전화도 없으면 자동 삽입.
+- 매장명 = **제목** / (선택)지역 = **말머리(category)** / 사진 = **대표이미지**
+- 본문(평문 라벨): `주소:` / `전화:`(또는 전화번호/연락처) / `영업시간:`(세그먼트 `;` 구분) / (선택)`좌표: 37.5,127.0`
+- store.js: `data-*` → `.store_data_raw`/`data-content` → **상세 view fetch** 순으로 보충. 검색은 이름+지역+주소.
 
 ### 생성 파일 (로컬)
-- `professional/webftp/js/professional/store.js` — 게시판 DOM 파싱 + 지오코딩 + 검색으로 개조 완료(하드코딩 제거)
-- `professional/webftp/professional/store.html` — maps.js `&submodules=geocoder` 추가, `#storeList`에 게시판 include placeholder + data-* 계약 샘플(테스트용)
-- `professional/webftp/board/skin/professional_store/list.html` — 매장 게시판 커스텀 list 스킨 **초안**(고도몰 변수명 `{.subject}`/`{.content}`/`{.thumbnailUrl}`/루프변수 = **TODO 확인 필요**)
+- `professional/webftp/js/professional/store.js` — DOM 파싱 + **상세 view fetch(fetchStoreDetail)** + 지오코딩 + 검색 (하드코딩 제거)
+- `professional/webftp/professional/store.html` — maps.js `&submodules=geocoder`, `#storeList`에 위젯 include 문법 + data-* 계약 샘플(테스트용)
+- `professional/webftp/board/_board_article_store.html` — **매장 리스트 위젯 커스텀 스킨**(`<li data-name data-view-url ...>`, `<ul>` 래퍼 없음)
 
-### 착수 blocker
-- [ ] 고도몰 `board/skin/default/list.html` 확보 → 커스텀 스킨의 실제 변수명 확정
+### 착수 blocker (board 소스는 확인 완료 — 남은 것)
+- [ ] `includeWidget('board/_board_article_store.html', [...])` 가 **커스텀 위젯 스킨 파일명**을 받는지 확인 (안 되면 기본 `_board_article.html`을 이 내용으로 교체하거나 위젯 등록 방식 확인)
 - [ ] 네이버 `ncpKeyId` **Geocoding API 사용 신청** 여부 확인
-- [ ] (동일 패턴) Articles 게시판형도 후속 시 이 방식 재사용 가능
+- [ ] 매장 게시판 신설 후 `bdId` 를 store.html include 파라미터에 기입
+- [ ] (동일 패턴) Articles 게시판형도 후속 시 재사용 가능
 
 ---
 

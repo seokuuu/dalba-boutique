@@ -1,0 +1,33 @@
+{*** [위젯] 매장 리스트 (professional store) | board/_board_article_store.php (커스텀) ***}
+<!--
+  ============================================================
+  매장 게시판 리스트 위젯 커스텀 스킨 (기본 _board_article.html 기반)
+  store.html 의 <ul id="storeList"> 안에서 includeWidget 으로 렌더:
+    {=includeWidget('board/_board_article_store.html', ['bdId'=>'<매장게시판ID>', 'listCnt'=>100])}
+  ------------------------------------------------------------
+  ⚠️ 기본 위젯 list 는 .sno/.subject/.isNew 만 확실. .category/.viewListImage/.content 는
+     실려오면 사용, 안 오면 무시됨(하단 data-view-url 로 상세를 fetch 하므로 무조건 동작).
+  · 매장명 = .subject, (선택)지역 = .category(말머리), (선택)이미지 = .viewListImage
+  · 주소/전화/영업시간/좌표 = 상세(view)의 본문에서 store.js 가 fetch·파싱
+    (data-view-url = ../board/view.php?bdId=..&sno=..)
+  · <ul> 래퍼 없음 — 바깥 #storeList(ul) 안에 <li> 만 출력
+  ============================================================
+-->
+<!--{?canList == 'y'}-->
+<!--{ @ list }-->
+<li class="store_list_item"
+    data-sno="{.sno}"
+    data-name="{.subject}"
+    data-category="{.category}"
+    data-image="{=gd_isset(.viewListImage, '')}"
+    data-view-url="../board/view.php?bdId={bdId}&sno={.sno}">
+    <div class="store_list_info">
+        <p class="store_list_name">{.subject}</p>
+        <!--{? .category}--><p class="store_list_region">{.category}</p><!--{/}-->
+    </div>
+    <!-- 본문이 위젯 list 에 실려오는 경우만 채워짐(있으면 fetch 생략) -->
+    <div class="store_data_raw" hidden>{.content}</div>
+    <span class="store_list_arrow" aria-hidden="true">&rsaquo;</span>
+</li>
+<!--{ / }-->
+<!--{/}-->
