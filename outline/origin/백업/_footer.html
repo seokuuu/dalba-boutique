@@ -1,0 +1,87 @@
+{*** 하단 레이아웃 | main/index.php ***}
+                <!--{ ? tpls.side_inc && layout.outline_sidefloat == 'right' }-->
+                <div class="side_cont">
+                    { # side_inc // 측면디자인 }
+                </div>
+                <!--{ / }-->
+            </div>
+            <!-- //sub_content -->
+        </div>
+        <!-- //본문 끝 contents -->
+    </div>
+    <!-- //container -->
+
+    <!--{ ? tpls.footer_inc }-->
+    <div id="footer_wrap">
+        { # footer_inc // 하단디자인 }
+    </div>
+    <!--{ / }-->
+    <!-- //footer_wrap -->
+
+
+    <div class="scroll_wrap displaynone">
+
+        <!-- 좌측 스크롤 배너 -->
+        <div id="scroll_left">
+            { # scroll_banner_left // 좌측 스크롤 배너 }
+        </div>
+        <!-- //scroll_left -->
+        <!-- //좌측 스크롤 배너 -->
+
+
+        <!-- 우측 스크롤 배너 -->
+        <div id="scroll_right">
+            { # scroll_banner_right // 우측 스크롤 배너 }
+        </div>
+        <!-- //scroll_right -->
+        <!-- //우측 스크롤 배너 -->
+
+        <!--{ ? is_array(gd_isset(footerScript)) }-->
+        <!-- Add footer script : start -->
+        <!--{ @ footerScript }-->
+        <script type="text/javascript" src="{=.value_}"></script>
+        <!--{ / }-->
+        <!-- Add footer script : end -->
+        <!--{ / }-->
+
+    </div>
+    <!-- //scroll_wrap -->
+
+
+    <!-- 퀵 검색 폼 -->
+    <!--{ ? tpls.quick_search }-->
+    {=includeWidget('proc/_quick_search.html')}
+    <!--{ / }-->
+    <!-- 퀵 검색 폼 -->
+
+</div>
+<!-- //wrap -->
+
+<!-- 쇼핑 카트 탭 -->
+{=plusShop('proc/_cart_tab.html')}
+<!-- //쇼핑 카트 탭 -->
+
+<!-- 카카오 자동 로그인 스크립트 -->
+<!--{ ? gd_is_login() === false }-->
+<script type="text/javascript" src="{=setBrowserCache('../js/gd_kakao_autologin.js')}"></script>
+<!-- // 카카오 자동 로그인 스크립트 -->
+<!--{ / }-->
+
+<!-- 회원가입 유도 푸시 -->
+{=plusShop('proc/_simple_join_push.html')}
+<!-- //회원가입 유도 푸시 -->
+
+<!-- 절대! 지우지마세요 : Start -->
+<div id="layerDim" class="dn">&nbsp;</div>
+<iframe name="ifrmProcess" src='/blank.php' style="display:none<!--{ ? !isProduction }-->block<!--{ / }-->" width="100%" height="<!--{ ? !isProduction }-->50<!--{ / }-->0" bgcolor="#000"></iframe>
+<!-- 절대! 지우지마세요 : End -->
+
+<!-- 외부 스크립트 -->
+{=customFooter}
+
+<!-- cre.ma / init 스크립트 (Responsive) / 스크립트를 수정할 경우 연락주세요 (support@cre.ma) -->
+<script src="//cdn.jsdelivr.net/npm/mobile-detect@1.4.5/mobile-detect.min.js"></script>
+<script>(function(i,s,o,g,r,a,m){if(s.getElementById(g)){return};a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.id=g;a.async=1;a.src=r;m.parentNode.insertBefore(a,m)})(window,document,'script','crema-jssdk','//widgets.cre.ma/dalbapiedmont.godomall.com/'+(new MobileDetect(window.navigator.userAgent).mobile()?'mobile/':'')+'init'+'.'+'js');</script>
+
+</body>
+</html>
