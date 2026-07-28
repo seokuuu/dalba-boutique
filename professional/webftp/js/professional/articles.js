@@ -15,12 +15,6 @@
 
     var state = { items: [] };
 
-    function extractCategory(title) {
-        var m = title.match(/^\s*\[([^\]]+)\]\s*(.*)$/);
-        if (m) return { category: m[1].trim(), name: m[2].trim() };
-        return { category: "", name: title.trim() };
-    }
-
     function esc(s) {
         return String(s).replace(/"/g, "&quot;");
     }
@@ -46,24 +40,36 @@
                         var sno = m[1];
                         if (seen[sno]) return;
                         var strong = a.querySelector("strong");
-                        var rawTitle = (strong ? strong.textContent : a.textContent).trim();
-                        if (!rawTitle) return;
+                        var name = (strong ? strong.textContent : a.textContent).trim();
+                        if (!name) return;
                         seen[sno] = true;
 
-                        var row = a.closest("tr");
-                        var cat = extractCategory(rawTitle);
+                        var titleBox = a.closest(".board_tit");
+                        // 말머리(카테고리): 갤러리 = .board_tit 안 <em>[CATEGORY]</em> / 일반형 = 제목 접두 [..]
+                        var category = "";
+                        var emEl = titleBox ? titleBox.querySelector("em") : null;
+                        var catText = emEl ? emEl.textContent : name;
+                        var cm = catText.match(/\[([^\]]+)\]/);
+                        if (cm) category = cm[1].trim();
+
+                        // 컨테이너: 갤러리 .gallery_cont / 일반형 tr — 여기서 이미지·날짜 추출
+                        var cont =
+                            a.closest(".gallery_cont") ||
+                            a.closest("tr") ||
+                            a.closest("li") ||
+                            (titleBox && titleBox.parentElement);
                         var date = "";
                         var img = "";
-                        if (row) {
-                            var dateEl = row.querySelector(".textright");
+                        if (cont) {
+                            var dateEl = cont.querySelector(".board_day, .textright");
                             date = dateEl ? dateEl.textContent.trim() : "";
-                            var imgEl = row.querySelector(".board_img img, img.js_image_load");
+                            var imgEl = cont.querySelector(".board_img img, img.js_image_load");
                             img = imgEl ? imgEl.getAttribute("src") || "" : "";
                         }
                         items.push({
                             sno: sno,
-                            name: cat.name,
-                            category: cat.category,
+                            name: name,
+                            category: category,
                             date: date,
                             image: img,
                             url: "/board/view.php?bdId=" + bdid + "&sno=" + sno,

@@ -16,6 +16,7 @@
     var state = {
         map: null,
         bounds: null,
+        placedCount: 0,
         stores: [],
         activeIndex: -1,
         geocodedCount: 0,
@@ -42,13 +43,22 @@
         var text = raw
             .replace(/<\/(p|div|li|h[1-6]|tr)>/gi, "\n") // 블록 종료 → 줄바꿈 (에디터 HTML 대응)
             .replace(/<br\s*\/?>/gi, "\n")
-            .replace(/<[^>]+>/g, "");
+            .replace(/<[^>]+>/g, "")
+            // HTML 엔티티 디코딩 (에디터가 넣는 &nbsp; 등 → 지오코딩 깨짐 방지)
+            .replace(/&nbsp;/gi, " ")
+            .replace(/&amp;/gi, "&")
+            .replace(/&lt;/gi, "<")
+            .replace(/&gt;/gi, ">")
+            .replace(/&quot;/gi, '"');
+        var clean = function (s) {
+            return s.trim().replace(/\s+/g, " ");
+        };
         text.split(/\n+/).forEach(function (line) {
             line = line.trim();
             var m;
-            if ((m = line.match(/^주소\s*[:：]\s*(.+)$/))) out.address = m[1].trim();
-            else if ((m = line.match(/^(?:전화|전화번호|연락처)\s*[:：]\s*(.+)$/))) out.phone = m[1].trim();
-            else if ((m = line.match(/^영업시간\s*[:：]\s*(.+)$/))) out.hours = m[1].trim();
+            if ((m = line.match(/^주소\s*[:：]\s*(.+)$/))) out.address = clean(m[1]);
+            else if ((m = line.match(/^(?:전화|전화번호|연락처)\s*[:：]\s*(.+)$/))) out.phone = clean(m[1]);
+            else if ((m = line.match(/^영업시간\s*[:：]\s*(.+)$/))) out.hours = clean(m[1]);
             else if ((m = line.match(/^좌표\s*[:：]\s*([\d.]+)\s*,\s*([\d.]+)$/))) {
                 out.lat = parseFloat(m[1]);
                 out.lng = parseFloat(m[2]);
@@ -188,6 +198,7 @@
             selectStore(store.index);
         });
         if (state.bounds) state.bounds.extend(pos);
+        state.placedCount++;
     }
 
     function loadAllMarkers() {
@@ -197,7 +208,8 @@
             ensureStoreCoords(store, function () {
                 addMarker(store);
                 pending--;
-                if (pending === 0 && state.bounds && !state.bounds.isEmpty()) {
+                // 네이버 LatLngBounds 엔 isEmpty() 가 없음 → 실제 마커 수로 판단
+                if (pending === 0 && state.placedCount > 0) {
                     state.map.fitBounds(state.bounds);
                 }
             });
@@ -255,6 +267,7 @@
         var apply = function () {
             var kw = (input ? input.value : "").trim().toLowerCase();
             var shown = 0;
+            var visPlaced = 0;
             var visBounds = new naver.maps.LatLngBounds();
             state.stores.forEach(function (s) {
                 var hay = (s.name + " " + (s.category || "") + " " + (s.address || "")).toLowerCase();
@@ -263,11 +276,14 @@
                 if (s.marker) s.marker.setMap(match ? state.map : null);
                 if (match) {
                     shown++;
-                    if (s.lat != null) visBounds.extend(new naver.maps.LatLng(s.lat, s.lng));
+                    if (s.lat != null) {
+                        visBounds.extend(new naver.maps.LatLng(s.lat, s.lng));
+                        visPlaced++;
+                    }
                 }
             });
             updateCount(shown);
-            if (state.map && !visBounds.isEmpty()) state.map.fitBounds(visBounds);
+            if (state.map && visPlaced > 0) state.map.fitBounds(visBounds);
         };
 
         if (btn) btn.addEventListener("click", apply);
