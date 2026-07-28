@@ -18,7 +18,8 @@
 
   /* Typography */
   --font-kr: "Pretendard", Arial, Helvetica, sans-serif;
-  --font-en-title: "Classico URW", Arial, Helvetica, sans-serif;
+  /* Figma 시안 서체 = Prata (하이컨트라스트 세리프). 미로드 시 Classico URW/serif 폴백 */
+  --font-en-title: "Prata", "Classico URW", serif;
   --font-en-body: "Meno Display", Arial, Helvetica, sans-serif;
 
   /* Sizes */

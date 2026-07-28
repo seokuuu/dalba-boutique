@@ -28,12 +28,12 @@
                 <!-- //store_search -->
 
                 <!--
-                  매장 리스트 = 매장 게시판(bdId=salon) 위젯 렌더.
-                  각 <li> = data-name(제목) + data-view-url(상세). store.js 가 상세 fetch → 주소 → 지오코딩 → 마커.
-                  ⚠️ 목록이 비면 includeWidget 커스텀 스킨 파일명 미지원 → 대안 확인(dalba_pro.md §5-4).
+                  매장 리스트 = 매장 게시판(bdId=salon)을 store.js 가 AJAX(/board/list.php?bdId=salon)로
+                  불러와 채움. (고도몰 includeWidget 은 파라미터 배열 미지원이라 인라인 위젯 대신 fetch 방식)
+                  각 매장 상세(view.php)의 본문에서 주소/전화/영업시간/좌표 파싱 → 지오코딩 → 지도 마커.
                 -->
                 <ul id="storeList" class="store_list" data-bdid="salon">
-                    {=includeWidget('board/_board_article_store.html', ['bdId'=>'salon', 'listCnt'=>100])}
+                    <li class="store_list_empty">매장 정보를 불러오는 중…</li>
                 </ul>
             </div>
 

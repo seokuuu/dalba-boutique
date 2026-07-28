@@ -1,7 +1,85 @@
+/* 웹폰트: Prata (Figma GNB/타이틀 서체). @import 는 최상단이어야 함 */
+@import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
 /* CSS 모듈 import */
 @import "./common/tokens.css";
 @import "./common/reset.css";
 @import "./common/base.css";
+
+/* ===== 전용 GNB (professional 페이지에서만 로드되는 professional.css라 여기 두면 스코프 안전) ===== */
+/* 헤더 로고: 검정 PNG 1장을 흰색 헤더 상태(icon_color_W)에선 CSS로 흰색 반전 */
+.professional-logo img {
+    height: 2.1rem;
+    width: auto;
+}
+.professional-logo .icon_color_W {
+    filter: brightness(0) invert(1);
+}
+
+/* ===== 전용 푸터 (Figma STORE/ARTICLES 하단) ===== */
+.footer_pro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 3rem 6rem;
+    padding: 6rem var(--wrapper-padding-sm);
+    background: var(--color-white);
+    color: var(--color-gray-800);
+}
+.footer_pro_logo img {
+    height: 4rem;
+    width: auto;
+}
+.footer_pro_body {
+    flex: 1;
+    min-width: 28rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2.4rem 4rem;
+}
+.footer_pro_company {
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: var(--color-gray-750);
+}
+.footer_pro_company .bold {
+    color: var(--color-gray-900);
+    font-weight: 600;
+}
+.footer_pro_contact {
+    font-size: 1.3rem;
+    max-width: 34rem;
+}
+.footer_pro_contact_tit {
+    font-family: var(--font-en-title);
+    font-size: 1.5rem;
+    color: var(--color-gray-900);
+    margin-bottom: 1rem;
+}
+.footer_pro_contact_row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.6rem;
+    line-height: 1.7;
+}
+.footer_pro_contact_label {
+    flex: 0 0 auto;
+    color: var(--color-gray-900);
+    font-weight: 600;
+}
+.footer_pro_contact_emails {
+    color: var(--color-gray-600);
+    word-break: break-word;
+}
+@media (max-width: 960px) {
+    .footer_pro {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    .footer_pro_body {
+        flex-direction: column;
+    }
+}
 
 .fade-in-text {
     display: -webkit-box;

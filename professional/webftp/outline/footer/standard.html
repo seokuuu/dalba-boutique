@@ -1,0 +1,236 @@
+{*** 하단 기본타입 | main/index.php ***}
+<div id="footer">
+    <!--{ ? gThisDirName == 'professional'}-->
+    <!-- ===== professional 전용 푸터 (Figma STORE/ARTICLES 하단) ===== -->
+    <div class="footer_pro">
+        <div class="footer_pro_logo">
+            <img src="/data/img/professional/common/professional-logo.png" alt="d'Alba PROFESSIONAL" />
+        </div>
+        <div class="footer_pro_body">
+            <p class="footer_pro_company">
+                <span class="bold">{=gMall.companyNm}</span> {=gMall.address} ({=gMall.zonecode})<br>
+                <span class="bold">CEO</span> {=gMall.ceoNm} · <span class="bold">Hosting by</span> NHN Commerce · <span class="bold">Tel</span> {=gMall.centerPhone} · <span class="bold">Information manager</span> 유명한<br>
+                <span class="bold">Business Registration No.</span> {=gMall.businessNo} · <span class="bold">Online Sales Reg No.</span> {=gMall.onlineOrderSerial}<br>
+                © d’Alba GLOBAL.
+            </p>
+            <div class="footer_pro_contact">
+                <p class="footer_pro_contact_tit">Contact</p>
+                <div class="footer_pro_contact_row">
+                    <span class="footer_pro_contact_label">비즈니스 문의</span>
+                    <span class="footer_pro_contact_emails">
+                        biz_koree@dalba.com, biz_japan@dalba.com, biz_russia_CIS@dalba.com,
+                        biz_america@dalba.com, biz_asean@dalba.com, biz_pan_china@dalba.com,
+                        biz_europe@dalba.com, biz_middle_east@dalba.com, biz_other_regions@dalba.com,
+                        veganery@dalba.com
+                    </span>
+                </div>
+                <div class="footer_pro_contact_row">
+                    <span class="footer_pro_contact_label">기타 문의</span>
+                    <span class="footer_pro_contact_emails">dalba@dalba.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--{ : }-->
+    <div class="footer_logo">
+        <img src="/data/skin/front/dalba2/img/logo_b.svg" alt="logo" class="footer-original-logo" />
+        <img src="/data/logo/logo-signature-white.png" alt="logo" class="footer-signature-logo" />
+    </div>
+    <div class="footer_content">
+        <ul class="clearfix serif">
+            <li class="floatleft per_15">
+                <p class="normal_txt">Customer Care</p>
+                <p class="small_txt">
+                    Mon - Fri  10:00 - 17:00<br>
+                    +82 02-332-7727
+                </p>
+            </li>
+            <li class="floatleft per_10">
+                <p class="normal_txt">Order</p>
+                <ul>
+                    <li><a href="https://www.cjlogistics.com/ko/tool/parcel/tracking" target="_blank">Order Tracking</a></li>
+                </ul>
+            </li>
+            <li class="floatleft per_10">
+                <p class="normal_txt">Legal</p>
+                <ul>
+                    <li><a href="/service/agreement.php" class="small_txt">Terms of Use</a></li>
+                    <li><a href="/service/private.php" class="small_txt">Privacy Policy</a></li>
+                </ul>
+            </li>
+            <li class="floatleft per_10">
+                <p class="normal_txt">Social</p>
+                <ul>
+                    <li><a href="https://www.instagram.com/dalba_piedmont/" target="_blank" class="small_txt">Instagram</a></li>
+                    <li><a href="https://ko-kr.facebook.com/dalbakorea/" target="_blank" class="small_txt">Facebook</a></li>
+                    <li><a href="https://www.youtube.com/c/dAlba" target="_blank" class="small_txt">Youtube</a></li>
+                </ul>
+            </li>
+            <!--
+            <a class="pconly" href="https://docs.google.com/forms/d/e/1FAIpQLSc1d_RyaB26Jz1PGzbHMFUOZzGBoRTEfR1wpTwaLgtAOllxFg/viewform" target="_blank" style="
+                    width: auto;
+                    position: absolute;
+                    bottom: 30px;
+                    right: 20px;
+                    font-size: 1rem;
+                    font-family: 'Pretendard', sans-serif;
+                    cursor: pointer;
+                ">
+                <b>[d'Alba Global] 비윤리행위 제보</b>
+            </a>
+
+            <a class="mobileonly" href="https://docs.google.com/forms/d/e/1FAIpQLSc1d_RyaB26Jz1PGzbHMFUOZzGBoRTEfR1wpTwaLgtAOllxFg/viewform" target="_blank" style="
+                    font-size: 12px;
+                    font-family: 'Pretendard', sans-serif;
+                    cursor: pointer;
+                ">
+                <b>[d'Alba Global] 비윤리행위 제보</b>
+            </a>
+            -->
+        </ul>
+        <p class="footer_address sans per_50">
+            <span class="bold">{=gMall.companyNm}</span> {=gMall.address} ({=gMall.zonecode})<br>
+            <span class="bold">CEO</span> {=gMall.ceoNm}. <span class="bold">Hosting by</span> NHN Commerce <span class="bold">Tel</span> {=gMall.centerPhone}.  <span class="bold">Email</span> {=gMall.centerEmail} <span class="bold">Information manager</span> 유명한<br>
+            <span class="bold">Business Registeration No.</span> {=gMall.businessNo}. <span class="bold">Online Sales Reg No.</span> {=gMall.onlineOrderSerial}<br>
+            © 2016 d’Alba Global Co., Ltd. All rights reserved.
+        </p>
+    </div>
+    <!--{ / }-->
+</div>
+<!-- //footer -->
+<script>
+    function initObserveSectionTheme(){
+        window.addEventListener("scroll", function(e){
+            var currentTopPosition = document.querySelector("html").scrollTop;
+            // PC
+            $("#contents .section_theme").each(function(i, ele){
+                var start = $(ele).offset().top;
+                var end = start + $(ele).height();
+                if (start <= currentTopPosition && currentTopPosition <= end){
+                    // 헤더 메뉴 전체 테마 설정
+                    if ($(ele).data("theme") === "dark"){
+                        $('body').removeClass("bodywhite").addClass("bodyblack");
+                    } else if ($(ele).data("theme") === "light") {
+                        $('body').removeClass("bodyblack").addClass("bodywhite");
+                        //!$('body').hasClass('remove') ? $('body').addClass("white") : null;
+                    }
+                }
+            })
+        })
+    }
+    initObserveSectionTheme();
+    if ($("#contents .section_theme").data("theme") === "dark"){
+        $('body').removeClass("bodywhite").addClass("bodyblack");
+    } else if ($("#contents .section_theme").data("theme") === "light") {
+        $('body').removeClass("bodyblack").addClass("bodywhite");
+    }
+</script>
+<script>
+    // cssVars();
+    function initDataAttributeUtill(){
+        // Background Image
+        $("*[data-background-image]").each(function(i, el){
+
+            if (window.matchMedia("(min-width: 900px)").matches) {
+                $(el).css("background-image", "url("+$(el).data("background-image")+")");
+            } else {
+                if ($(el).data('mobile-background-image')){
+                    $(el).css("background-image", "url("+$(el).data("mobile-background-image")+")");
+                } else {
+                    $(el).css("background-image", "url("+$(el).data("background-image")+")");
+                }
+            }
+
+            function checkForWindowResize() {
+                if (window.matchMedia("(min-width: 900px)").matches) {
+                    $(el).css("background-image", "url("+$(el).data("background-image")+")");
+                }
+                else {
+                    if ($(el).data('mobile-background-image')){
+                        $(el).css("background-image", "url("+$(el).data("mobile-background-image")+")");
+                    } else {
+                        $(el).css("background-image", "url("+$(el).data("background-image")+")");
+                    }
+                }
+            }
+            window.addEventListener('resize', checkForWindowResize);
+
+        });
+
+        // Background Color Setting
+        $("*[data-background-color]").each(function(i, el){
+            $(el).css("background-color", $(el).data("background-color"));
+        });
+
+        // Text Color Setting
+        $("*[data-text-color]").each(function(i, el){
+            $(el).css("color", $(el).data("text-color"));
+        });
+
+        // a tag 사용하지 않은 엘리먼트에서 클릭시 링크 이동
+        $("*[data-href]").click(function(event){
+            location.href = $(event.currentTarget).data("href");
+        });
+
+        // 엘리먼트 클릭시, 새창으로 링크 오픈
+        $("*[data-blank-href]").click(function(event){
+            window.open($(event.currentTarget).data("blank-href"), "_blank");
+        });
+
+        // data-background-active-image
+        //background 요소 추가하기
+        $('.module-main-ingredients').prepend("<div class='background_image_change'></div>");
+        $("*[data-background-hover-image]").each(function(i, el){
+            if($(el).hasClass('active')) {
+                if (window.matchMedia("(min-width: 900px)").matches) {
+                    $(this).closest('.module-main-ingredients').css("background-image", "url("+$(this).data("background-hover-image")+")");
+                    $(this).closest('.module-main-ingredients').find('.background_image_change').css("background-image", "url("+$(this).data("background-hover-image")+")");
+                } else {
+                    $(this).closest('.module-main-ingredients').css("background-image", "url("+$(this).data("mobile-background-hover-image")+")");
+                    $(this).closest('.module-main-ingredients').find('.background_image_change').css("background-image", "url("+$(this).data("mobile-background-hover-image")+")");
+                }
+                $(this).closest('.module-main-ingredients').fadeIn("slow");
+                $(this).closest('.module-main-ingredients').find('.btn-ingredients a').removeClass('active');
+                $(this).addClass('active');
+                $(this).closest('.module-main-ingredients').find('.ingredients-content > div').hide();
+                $('.'+$(this).attr('rel')).fadeIn();
+            }
+        });
+        $('*[data-background-hover-image]').click(function(event){
+            if (window.matchMedia("(min-width: 900px)").matches) {
+                $(this).closest('.module-main-ingredients').find('.background_image_change').css("background-image", "url("+$(this).data("background-hover-image")+")");
+            } else {
+                $(this).closest('.module-main-ingredients').find('.background_image_change').css("background-image", "url("+$(this).data("mobile-background-hover-image")+")");
+            }
+            $(this).closest('.module-main-ingredients').find('.background_image_change').fadeIn("slow");
+            $(this).closest('.module-main-ingredients').find('.btn-ingredients a').removeClass('active');
+            // $('.module-main-ingredients .btn-ingredients a').removeClass('active');
+            $(this).addClass('active');
+            $(this).closest('.module-main-ingredients').find('.ingredients-content > div').hide();
+            // $('.module-main-ingredients .ingredients-content > div').hide();
+            $('.'+$(this).attr('rel')).fadeIn();
+        });
+
+    }
+    initDataAttributeUtill();
+
+
+    function slideThemeColor() {
+        if ($(".carousel-main .section_theme.is-selected").data("theme") === "dark") {
+            $('body').removeClass("bodywhite").addClass("bodyblack");
+        } else if ($(".carousel-main .section_theme.is-selected").data("theme") === "light") {
+            $('body').removeClass("bodyblack").addClass("bodywhite");
+        }
+    }
+    slideThemeColor();
+    const themeSlider = document.querySelector('.collection_list_wrap_pc');
+    // themeSlider.addEventListener("click", slideThemeColor, true);
+    //themeSlider.addEventListener("touchend", slideThemeColor, true);
+
+    $( document ).ready(function() {
+        $('.collection_list_wrap_pc').on('click', function(){
+            slideThemeColor();
+        });
+    });
+
+</script>

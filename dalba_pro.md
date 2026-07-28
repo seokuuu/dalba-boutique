@@ -207,7 +207,11 @@ professional/
 - **아티클**: 카테고리 탭(NEWS/EVENT/COLLABORATION) + 필터 JS 추가(게시판 말머리 연동 대비)
 - **스토어**: 모달 → **스플릿뷰**(왼쪽 검색리스트 + 오른쪽 상시 지도, 전 매장 마커, 리스트 클릭 시 하이라이트/이동) 재작업. store.js 전면 개편(전 매장 좌표 확보 후 마커, 검색 시 리스트+마커 필터)
 - **프로**: 게이트 → **로그인 + New Account Inquiry 카드**(핑크 배경) 재작업. 로그인 폼 action은 고도몰 member/login.php 기준 placeholder(연동 확인 필요)
-- 미반영(자산/확정 대기): GNB Prata 서체 적용, 전용 푸터, 로고 이미지(professional-logo), 제품 개별 썸네일, 메인 스크롤섹션 02/04/05·B&A
+- (260728) 사용자 추가 자산: `professional/제품 누끼/`(누끼 7종), `달바-헤어-프로페셔널-로고...png`(검정,투명 6500px), `professional/약관 자료/`(이용약관.docx, **거래동의 약관_260716.docx**=축2 3번째 필수약관)
+  - **반영**: Prata 서체 적용 / 히어로 로고 이미지 교체(검정+그림자, 최종 어두운 히어로 시 `hero__logo--white`) / **제품 누끼 4종** → `data/img/professional/{product,index}/` 배치(퍼퓸100·오일·트리트먼트180·샴푸275ml, 1400px 리사이즈) / 로고 → `common/professional-logo.png`
+  - (260728) **전용 GNB + 전용 푸터 반영**: `outline/header/standard.html`에 `gThisDirName=='professional'` nav 분기(Story/Product/Store/Articles/PRO)+전용 로고, `outline/footer/standard.html`에 professional 푸터 분기(로고+달바글로벌+Contact 비즈니스 이메일). 둘 다 additive(부티크/시그니처 무영향), 푸터 핵심 스크립트(section theme 색전환) 보존. CSS는 professional.css(professional 페이지에서만 로드→스코프 안전).
+  - (260728) **아티클 게시판 연동**: `js/professional/articles.js` 신규 — 아티클 게시판(bdId=`article`) `/board/list.php` AJAX fetch → 카드 렌더(제목/말머리=카테고리/날짜/대표이미지) + 탭(NEWS/EVENT/COLLABORATION) 필터. store와 동일 패턴(gd_btn_view sno 파싱). 운영: 말머리를 NEWS/EVENT/COLLABORATION로 등록. **아티클 게시판 생성 필요(id=article).**
+  - 미반영(자산/확정 대기): 메인 스크롤섹션 02/04/05·B&A(자산), 히어로 영상(7MB 압축본), 상품 goodsNo(상품등록), 흰색 로고(현재 CSS invert 대응)
 
 ---
 
@@ -241,7 +245,7 @@ professional/
 - `professional/webftp/board/_board_article_store.html` — **매장 리스트 위젯 커스텀 스킨**(`<li data-name data-view-url ...>`, `<ul>` 래퍼 없음)
 
 ### 착수 blocker (board 소스는 확인 완료 — 남은 것)
-- [ ] `includeWidget('board/_board_article_store.html', [...])` 가 **커스텀 위젯 스킨 파일명**을 받는지 확인 (안 되면 기본 `_board_article.html`을 이 내용으로 교체하거나 위젯 등록 방식 확인)
+- [x] ~~`includeWidget(..., [...])`~~ → **불가 확정(260727 라이브)**: 고도몰 `includeWidget`은 인자 1개(경로)만 받음. 파라미터 배열(`['bdId'=>..]`) 넣으니 파싱 실패 → 태그가 **리터럴 텍스트로 노출**됨. **해결: includeWidget 폐기 → store.js가 `/board/list.php?bdId=salon`을 AJAX fetch해 `tr[data-sno]` 파싱으로 목록 렌더**(그 후 각 view fetch로 주소→지오코딩→마커). `_board_article_store.html`은 미사용(참고용 잔존). 동일 패턴으로 Articles도 게시판+AJAX 예정.
 - [ ] 네이버 `ncpKeyId` **Geocoding API 사용 신청** 여부 확인
 - [ ] 매장 게시판 신설 후 `bdId` 를 store.html include 파라미터에 기입
 - [ ] (동일 패턴) Articles 게시판형도 후속 시 재사용 가능
@@ -295,7 +299,7 @@ professional/
 - [x] ~~회원가입/로그인 관련 템플릿 소스가 로컬에 없음~~ → **확보 완료** (260722~260727: `join_agreement.html`/`join.html`/위젯 3종/`gd_member2.js`/`member_joinitem.php`, §3 참조). **결론 수정(260727)**: 파일업로드는 고도몰 기본기능(comCertification/comAddiCert) 존재 → 원본 마크업 이식 수준, 3번째 약관은 `class="require"` 추가 수준. "둘 다 순수 코드 개발"은 과대평가였음.
 - [ ] (260727 추가) **고도몰 원본소스 `_join_view_business.html`** 확보 — 현재 dalba 스킨엔 파일필드 렌더 마크업이 없어, 원본에 comCertification/comAddiCert 렌더 파트가 있는지 확인 후 이식
 - [ ] (260727 추가) **`css/signature/common/common.css`** 확보 — 다운로드 누락분. professional common.css 를 임시 재구성해둠(§5-3), 원본 받으면 교체
-- [ ] (260722 추가) Pro 약관 "살롱·헤어디자이너 거래 동의" 법률자문 확정 대기 (백엔드 저장 필요 여부와 연결)
+- [x] ~~Pro 약관 "살롱·헤어디자이너 거래 동의" 법률자문 대기~~ → **문서 확보(260728)**: `professional/약관 자료/달바프로페셔널 헤어샵 및 아티스트 거래 동의 약관_260716.docx` (+ 이용약관.docx). 축2 3번째 필수약관 본문으로 사용. (백엔드 저장 필요 여부만 확정하면 됨)
 - [ ] (260722 추가) Store/Articles 데이터를 "당분간 브랜드마케팅팀이 관리자 페이지에서 운영"하기로 했는데, 이게 개발 범위에서 완전히 빠지는지 확정 필요
 
 ---

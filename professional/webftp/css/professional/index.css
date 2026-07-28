@@ -2,6 +2,26 @@ h2 {
     line-height: normal;
 }
 
+/* 히어로 로고 이미지 */
+.hero__title-image {
+    display: block;
+    width: 30rem;
+    max-width: 60vw;
+    height: auto;
+    margin: 0 auto;
+    /* 밝은/복잡한 배경에서도 읽히도록 약한 그림자 */
+    filter: drop-shadow(0 0.2rem 0.8rem rgba(0, 0, 0, 0.25));
+}
+/* 최종 어두운 히어로(영상)로 교체 시 이 클래스 추가 → 로고 흰색으로 */
+.hero__logo--white {
+    filter: brightness(0) invert(1) drop-shadow(0 0.2rem 0.8rem rgba(0, 0, 0, 0.3));
+}
+@media (max-width: 600px) {
+    .hero__title-image {
+        width: 20rem;
+    }
+}
+
 .main-content {
     position: relative;
     z-index: var(--z-main);

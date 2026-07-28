@@ -39,7 +39,10 @@
     function parseContentLabels(raw) {
         var out = {};
         if (!raw) return out;
-        var text = raw.replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "");
+        var text = raw
+            .replace(/<\/(p|div|li|h[1-6]|tr)>/gi, "\n") // 블록 종료 → 줄바꿈 (에디터 HTML 대응)
+            .replace(/<br\s*\/?>/gi, "\n")
+            .replace(/<[^>]+>/g, "");
         text.split(/\n+/).forEach(function (line) {
             line = line.trim();
             var m;
@@ -282,14 +285,63 @@
     }
 
     // ============================================================
+    // 게시판 목록 AJAX 로드 (includeWidget 대체) → #storeList 채움
+    // /board/list.php?bdId=... 를 불러와 tr[data-sno] 파싱
+    // ============================================================
+    function fetchBoardList(bdid, cb) {
+        var listEl = document.getElementById("storeList");
+        if (!bdid || typeof window.fetch !== "function") { cb(); return; }
+        window
+            .fetch("/board/list.php?bdId=" + encodeURIComponent(bdid), { credentials: "same-origin" })
+            .then(function (r) { return r.text(); })
+            .then(function (html) {
+                try {
+                    var doc = new DOMParser().parseFromString(html, "text/html");
+                    // 라이브 목록엔 data-sno 가 없고 제목 링크가 gd_btn_view('bdId', SNO ...) 형태.
+                    // 제목 셀(.board_tit)의 링크에서 sno 추출 (sno 중복 제거).
+                    var links = doc.querySelectorAll(".board_tit a");
+                    var seen = {};
+                    var out = "";
+                    Array.prototype.forEach.call(links, function (a) {
+                        var trig = (a.getAttribute("href") || "") + (a.getAttribute("onclick") || "");
+                        var m = trig.match(/gd_btn_view\([^,]*,\s*(\d+)/);
+                        if (!m) return;
+                        var sno = m[1];
+                        if (seen[sno]) return;
+                        var strong = a.querySelector("strong");
+                        var name = (strong ? strong.textContent : a.textContent).trim();
+                        if (!name) return;
+                        seen[sno] = true;
+                        out +=
+                            '<li class="store_list_item" data-sno="' + sno + '"' +
+                            ' data-name="' + name.replace(/"/g, "&quot;") + '"' +
+                            ' data-view-url="/board/view.php?bdId=' + bdid + "&sno=" + sno + '">' +
+                            '<div class="store_list_info"><p class="store_list_name">' + name + "</p></div>" +
+                            '<span class="store_list_arrow" aria-hidden="true">&rsaquo;</span>' +
+                            "</li>";
+                    });
+                    if (listEl) listEl.innerHTML = out || '<li class="store_list_empty">등록된 매장이 없습니다.</li>';
+                } catch (e) {
+                    console.warn("[professional/store] 게시판 목록 파싱 실패", e);
+                }
+                cb();
+            })
+            .catch(function () { cb(); });
+    }
+
+    // ============================================================
     // 초기화
     // ============================================================
     document.addEventListener("DOMContentLoaded", function () {
-        buildStoresFromDOM();
-        initMap();
-        loadAllMarkers();
-        bindListItems();
-        setupSearch();
+        var listEl = document.getElementById("storeList");
+        var bdid = listEl ? listEl.getAttribute("data-bdid") : "";
+        fetchBoardList(bdid, function () {
+            buildStoresFromDOM();
+            initMap();
+            loadAllMarkers();
+            bindListItems();
+            setupSearch();
+        });
     });
 
     window.professional.store = {
