@@ -1,0 +1,203 @@
+{*** 본인인증 인증번호 확인 | member/user_certification_confirm.php ***}
+{ # header }
+<div class="content_box sub_content_wrap">
+	<div class="member_wrap">
+		<div class="member_tit">
+			<h4 class="textcenter freight_disp_pro">{=__('Find Password')}</h4>
+		</div>
+		<div class="common_tab">
+			<ul class="clearfix">
+				<li class="floatleft per_50"><a href="javascript:void(0)" class="" onclick="location.href='../member/find_id.php'"><h6>아이디 찾기</h6></a></li>
+				<li class="floatleft per_50"><a href="javascript:void(0)" class="active" onclick="location.href='../member/find_password.php'"><h6>비밀번호 찾기</h6></a></li>
+			</ul>
+		</div>	
+		<div class="member_cont">
+			<form name="formAuthConfirm" id="formAuthConfirm" method="post">
+				<input type="hidden" name="authType" value="{authType}"/>
+				<input type="hidden" name="certificationType" value="{certificationType}"/>
+				<input type="hidden" name="token" value="{token}"/>
+				<input type="hidden" name="cToken" value="{cToken}"/>
+				<input type="hidden" name="requestAuth" value="{requestAuth}"/>
+				<div class="find_password_box">
+					{? authType == 'authEmail'}
+					{: authType == 'authSms'}
+					<p class="guide">{=__('수신된 SMS의 인증번호를 입력해 주세요.')}</p>
+					{/}
+					<div class="login_input">
+						<div class="member_warning">
+							<input type="text" id="inputCertify" name="inputCertify" class="text" placeholder="{=__('인증번호 입력')}">
+							<div class="clearfix">
+								<div class="per_50 floatleft">
+									<p class="auth-text-time-authno dn" style="margin-top: 5px; font-size:10px; color:#999999;">남은 인증시간: <span class="auth-time-authno"></span></p>
+								</div>
+								<div class="per_50 floatright">
+									<div id="guideMsg" class="dn">
+										<p class="info_again">{? authType == 'authEmail'} {=__('인증메일이 도착하지 않았나요?')} {: authType == 'authSms'} {=__('인증번호가 도착하지 않았나요?')} {/} <a href="#" name="btnAgain">{=__('인증번호 다시받기')}</a></p>
+									</div>									
+									<div id="errorMessage" class="dn">
+										<p class="info_again">{=__('잘못된 인증번호 입니다. 다시 입력해 주세요.')}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- //member_warning -->
+						<div class="btn_center_box">
+							<button  type="button" id="btnCancel" class="btn_member_prev btn_wide_stroke">{=__('이전')}</button><!--
+							--><button type="submit" class="btn_member_next btn_wide_fill">{=__('확인')}</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- //find_password_box -->
+		</div>
+		<!-- //member_cont -->
+
+	</div>
+	<!-- //member_wrap -->
+</div>
+<!-- //content_box -->
+<script type="text/javascript">
+    var requestAuth = $('input[name=requestAuth]').val();
+    var manage_register = {
+        regex: {
+            auth_no: /\d{8}/
+        },
+        use_time_up_alert: {
+            sms: true,
+            email: true
+        }
+    };
+
+	$(document).ready(function () {
+		var $formAuthConfirm = $('#formAuthConfirm');
+
+        if (requestAuth === 'true') {
+            var html = '남은 인증시간: <span class="auth-time-authno" id="m_timer_authno"></span>';
+            clearInterval(window['timer_Mm_timer_authno']);
+            $('.auth-text-time-authno').removeClass('dn').html(html);
+            $('.auth-time-authno').countdowntimer({
+                minutes: 10,
+                size: '10px',
+                fontColor: '#999999',
+                borderColor: '#ffffff',
+                displayFormat: 'MS',
+                backgroundColor: '#ffffff',
+                tickInterval: 1,
+                timeUp: function () {
+                    if (manage_register.use_time_up_alert.sms) {
+                        alert('인증시간이 만료되었습니다. 인증번호 다시받기를 눌러주세요.');
+                        $('.auth-text-time-authno').addClass('dn').html('');
+                        $('#guideMsg', $formAuthConfirm).removeClass('dn');
+                    }
+                }
+            });
+        } else {
+            clearInterval(window['timer_Mm_timer_authno']);
+            $('.auth-text-time-authno').addClass('dn').html('');
+		}
+
+		$('#btnCancel', $formAuthConfirm).click(function (e) {
+			e.preventDefault();
+			location.href = '../member/user_certification.php';
+		});
+
+		$('[name=btnAgain]', $formAuthConfirm).click(function (e) {
+			e.preventDefault();
+
+			var params = $formAuthConfirm.serializeArray();
+			params.push({name: "mode", value: "requestAuth"});
+
+			$.post('../member/user_certification_ps.php', params).done(function (data, textStatus, jqXHR) {
+				console.log('gd_member ajax', data, textStatus, jqXHR);
+				var code = data.code;
+				var message = data.message;
+				if (_.isUndefined(code) && _.isUndefined(message)) {
+					alert(data);
+                    $('#guideMsg', $formAuthConfirm).addClass('dn');
+                    $('#errorMessage', $formAuthConfirm).addClass('dn');
+                    var html = '남은 인증시간: <span class="auth-time-authno" id="m_timer_authno"></span>';
+                    clearInterval(window['timer_Mm_timer_authno']);
+                    $('.auth-text-time-authno').removeClass('dn').html(html);
+                    $('.auth-time-authno').countdowntimer({
+                        minutes: 10,
+                        size: '10px',
+                        fontColor: '#999999',
+                        borderColor: '#ffffff',
+                        displayFormat: 'MS',
+                        backgroundColor: '#ffffff',
+                        tickInterval: 1,
+                        timeUp: function () {
+                            if (manage_register.use_time_up_alert.sms) {
+                                alert('인증시간이 만료되었습니다. 인증번호 다시받기를 눌러주세요.');
+                                $('.auth-text-time-authno').addClass('dn').html('');
+                                $('#guideMsg', $formAuthConfirm).removeClass('dn');
+                            }
+                        }
+                    });
+				} else {
+					$('#guideMsg', $formAuthConfirm).addClass('dn');
+					$('#errorMessage', $formAuthConfirm).removeClass('dn').html('<p class="info_again">' + message + '<a href="#" name="btnAgain">{=__("인증번호 다시받기")}</a></p>');
+					if (code == 403) {
+						location.href = '../member/find_password.php';
+					}
+				}
+			});
+		});
+
+		$formAuthConfirm.validate({
+			dialog: false,
+			rules: {
+				inputCertify: {
+					required: true
+				}
+			},
+			messages: {
+				inputCertify: {
+					required: "{=__('인증번호를 입력해주세요.')}"
+				}
+			}, submitHandler: function (form) {
+				var params = $(form).serializeArray();
+				var certificationType = $('input[name=certificationType]', form).val();
+				switch (certificationType) {
+					case 'find_password':
+						params.push({name: "mode", value: "certificationFindPassword"});
+						break;
+				}
+
+				$.post('../member/user_certification_ps.php', params).done(function (data, textStatus, jqXHR) {
+					console.log('gd_member ajax', data, textStatus, jqXHR);
+					var code = data.code;
+					var message = data.message;
+					var url = data.url;
+					if (_.isUndefined(code) && _.isUndefined(message)) {
+						alert(data);
+                        manage_register.use_time_up_alert.sms = false;
+                        $('.auth-text-time-authno').addClass('dn').html('');
+                        $('input[name=inputCertify]').val('');
+						switch (certificationType) {
+							case 'find_password':
+								form.action = '../member/find_password_reset.php';
+								break;
+						}
+						form.submit();
+					} else {
+					    if (code !== 0) {
+					        alert(message); // 인증 제한시간 만료시 경고창
+                            $('.auth-text-time-authno').addClass('dn').html('');
+                            $('#guideMsg', $formAuthConfirm).removeClass('dn');
+                            $('#errorMessage', form).addClass('dn');
+						} else {
+                            $('#guideMsg', form).addClass('dn');
+                            $('#errorMessage', form).removeClass('dn');
+                        }
+						if (_.isUndefined(url) === false) {
+						    alert(message); // 인증 횟수 제한에 대한 알럿창(5회)
+							location.href = url;
+						}
+					}
+				});
+			}
+		});
+	});
+</script>
+{ # footer }

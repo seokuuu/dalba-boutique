@@ -15,70 +15,11 @@
     filter: brightness(0) invert(1);
 }
 
-/* ===== 전용 푸터 (Figma STORE/ARTICLES 하단) ===== */
-.footer_pro {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 3rem 6rem;
-    padding: 6rem var(--wrapper-padding-sm);
-    background: var(--color-white);
-    color: var(--color-gray-800);
-}
-.footer_pro_logo img {
-    height: 4rem;
+/* ===== 전용 푸터: 시그니처 푸터(footer_logo/footer_content) 그대로 재사용, 로고만 professional 교체 =====
+   (요구프레임 60:1662 "로고만 교체, 시그니처와 동일". footer_logo/footer_content 스타일은 공용 테마 CSS 사용) */
+.footer-professional-logo {
+    height: 2.4rem;
     width: auto;
-}
-.footer_pro_body {
-    flex: 1;
-    min-width: 28rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2.4rem 4rem;
-}
-.footer_pro_company {
-    font-size: 1.3rem;
-    line-height: 1.9;
-    color: var(--color-gray-750);
-}
-.footer_pro_company .bold {
-    color: var(--color-gray-900);
-    font-weight: 600;
-}
-.footer_pro_contact {
-    font-size: 1.3rem;
-    max-width: 34rem;
-}
-.footer_pro_contact_tit {
-    font-family: var(--font-en-title);
-    font-size: 1.5rem;
-    color: var(--color-gray-900);
-    margin-bottom: 1rem;
-}
-.footer_pro_contact_row {
-    display: flex;
-    gap: 1rem;
-    margin-top: 0.6rem;
-    line-height: 1.7;
-}
-.footer_pro_contact_label {
-    flex: 0 0 auto;
-    color: var(--color-gray-900);
-    font-weight: 600;
-}
-.footer_pro_contact_emails {
-    color: var(--color-gray-600);
-    word-break: break-word;
-}
-@media (max-width: 960px) {
-    .footer_pro {
-        flex-direction: column;
-        gap: 3rem;
-    }
-    .footer_pro_body {
-        flex-direction: column;
-    }
 }
 
 .fade-in-text {

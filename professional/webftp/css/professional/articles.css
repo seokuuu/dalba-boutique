@@ -77,6 +77,10 @@
     color: inherit;
     text-decoration: none;
 }
+/* 상세페이지 미기획 → 라우팅 비활성 카드는 클릭 커서 제거 (href 복원 시 자동으로 pointer) */
+.articles__item a[href^="javascript"] {
+    cursor: default;
+}
 
 .articles__picture {
     display: block;

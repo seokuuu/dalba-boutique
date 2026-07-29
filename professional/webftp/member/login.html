@@ -1,0 +1,394 @@
+{*** 로그인 | member/login.php ***}
+{ # header }
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<div class="content_box sub_content_wrap">
+	<div class="member_wrap">
+		<div class="member_tit">
+			<h4 class="textcenter freight_disp_pro">{=__('Sign In')}</h4>
+		</div>
+		<div class="common_tab login_tabs">
+			<ul class="clearfix">
+				<li class="floatleft per_50 login_tab_btn" data-tab="login_tab_1"><a href="javascript:void(0)" class="active"><h6>로그인</h6></a></li>
+				<li class="floatleft per_50 login_tab_btn" data-tab="login_tab_2"><a href="javascript:void(0)"><h6>비회원 주문조회</h6></a></li>
+			</ul>
+		</div>
+		<!-- //member_tit -->
+		<div class="member_cont login_tabs_cont_wrap">
+
+            <div id="login_tab_1" class="login_tabs_cont active">
+                <form id="formLogin" method="post" action="{loginActionUrl}">
+
+                    <!--{ ? !empty(wm_hometry_goods) }-->
+                    <!-- 웹앤모바일 홈트라이 고객 경로 간소화 ================================================== START -->
+                    <input type="hidden" id="wm_hometry_goods" name="wm_hometry_goods" value="{=wm_hometry_goods}"/>
+                    <!-- 웹앤모바일 홈트라이 고객 경로 간소화 ================================================== END -->
+                    <!--{ / }-->
+
+                    <input type="hidden" id="mode" name="mode" value="{modeLogin}"/>
+                    <input type="hidden" id="returnUrl" name="returnUrl" value="{returnUrl}"/>
+                    <input type="hidden" id="secretKey" name="secretKey" value="{secretKey}"/>
+                    <input type="hidden" id="encryptFl" name="encryptFl" value="Y"/>
+                    <div class="member_login_box">
+                        <div class="login_input_sec">
+                            <div>
+                                <input type="text" id="loginId" name="loginId" value="{data.loginId}" placeholder="{=__('아이디')}" required="true"/>
+                                <input type="password" id="loginPwd" name="loginPwd" value="" placeholder="{=__('비밀번호')}" required="true"/>
+                            </div>
+                            <div class="id_chk">
+                                <span class="form_element">
+                                    <input type="checkbox" id="saveId" name="saveId" value="y" checked="{?!empty(data.loginId)}true{/}"/>
+                                    <label for="saveId" class="check_s {?!empty(data.loginId)}on{/}">{=__('아이디 저장')}</label>
+                                </span>
+                                <p class="dn js_caution_msg1">{=__('아이디, 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.')}</p>
+                            </div>
+                            <div class="member_bottom_btn">
+                                <button type="submit" class="member_login_order_btn btn_wide_fill">{=__('로그인')}</button>
+                                <button id="btnJoinMember" class="btn_member_join btn_wide_stroke">{=__('회원가입')}</button>
+                                <!-- //login_box -->
+
+
+
+                                <div class="member_sns_login clearfix">
+
+                                    <!--{? useKakaoLogin}-->
+                                    <!--{? wm_kakao_sink }-->
+                                    <!-- 웹앤모바일 카카오 싱크 ================================================== START f9e000-->
+                                    <a style="border-color:#f9e000;background:#f9e000;color:#3c1c21;text-align:center;font-family:none" href="javascript:loginkakao('{=kakao_key}');" class="btn_wide_stroke" data-return-url="{=kakaoReturnUrl}">카카오 로그인/회원가입</a>
+                                    <!-- 웹앤모바일 카카오 싱크 ================================================== END -->
+                                    <!--{ / }-->
+                                    <!--{ / }-->
+
+                                    <!--{? usePaycoLogin}-->
+                                    <button class="btn_payco_login js_btn_payco_login btn_member_white floatleft btn_wide_stroke" href="#">{=__('PAYCO')} {=__('아이디 로그인')}</button>
+                                    <!--{/}-->
+                                    <!--{? useFacebookLogin}-->
+                                    <button href="#" class="btn_facebook_login js_btn_facebook_login btn_member_white floatleft btn_wide_stroke" href="#" data-facebook-url="{=facebookUrl}">{=__('FACEBOOK')} {=__('아이디 로그인')}</button>
+                                    <!--{/}-->
+									<!--{? useKakaoLogin}-->
+                                    {*
+                                    <button href="#" class="btn_kakao_login btn_wide_stroke floatleft js_btn_kakao_login" style="border-color: #f9e000;background: #f9e000;color: #3c1c21;" data-kakao-type="login" data-return-url="{=kakaoReturnUrl}">{=__('카카오')} 로그인/회원가입</button>
+                                    *}
+                                    <!--{/}-->
+
+                                    <!--{? useNaverLogin}-->
+                                    <button href="#" class="btn_naver_login js_btn_naver_login btn_member_white floatleft btn_wide_stroke" href="#" data-naver-url="{=naverUrl}">{=__('네이버')} {=__('아이디 로그인')}</button>
+                                    <!--{/}-->
+									<!-- //btn_login_box -->
+                                	<button id="btnFindId" class="btn_kakao_login btn_member_white btn_wide_stroke btn_wide_stroke_gray floatright" style="margin-top: 12px;">아이디/비밀번호 찾기</button>
+                                    <!--{? useWonderLogin}-->
+                                    <button href="#" class="btn_wonder_login js_btn_wonder_login btn_member_white floatleft btn_wide_stroke" data-wonder-type="login" data-wonder-url="{=wonderReturnUrl}">{=__('위메프')} {=__('아이디로 로그인')}</button>
+                                    <!--{/}-->
+
+                                    <!--{? useAppleLogin}-->
+                                    <button a href="#" class="btn_apple_login js_btn_apple_login">
+                                        {=__('Apple')} {=__('아이디 로그인')}
+                                        <div id="appleid-signin" style="display: none"></div>
+                                    </button>
+                                    <!--{/}-->
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+                <!--{ ? isMemberOrder == false }-->
+                <form action="../member/member_ps.php" method="post">
+                    <input type="hidden" name="mode" value="guest"/>
+                    <input type="hidden" name="returnUrl" value="{returnUrl}"/>
+                    <div class="nonmember_join_box">
+                        <div class="btn_center_box">
+                            <button type="submit" class="btn_member_black btn_wide_stroke btn_wide_stroke_gray">{=__('비회원 주문하기')}</button>
+                        </div>
+                    </div>
+                </form>
+                <!--{ / }-->
+
+            </div>
+
+            <div id="login_tab_2" class="login_tabs_cont" style="display:none;">
+                <!-- //nonmember_join_box -->
+                <!--{ ? hasGuestOrder == false }-->
+                    <form id="formOrderLogin" action="../member/member_ps.php" method="post">
+                        <input type="hidden" name="mode" value="guestOrder"/>
+                        <input type="hidden" name="returnUrl" value="../mypage/order_view.php"/>
+                        <div class="nonmember_order_box">
+                            <div class="order_input_sec">
+                                <div>
+                                    <input type="text" name="orderNm" placeholder="{=__('주문자명')}"/>
+                                    <input type="text" name="orderNo" placeholder="{=__('주문번호')}" data-max-length="{=orderNoMaxLength}" />
+                                </div>
+                                <button type="submit" class="btn_wide_fill">{=__('확인')}</button>
+                            </div>
+                            <p class="js_caution_msg2">{=__('주문번호와 비밀번호를 잊으신 경우, 고객센터로 문의하여 주시기 바랍니다.')}</p>
+                        </div>
+                    </form>
+                <!--{ / }-->
+            </div>
+		</div>
+		<!-- //member_cont -->
+	</div>
+	<!-- //member_wrap -->
+</div>
+<!-- //content_box -->
+
+<script>
+
+
+
+//Tab Menu
+$(document).ready(function () {
+    $('.login_tabs .login_tab_btn').click(function () {
+        var login_tab_target = $(this).attr('data-tab');
+        $('.login_tabs .login_tab_btn a').removeClass('active');
+        $('.login_tabs_cont').hide();
+        $(this).children().addClass('active');
+        $("#" + login_tab_target).fadeIn(350);
+    })
+});
+</script>
+
+<script type="text/javascript" src="../js/jquery/jquery.serialize.object.js"></script>
+<script type="text/javascript">
+	var $formLogin;
+
+	/**
+	 * 로그인 정보 암호화 처리
+	 */
+	var Encryption = {
+		get encryptMethod() {
+			return 'AES-256-CBC';
+		},
+		get encryptMethodLength() {
+			var encryptMethod = this.encryptMethod;
+			var aesNumber = encryptMethod.match(/\d+/)[0];
+			return parseInt(aesNumber);
+		},
+		encrypt : function (string, key) {
+			var iv = CryptoJS.lib.WordArray.random(16);
+			var salt = CryptoJS.lib.WordArray.random(256);
+			var iterations = 999;
+			var encryptMethodLength = (this.encryptMethodLength/4);
+			var hashKey = CryptoJS.PBKDF2(key, salt, {'hasher': CryptoJS.algo.SHA512, 'keySize': (encryptMethodLength/8), 'iterations': iterations});
+			var encrypted = CryptoJS.AES.encrypt(string, hashKey, {'mode': CryptoJS.mode.CBC, 'iv': iv});
+			var encryptedString = CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
+
+			var output = {
+				'ciphertext': encryptedString,
+				'iv': CryptoJS.enc.Hex.stringify(iv),
+				'salt': CryptoJS.enc.Hex.stringify(salt),
+				'iterations': iterations
+			};
+
+			return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(JSON.stringify(output)));
+		}
+	}
+
+	/**
+	 * form serialize 값 변경
+	 *
+	 * @param values 폼명
+	 * @param k 변경할 inputName
+	 * @param v 변경할 inputValue
+	 */
+	function changeSerialize(values, k, v) {
+		var found = false;
+		for (i = 0; i < values.length && !found; i++) {
+			if (values[i].name == k) {
+				values[i].value = v;
+				found = true;
+			}
+		}
+
+		if (!found) {
+			values.push({name: k,value: v});
+		}
+		return values;
+	}
+
+	$(document).ready(function () {
+	    var order_no_max_length = $('input[name=orderNo]').data('max-length');
+		$('#btnJoinMember').click(function (e) {
+			e.preventDefault();
+			location.href = '../member/join_method.php';
+		});
+		$('#btnFindId').click(function (e) {
+			e.preventDefault();
+			location.href = '../member/find_id.php';
+		});
+		$('#btnFindPwd').click(function (e) {
+			e.preventDefault();
+			location.href = '../member/find_password.php';
+		});
+
+		// 네이버 아이디로 로그인, 카카오 아이디로 로그인시 로그인 validation exceiption 처리
+		$('.js_btn_kakao_login, .js_btn_naver_login').click(function (e) {
+			e.preventDefault();
+		});
+
+		$('#loginId, #loginPwd').focusin(function () {
+			$('.js_caution_msg1', '#formLogin').addClass('dn');
+		});
+
+		$formLogin = $('#formLogin');
+		$formLogin.validate({
+			dialog: false,
+			rules: {
+				loginId: {
+					required: true
+				},
+				loginPwd: {
+					required: true
+				}
+			},
+			messages: {
+				loginId: {
+					required: "{=__('아이디를 입력해주세요')}"
+				},
+				loginPwd: {
+					required: "{=__('패스워드를 입력해주세요')}"
+				}
+			}, submitHandler: function (form) {
+				$('.member_login_order_btn').attr('disabled', true);
+			    if (window.location.search) {
+                    var _tempUrl = window.location.search.substring(1);
+                    var _tempVal = _tempUrl.split('=');
+
+                    if (_tempVal[1] == 'lnCouponDown') {
+                        $('#returnUrl').val(document.referrer);
+                    }
+                }
+
+			    // 로그인 정보 암호화 처리 (보안이슈)
+				var encryptLoginId = Encryption.encrypt($('#loginId').val(),$('#secretKey').val());
+				var encryptLoginPwd = Encryption.encrypt($('#loginPwd').val(),$('#secretKey').val());
+
+				var params = $(form).serializeArray();
+				params = changeSerialize(params, 'loginId', encryptLoginId); // 암호화 된 아이디로 변경
+				params = changeSerialize(params, 'loginPwd', encryptLoginPwd); // 암호화 된 패스워드로 변경
+				$.post('../member/login_ps.php', params).done(function (data) {
+					var code = data.code;
+					var message = data.message;
+					var url = data.url;
+
+                    <!--{ ? wm_hometry_goods }-->
+                    // 웹앤모바일 홈트라이 고객 경로 간소화 ================================================== START
+                    if (_.isUndefined(code) && _.isUndefined(message)) {
+                        window.location.href = url;
+                    } else {
+                        alert(message);
+                        var returnUrl = '{=urldecode(returnUrl)}';
+                        if (returnUrl!='') {
+                            location.href = returnUrl;
+                        }
+                    }
+                    // 웹앤모바일 홈트라이 고객 경로 간소화 ================================================== END
+                    <!--{ : }-->
+                    // 원본
+					if (_.isUndefined(code) && _.isUndefined(message)) {
+						var returnUrl = '{=urldecode(returnUrl)}';
+                        if (_.isEmpty(returnUrl)) {
+                            location.href = '/';
+                        } else {
+                            window.location.href = returnUrl;
+                        }
+					} else {
+                        alert(message);
+						if (_.isUndefined(url) === false) {
+							location.href = url;
+						}
+					}
+                    <!--{ / }-->
+
+					$('.member_login_order_btn').attr('disabled', false);
+				});
+			}
+		});
+
+		// 비회원 주문조회 폼 체크
+		$('#formOrderLogin').validate({
+			rules: {
+				orderNm: 'required',
+				orderNo: {
+					required: true,
+					number: true,
+					maxlength: order_no_max_length
+				}
+			},
+			messages: {
+				orderNm: {
+					required: "{=__('주문자명을 입력해주세요.')}"
+				},
+				orderNo: {
+					required: "{=__('주문번호를 입력해주세요.')}",
+					number: "{=__('숫자로만 입력해주세요.')}",
+					maxlength: "{=__('주문번호는 " + order_no_max_length + "자리입니다.')}"
+				}
+			},
+			submitHandler: function (form) {
+				$.post(form.action, $(form).serializeObject()).done(function (data, textStatus, jqXhr) {
+					console.log(data);
+					if (data.result == 0) {
+						location.replace('../mypage/order_view.php?orderNo=' + data.orderNo);
+					} else {
+						$('.js_caution_msg2').empty().html("{=__('주문자명과 주문번호가 일치하는 주문이 존재하지 않습니다. 다시 입력해 주세요.')}<br><span>{=__('주문번호와 비밀번호를 잊으신 경우, 고객센터로 문의하여 주시기 바랍니다.')}</span>");
+					}
+				});
+				return false;
+			}
+		});
+
+		<!--{ ? useAppleLogin }-->
+		$("#apple_btn").on("click", startClicked);
+		function startClicked(){
+			$("#appleid-signin").click();
+		}
+		<!--{ / }-->
+	});
+
+
+    // 웹앤모바일 카카오 싱크 ================================================== START
+    /**
+     * KAKAO JS SDK init
+     */
+    function setKakaoSdkInit(clientSecret)
+    {
+        // Kakao 객체가 이미 초기화 되어있다면 cleanup해주고 다시 init 해준다
+        // Kakao 객체가 중복으로 init되면 함수 실행시 에러 발생하는 현상 방지
+        if (Kakao.isInitialized()) {
+            Kakao.cleanup();
+        }
+        Kakao.init(clientSecret);
+    }
+
+    function loginkakao(clientSecret){
+        setKakaoSdkInit(clientSecret);
+        var hostPath = '{=host_path}';
+        var url = "{= returnUrl }";
+        var state = $('#saveAutoLogin:checked').val() ? $('#saveAutoLogin:checked').val() : 'n';
+        state = url + "^|^" + state;
+        Kakao.Auth.authorize({
+            redirectUri: hostPath + '/member/kakao/kakao_login.php',
+            state: state,
+        });
+    }
+    // 웹앤모바일 카카오 싱크 ================================================== END
+</script>
+<style>
+    .member_sns_login > *:first-child { margin-top: 12px; }
+</style>
+<!--{ ? useAppleLogin }-->
+<script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+<script type="text/javascript">
+	AppleID.auth.init({
+		clientId : '{client_id}',
+		scope : 'name email',
+		redirectURI: '{redirectURI}',
+		state: '{state}',
+		// usePopup: true
+	});
+</script>
+<!--{ / }-->
+
+{ # footer }

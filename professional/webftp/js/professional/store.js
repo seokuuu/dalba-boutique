@@ -190,10 +190,27 @@
         state.bounds = new naver.maps.LatLngBounds();
     }
 
+    // 핀 아이콘: 기본=회색/기본크기, 선택=검정/확대 (Figma 60:1666)
+    function pinIcon(active) {
+        var size = active ? 42 : 30;
+        var color = active ? "%23111111" : "%239b9b9b"; // #111111 / #9b9b9b (URI 인코딩)
+        var svg =
+            "data:image/svg+xml;charset=UTF-8," +
+            "%3Csvg xmlns='http://www.w3.org/2000/svg' width='" + size + "' height='" + size + "' viewBox='0 0 24 24'%3E" +
+            "%3Cpath fill='" + color + "' d='M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7z'/%3E" +
+            "%3Ccircle cx='12' cy='9' r='2.4' fill='%23ffffff'/%3E%3C/svg%3E";
+        return {
+            url: svg,
+            size: new naver.maps.Size(size, size),
+            scaledSize: new naver.maps.Size(size, size),
+            anchor: new naver.maps.Point(size / 2, size), // 핀 끝이 좌표에
+        };
+    }
+
     function addMarker(store) {
         if (store.lat == null || store.lng == null || !state.map) return;
         var pos = new naver.maps.LatLng(store.lat, store.lng);
-        store.marker = new naver.maps.Marker({ position: pos, map: state.map, title: store.name });
+        store.marker = new naver.maps.Marker({ position: pos, map: state.map, title: store.name, icon: pinIcon(false) });
         naver.maps.Event.addListener(store.marker, "click", function () {
             selectStore(store.index);
         });
@@ -226,6 +243,7 @@
 
         state.stores.forEach(function (s) {
             if (s.el) s.el.classList.toggle("is-active", s.index === index);
+            if (s.marker) s.marker.setIcon(pinIcon(s.index === index)); // 선택 핀 검정+확대
         });
 
         if (store.el && store.el.scrollIntoView) {

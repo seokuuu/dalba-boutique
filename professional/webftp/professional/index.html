@@ -31,7 +31,7 @@
         </div>
     </section>
 
-    <div class="fade-in-text section_theme" data-theme="light">
+    <div id="brand-story" class="fade-in-text section_theme" data-theme="light">
         <div class="wrapper">
             <p class="fade-in-text__paragraph font-en-title">
                 <span class="fade-in-text__word fade-in-text__word--title">P</span>
@@ -102,7 +102,7 @@
     </div>
     <!-- 브랜드 인트로: Figma 노드 91:9 확인 문구 그대로 사용 -->
 
-    <section class="horizontal-scroll section_theme" data-theme="dark">
+    <section id="ingredient" class="horizontal-scroll section_theme" data-theme="dark">
         <ul class="horizontal-scroll__list">
             <li class="horizontal-scroll__item">
                 <picture class="horizontal-scroll__picture">
@@ -204,10 +204,67 @@
     </section>
     <!-- STEP 1~3 문구: Figma 노드 91:9 하위 텍스트 그대로 사용, 이미지는 전부 placeholder 경로 -->
 
-    <!-- TODO: B&A(전후) 무드컷 섹션 - Figma 최종 프레임 번호 확정 후 추가 (§8 미해결 항목) -->
+    <!-- 무드컷 갤러리 (가로 롤링 캐러셀) — Figma 60:1651. index.js initCarouselScrollAndControls(시그니처 캐러셀) 재사용 -->
+    <!-- TODO: ④ 인물아바타 영상롤링 섹션(60:1647) 은 자산(7월말) 오면 이 위에 추가 -->
+    <section class="carousel section_theme" data-theme="light">
+        <div class="carousel__container">
+            <button type="button" class="carousel__control carousel__control--prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="34" viewBox="0 0 20 34" fill="none" aria-hidden="true" focusable="false">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.05517 33.7396L0.333294 31.9271L16.046 17L0.333297 2.07291L2.05517 0.260413L19.6758 17L2.05517 33.7396Z" fill="#000"></path>
+                </svg>
+            </button>
+            <div class="carousel__draggable">
+                <ul class="carousel__list">
+                    <li class="carousel__item carousel__item--image">
+                        <picture class="carousel__picture">
+                            <source srcset="/data/img/professional/main/MOOD-01.png" type="image/png" />
+                            <img loading="lazy" class="carousel__image" alt="mood-image" />
+                        </picture>
+                    </li>
+                    <li class="carousel__item carousel__item--image">
+                        <picture class="carousel__picture">
+                            <source srcset="/data/img/professional/main/MOOD-02.png" type="image/png" />
+                            <img loading="lazy" class="carousel__image" alt="mood-image" />
+                        </picture>
+                    </li>
+                    <li class="carousel__item carousel__item--image">
+                        <picture class="carousel__picture">
+                            <source srcset="/data/img/professional/main/MOOD-03.png" type="image/png" />
+                            <img loading="lazy" class="carousel__image" alt="mood-image" />
+                        </picture>
+                    </li>
+                    <li class="carousel__item carousel__item--image">
+                        <picture class="carousel__picture">
+                            <source srcset="/data/img/professional/main/MOOD-04.png" type="image/png" />
+                            <img loading="lazy" class="carousel__image" alt="mood-image" />
+                        </picture>
+                    </li>
+                    <li class="carousel__item carousel__item--image">
+                        <picture class="carousel__picture">
+                            <source srcset="/data/img/professional/main/MOOD-05.png" type="image/png" />
+                            <img loading="lazy" class="carousel__image" alt="mood-image" />
+                        </picture>
+                    </li>
+                    <li class="carousel__item carousel__item--image">
+                        <picture class="carousel__picture">
+                            <source srcset="/data/img/professional/main/MOOD-06.png" type="image/png" />
+                            <img loading="lazy" class="carousel__image" alt="mood-image" />
+                        </picture>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" class="carousel__control carousel__control--next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="34" viewBox="0 0 20 34" fill="none" aria-hidden="true" focusable="false">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.05517 33.7396L0.333294 31.9271L16.046 17L0.333297 2.07291L2.05517 0.260413L19.6758 17L2.05517 33.7396Z" fill="#000"></path>
+                </svg>
+            </button>
+        </div>
+    </section>
 </main>
 
-<div class="discover section_theme" data-theme="dark">
+<!-- 라인업(제품 쇼케이스) 섹션: Figma 60:1655 "제품 출시 전이라 현재 개발 범위 제외" → 숨김.
+     제품 출시 시 아래 style="display:none" 제거하여 복원 (시그니처 라인업컷 구조 참고) -->
+<div class="discover section_theme" data-theme="dark" style="display:none">
     <div class="discover__container">
         <picture class="discover__picture">
             <source

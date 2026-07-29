@@ -54,6 +54,16 @@
     color: var(--color-gray-600);
 }
 
+.pro-login__error {
+    margin: -0.4rem 0 0;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: #d64545;
+}
+.pro-login__error[hidden] {
+    display: none;
+}
+
 .pro-login__submit {
     height: 4.8rem;
     margin-top: 0.8rem;

@@ -11,10 +11,11 @@
             <!-- 로그인 -->
             <div class="pro-card__col pro-login">
                 <h2 class="pro-card__title font-en-title">Login</h2>
-                <!-- TODO(축2/로그인 연동): action·필드명은 고도몰 member/login.php 기준으로 교체 -->
-                <form class="pro-login__form" action="/member/login.php" method="post">
-                    <input type="text" name="loginId" class="pro-login__input" placeholder="아이디를 입력해주세요" autocomplete="username" />
-                    <input type="password" name="loginPwd" class="pro-login__input" placeholder="비밀번호를 입력해주세요" autocomplete="current-password" />
+                <!-- 로그인 연동: pro.js 가 login.php에서 secretKey 받아 AES 암호화 후 login_ps.php로 AJAX POST (login.html과 동일 방식) -->
+                <form id="proLoginForm" class="pro-login__form" action="/member/login.php" method="post">
+                    <input type="text" id="proLoginId" name="loginId" class="pro-login__input" placeholder="아이디를 입력해주세요" autocomplete="username" required />
+                    <input type="password" id="proLoginPwd" name="loginPwd" class="pro-login__input" placeholder="비밀번호를 입력해주세요" autocomplete="current-password" required />
+                    <p class="pro-login__error" role="alert" hidden></p>
                     <button type="submit" class="pro-login__submit">로그인</button>
                 </form>
                 <div class="pro-login__links">
@@ -45,4 +46,8 @@
     </section>
 </main>
 <div class="breadcrumb"></div>
+<!-- 로그인 암호화용 CryptoJS (login.php와 동일 경로). pro.js에서 사용 -->
+<script src="/data/skin/front/dalba_main/js/../../../../crypto-js/aes.js"></script>
+<script src="/data/skin/front/dalba_main/js/../../../../crypto-js/pbkdf2.js"></script>
+<script src="/data/skin/front/dalba_main/js/../../../../crypto-js/sha512.js"></script>
 { # footer }

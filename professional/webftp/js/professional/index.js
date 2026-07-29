@@ -495,6 +495,31 @@
         });
     };
 
+    // GNB Story 서브메뉴 → 메인 섹션 스무스 스크롤 (Figma 60:1637). ScrollToPlugin(base.js 등록) 사용
+    function initSectionAnchorScroll() {
+        function scrollToId(id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            gsap.to(window, { duration: 1, ease: "power2.inOut", scrollTo: { y: el, offsetY: 60 } });
+        }
+        var links = document.querySelectorAll(".js-pro-anchor");
+        Array.prototype.forEach.call(links, function (a) {
+            a.addEventListener("click", function (e) {
+                var id = a.getAttribute("data-target");
+                if (!id || !document.getElementById(id)) return; // 다른 페이지 → 기본 이동(href)
+                e.preventDefault();
+                scrollToId(id);
+                var header = document.querySelector(".header"); // 모바일 GNB 닫기(best-effort)
+                if (header) header.classList.remove("header_menu_open");
+            });
+        });
+        // 다른 페이지에서 해시(#brand-story 등)로 진입한 경우 → ScrollTrigger 준비 후 이동
+        if (window.location.hash) {
+            var hid = window.location.hash.replace("#", "");
+            if (document.getElementById(hid)) setTimeout(function () { scrollToId(hid); }, 700);
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", (event) => {
         // 터치패드/마우스 휠의 관성 스크롤과 snap 애니메이션 충돌 방지
         // GSAP가 스크롤 이벤트를 직접 제어하여 snap 중 스크롤 잠김 현상 해결
@@ -521,5 +546,7 @@
 
         // 모든 ScrollTrigger 생성 후 refresh하여 위치 재계산
         ScrollTrigger.refresh();
+
+        initSectionAnchorScroll(); // GNB Story 서브메뉴 스무스 스크롤
     });
 })(window);

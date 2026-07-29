@@ -97,9 +97,12 @@
                 var imgHtml = it.image
                     ? '<img loading="lazy" class="articles__image" src="' + it.image + '" alt="' + esc(it.name) + '" />'
                     : '<span class="articles__noimg" aria-hidden="true"></span>';
+                // 상세페이지 미기획 → 카드 클릭 라우팅 비활성.
+                // 기획 확정되면 아래 href 를 it.url 로 복원 (URL 은 data-url 로 보존).
                 return (
                     '<li class="articles__item" data-category="' + esc(it.category) + '">' +
-                    '<a href="' + it.url + '">' +
+                    '<a href="javascript:void(0)" data-url="' + it.url + '">' +
+                    // '<a href="' + it.url + '">' +   // ← 상세페이지 기획되면 이 줄로 교체
                     '<picture class="articles__picture">' + imgHtml + "</picture>" +
                     (it.category ? '<p class="articles__category">' + it.category + "</p>" : "") +
                     '<p class="articles__title">' + it.name + "</p>" +

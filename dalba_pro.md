@@ -152,6 +152,12 @@
 
 **실제 스킨 경로는 `data/skin/front/dalba_main/`** (문서 곳곳의 `dalba2`는 오기 — WebFTP `Home data skin front dalba_main` 로 확정). CLAUDE.md 상단 폴더구조도 `dalba_main` 기준이 맞음.
 
+**스킨 인프라 확정 (260729, 사용자 확인):**
+- **모바일 = `dalba_main` 반응형** — 별도 모바일(moment) 버전 불필요. professional CSS 미디어쿼리로 커버.
+- **페이지 등록 = FTP 업로드만으로 `htmid=professional/*.html` 접속됨** (관리자 별도 등록 절차 없음).
+- **`common.css`는 시그니처에 실제로 없음**(헤더가 부르지만 404, 무해). professional은 재구성본(tokens+reset+base) 제공 → 404도 없고 문제없음. 공통 스타일은 professional.css(=signature.css 클론)+base/reset/tokens+페이지CSS에 다 있음.
+- **푸터 = 요구프레임 1번 "로고만 교체, 시그니처와 동일" 확정** (260729 사용자 재확인. 이전 "커스텀 ②" 기록은 오정정 → 폐기). → `outline/footer/standard.html`에서 footer_pro 커스텀 분기 제거, footer_logo만 `gThisDirName=='professional'`일 때 professional 로고로 스왑하고 footer_content(Customer Care/Order/Legal/Social+주소)는 공용 공유. professional.css의 footer_pro CSS도 제거(→ `.footer-professional-logo` 사이징만 유지).
+
 로컬 레포 `professional/` 밑에 **업로드 목적지별 2트리**로 파일 구성 완료 (`professional/webftp/` = 스킨 FTP, `professional/admin/` = 관리자소스):
 
 ```
@@ -196,7 +202,7 @@ professional/
 | **아티클** | `60:278`(01) | "Articles" + **카테고리 탭(NEWS/EVENT/COLLABORATION)** + 3열 카드(이미지/카테고리/제목/날짜) | 거의 일치, **카테고리 탭만 추가** |
 | **프로** | `60:739`(01-1), `60:788`(01-2), `228:42`(02-1), `60:920`(03-1), `60:1063`(03-2) | 핑크 배경 + 중앙 카드: **왼쪽 Login(아이디/비번/로그인) + 오른쪽 New Account Inquiry**(디자이너 안내+카카오 '달바 아티스트'+[회원가입하고 혜택받기]) | 내 pro.html은 단순 게이트 → **로그인+가입안내 스플릿 카드로 재작업** |
 
-**공통**: GNB **Prata** 서체, 전용 푸터(d'Alba PROFESSIONAL 로고 + 달바글로벌 정보 + Contact 비즈니스 이메일). Variables 미사용(get_variable_defs={}) → 색은 원시값/사진.
+**공통**: GNB **Prata** 서체, 푸터 = **시그니처 푸터와 동일(로고만 professional 교체)** ← 260729 확정(요구프레임 60:1662). Variables 미사용(get_variable_defs={}) → 색은 원시값/사진.
 **⚠️ 자산**: 히어로/제품 사진·영상은 전부 raster → 코드로 못 만듦, 팀 export 필요. MCP는 **활성 Figma 탭의 파일만** 읽음(탭 바뀌면 노드 안 잡힘).
 
 ### 구현 반영 (260727)
@@ -211,7 +217,18 @@ professional/
   - **반영**: Prata 서체 적용 / 히어로 로고 이미지 교체(검정+그림자, 최종 어두운 히어로 시 `hero__logo--white`) / **제품 누끼 4종** → `data/img/professional/{product,index}/` 배치(퍼퓸100·오일·트리트먼트180·샴푸275ml, 1400px 리사이즈) / 로고 → `common/professional-logo.png`
   - (260728) **전용 GNB + 전용 푸터 반영**: `outline/header/standard.html`에 `gThisDirName=='professional'` nav 분기(Story/Product/Store/Articles/PRO)+전용 로고, `outline/footer/standard.html`에 professional 푸터 분기(로고+달바글로벌+Contact 비즈니스 이메일). 둘 다 additive(부티크/시그니처 무영향), 푸터 핵심 스크립트(section theme 색전환) 보존. CSS는 professional.css(professional 페이지에서만 로드→스코프 안전).
   - (260728) **아티클 게시판 연동**: `js/professional/articles.js` 신규 — 아티클 게시판(bdId=`article`) `/board/list.php` AJAX fetch → 카드 렌더(제목/말머리=카테고리/날짜/대표이미지) + 탭(NEWS/EVENT/COLLABORATION) 필터. store와 동일 패턴(gd_btn_view sno 파싱). 운영: 말머리를 NEWS/EVENT/COLLABORATION로 등록. **아티클 게시판 생성 필요(id=article).**
-  - 미반영(자산/확정 대기): 메인 스크롤섹션 02/04/05·B&A(자산), 히어로 영상(7MB 압축본), 상품 goodsNo(상품등록), 흰색 로고(현재 CSS invert 대응)
+  - (260729) **푸터 정정**: 요구프레임 1번("로고만 교체, 시그니처와 동일")으로 확정 → footer_pro 커스텀 분기 제거, footer_logo만 professional 로고 스왑 + footer_content 공용 공유. professional.css의 footer_pro CSS 제거(`.footer-professional-logo` 사이징만).
+  - (260729) **축1 마감 정리**: 무드컷 갤러리 캐러셀 추가(MOOD-01~06), discover(라인업)/product Coming Soon 숨김(범위 제외), Store 핀 스타일(회색 기본/검정+확대 선택), GNB Story 2뎁스 서브메뉴+메인 앵커 스무스 스크롤(#brand-story/#ingredient, index.js `initSectionAnchorScroll`).
+
+### 축1 남은것 (자산/확정 대기 — 코드로 더 못 나감, 260729 기준)
+1. **성분소개 POINT 01~04** — horizontal-scroll STEP 3→4개 확장 + 엔젤링 성분 최종 카피 확정 후
+2. **Product 썸네일 hover 이미지 전환** — 제품별 2번째 컷 자산 필요(60:1664)
+3. **인물아바타 영상롤링 섹션** — 60:1647, 자산 7월말
+4. **히어로 영상** — 5MB권장·mp4·2개(세로 8/14, 가로 8/21)·모바일별도(91:9). 현재 `<picture>` 이미지 대체 중
+5. **브랜드스토리 심볼 루프 애니메이션** — 심볼 자산(60:1614)
+6. **제휴가 로직** — 로그인 등급별 정상가/할인가 + 디자이너 타겟팅 배너(91:9 3-2/3-3), 등급 설정(축2 연계)
+7. **goodsNo** — 상품 6종 고도몰 등록 후 product.html `goodsNo=` 링크 반영
+8. Product 카드 용량/가격(제휴가 확정 후) / 바탕 `#FAFAFB` 확인 / 흰색 로고(현재 CSS invert 대응)
 
 ---
 

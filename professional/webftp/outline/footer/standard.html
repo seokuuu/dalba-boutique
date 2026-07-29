@@ -1,40 +1,13 @@
 {*** 하단 기본타입 | main/index.php ***}
 <div id="footer">
-    <!--{ ? gThisDirName == 'professional'}-->
-    <!-- ===== professional 전용 푸터 (Figma STORE/ARTICLES 하단) ===== -->
-    <div class="footer_pro">
-        <div class="footer_pro_logo">
-            <img src="/data/img/professional/common/professional-logo.png" alt="d'Alba PROFESSIONAL" />
-        </div>
-        <div class="footer_pro_body">
-            <p class="footer_pro_company">
-                <span class="bold">{=gMall.companyNm}</span> {=gMall.address} ({=gMall.zonecode})<br>
-                <span class="bold">CEO</span> {=gMall.ceoNm} · <span class="bold">Hosting by</span> NHN Commerce · <span class="bold">Tel</span> {=gMall.centerPhone} · <span class="bold">Information manager</span> 유명한<br>
-                <span class="bold">Business Registration No.</span> {=gMall.businessNo} · <span class="bold">Online Sales Reg No.</span> {=gMall.onlineOrderSerial}<br>
-                © d’Alba GLOBAL.
-            </p>
-            <div class="footer_pro_contact">
-                <p class="footer_pro_contact_tit">Contact</p>
-                <div class="footer_pro_contact_row">
-                    <span class="footer_pro_contact_label">비즈니스 문의</span>
-                    <span class="footer_pro_contact_emails">
-                        biz_koree@dalba.com, biz_japan@dalba.com, biz_russia_CIS@dalba.com,
-                        biz_america@dalba.com, biz_asean@dalba.com, biz_pan_china@dalba.com,
-                        biz_europe@dalba.com, biz_middle_east@dalba.com, biz_other_regions@dalba.com,
-                        veganery@dalba.com
-                    </span>
-                </div>
-                <div class="footer_pro_contact_row">
-                    <span class="footer_pro_contact_label">기타 문의</span>
-                    <span class="footer_pro_contact_emails">dalba@dalba.com</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--{ : }-->
     <div class="footer_logo">
+        <!--{ ? gThisDirName == 'professional'}-->
+        <!-- professional: 시그니처 푸터와 동일, 로고만 교체 (요구프레임 60:1662) -->
+        <img src="/data/img/professional/common/professional-logo.png" alt="d'Alba PROFESSIONAL" class="footer-original-logo footer-professional-logo" />
+        <!--{ : }-->
         <img src="/data/skin/front/dalba2/img/logo_b.svg" alt="logo" class="footer-original-logo" />
         <img src="/data/logo/logo-signature-white.png" alt="logo" class="footer-signature-logo" />
+        <!--{ / }-->
     </div>
     <div class="footer_content">
         <ul class="clearfix serif">
@@ -95,7 +68,6 @@
             © 2016 d’Alba Global Co., Ltd. All rights reserved.
         </p>
     </div>
-    <!--{ / }-->
 </div>
 <!-- //footer -->
 <script>
