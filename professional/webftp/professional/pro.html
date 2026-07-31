@@ -1,53 +1,65 @@
 {***  | professional/pro.php ***} { # header }
-<main id="professional-pro" class="main-content font-kr">
+<main id="professional-pro" class="pro-content font-kr">
     <!--
-      Pro 랜딩 (Figma PRO-PC-kr-01-1): 핑크 배경 + 중앙 카드
-      왼쪽 = 디자이너 로그인 / 오른쪽 = New Account Inquiry(가입 안내)
-      · 접근제한(비로그인/비디자이너 차단)은 고도몰 인트로/등급 접근권한으로 처리
-      · 실제 가입 폼 스텝은 축2 = member 영역 담당
+      Pro 랜딩 (Figma 348-312 / 334-24). 로그인 상태별 버튼 분기:
+       · 비로그인            → [로그인 하기] + [달바 통합 회원가입하기]
+       · 로그인 + 프로 아님   → [사업자/디자이너 인증하고 혜택받기] → verify.html
+       · 로그인 + 프로페셔널   → pro 페이지(index) 자동 진입
+      회원가입 완료 후 복귀 시(sessionStorage 표식) 인증 모달 자동 오픈.
     -->
     <section class="pro-gate section_theme" data-theme="light">
         <div class="pro-card">
-            <!-- 로그인 -->
-            <div class="pro-card__col pro-login">
-                <h2 class="pro-card__title font-en-title">Login</h2>
-                <!-- 로그인 연동: pro.js 가 login.php에서 secretKey 받아 AES 암호화 후 login_ps.php로 AJAX POST (login.html과 동일 방식) -->
-                <form id="proLoginForm" class="pro-login__form" action="/member/login.php" method="post">
-                    <input type="text" id="proLoginId" name="loginId" class="pro-login__input" placeholder="아이디를 입력해주세요" autocomplete="username" required />
-                    <input type="password" id="proLoginPwd" name="loginPwd" class="pro-login__input" placeholder="비밀번호를 입력해주세요" autocomplete="current-password" required />
-                    <p class="pro-login__error" role="alert" hidden></p>
-                    <button type="submit" class="pro-login__submit">로그인</button>
-                </form>
-                <div class="pro-login__links">
-                    <a href="/member/find_id.php">아이디찾기</a>
-                    <span class="pro-login__divider">|</span>
-                    <a href="/member/find_password.php">비밀번호찾기</a>
-                </div>
-            </div>
+            <h2 class="pro-card__title font-en-title">Professional Verification</h2>
+            <p class="pro-card__lead">
+                디자이너 회원만 접속이 가능합니다.
+                <br />
+                <strong>디자이너 인증 시 특별한 혜택을 받으실 수 있습니다.</strong>
+            </p>
+            <p class="pro-card__kakao">
+                <span class="pro-card__kakao-ico" aria-hidden="true">Ch</span>
+                카카오톡에서 <strong>'달바 아티스트'</strong> 채널을 추가하시면
+                <br />
+                살롱 및 디자이너 혜택 관련 안내를 받아보실 수 있습니다.
+            </p>
 
-            <!-- 가입 안내 -->
-            <div class="pro-card__col pro-inquiry">
-                <h2 class="pro-card__title font-en-title">New Account Inquiry</h2>
-                <p class="pro-inquiry__lead">
-                    디자이너 회원만 접속이 가능합니다.
-                    <br />
-                    <strong>회원가입 후 디자이너 인증 시 특별한 혜택을 받으실 수 있습니다.</strong>
-                </p>
-                <p class="pro-inquiry__kakao">
-                    <span class="pro-inquiry__kakao-ico" aria-hidden="true">K</span>
-                    카카오톡에서 <strong>'달바 아티스트'</strong> 채널을 추가하시면
-                    <br />
-                    살롱 및 디자이너 혜택 관련 안내를 받아보실 수 있습니다.
-                </p>
-                <!-- TODO: Pro 전용 가입 진입 URL 확정 시 href 교체 (축2) -->
-                <a class="pro-inquiry__btn" href="/member/join_agreement.php">회원가입하고 혜택받기</a>
+            <div class="pro-card__btns">
+                <!--{ ? !gd_is_login() }-->
+                <!-- 비로그인 -->
+                <a class="pro-btn pro-btn--fill" href="/member/login.php?returnUrl=%2Fmain%2Fhtml.php%3Fhtmid%3Dprofessional%2Fpro.html">로그인 하기</a>
+                <a class="pro-btn pro-btn--line js-pro-join" href="/member/join_method.php">달바 통합 회원가입하기</a>
+                <!--{ : gMemberInfo.groupNm == '프로페셔널' }-->
+                <!-- 로그인 + 프로페셔널 → pro 페이지 자동 진입 -->
+                <script>location.replace('/main/html.php?htmid=professional/index.html');</script>
+                <!--{ : }-->
+                <!-- 로그인 + 프로 아님 → 인증 신청 -->
+                <a class="pro-btn pro-btn--fill js-pro-verify" href="/main/html.php?htmid=professional/verify.html">사업자/디자이너 인증하고 혜택받기</a>
+                <!--{ / }-->
             </div>
         </div>
     </section>
+
+    <!-- 회원가입 복귀 후 자동 노출되는 인증 안내 모달 (Figma 334-24) -->
+    <div id="proVerifyModal" class="pro-modal" hidden>
+        <div class="pro-modal__dim js-modal-close"></div>
+        <div class="pro-modal__box" role="dialog" aria-modal="true" aria-label="Professional Verification">
+            <h2 class="pro-card__title font-en-title">Professional Verification</h2>
+            <p class="pro-card__lead">
+                디자이너 회원만 접속이 가능합니다.
+                <br />
+                <strong>디자이너 인증 시 특별한 혜택을 받으실 수 있습니다.</strong>
+            </p>
+            <p class="pro-card__kakao">
+                <span class="pro-card__kakao-ico" aria-hidden="true">Ch</span>
+                카카오톡에서 <strong>'달바 아티스트'</strong> 채널을 추가하시면
+                <br />
+                살롱 및 디자이너 혜택 관련 안내를 받아보실 수 있습니다.
+            </p>
+            <button type="button" class="pro-btn pro-btn--fill js-modal-confirm">사업자/디자이너 인증하고 혜택받기</button>
+        </div>
+    </div>
+
+    <!-- 로그인 상태를 pro.js로 전달 (회원가입 복귀 모달 조건) -->
+    <script>var proIsLogin = <!--{ ? gd_is_login() }-->true<!--{ : }-->false<!--{ / }-->;</script>
 </main>
 <div class="breadcrumb"></div>
-<!-- 로그인 암호화용 CryptoJS (login.php와 동일 경로). pro.js에서 사용 -->
-<script src="/data/skin/front/dalba_main/js/../../../../crypto-js/aes.js"></script>
-<script src="/data/skin/front/dalba_main/js/../../../../crypto-js/pbkdf2.js"></script>
-<script src="/data/skin/front/dalba_main/js/../../../../crypto-js/sha512.js"></script>
 { # footer }

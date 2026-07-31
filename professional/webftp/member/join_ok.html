@@ -29,6 +29,9 @@
 <!-- //content_box -->
 <script type="text/javascript">
 	$(document).ready(function () {
+		// [professional] 프로몰 인증 흐름에서 시작된 회원가입이면 pro.html로 복귀 (표식은 pro.js가 소비 → 인증 모달 자동 오픈). 일반 가입은 표식이 없어 영향 없음
+		try { if (sessionStorage.getItem('proApplyIntent')) { top.location.href = '/main/html.php?htmid=professional/pro.html'; return; } } catch (e) {}
+
 		$('#btnHome').click(function (e) {
 			e.preventDefault();
 			top.location.href = '../main/index.php';
