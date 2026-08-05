@@ -355,3 +355,51 @@ professional/
 - 스킨 참조: 레포 내 `signature/*.html`, `_header.html`, `goods_view.html`
 - 기획 합의문: `달바프로페셔널_구축기획_260703.md`
 - 견적서: `~/Downloads/달바_프로페셔널_견적서_260703.xlsx`
+
+---
+
+## 10. 작업 로그 — 축2 신청흐름 완성 + 진위/중복 자동화 (260803, 진위/중복은 배포 보류)
+
+### A. 완료 (작동 검증됨)
+- **축2 신청 흐름 확정·구현**: 회원가입은 달바 일반가입으로 **일원화**(별도 pro 가입 없음) → 로그인 회원이 **인증 신청(서류 업로드)** → 관리자 서류확인 → **"프로페셔널" 등급 부여**. (등급 단일축, 상세는 §3, `member/README-pro-join.md`)
+- **pro.html**: 로그인 상태별 버튼(비로그인=로그인/회원가입 · 비프로=인증신청 · 프로=index 자동진입) + 회원가입 복귀 시 인증모달 자동(sessionStorage `proApplyIntent` + join_ok.html 조건복귀).
+- **verify.html** (인증 신청폼, Figma 334-73): 사업자(원장)/디자이너 탭, 매장정보, 서류 업로드, 거래동의. 제출 성공 시 게시판 안 가고 **완료 패널** 표시.
+- **파일 업로드 = 고도몰 2단계 방식**(verify.js): 파일선택 → `board_ps.php?mode=ajaxUpload`에 **`uploadFile` 필드**로 임시업로드 → `saveFileNm`(temp URL) → write 시 `uploadType=ajax` + `uploadFileNm[N]`/`saveFileNm[N]` 전송. **실제 이미지 업로드 확인**(filesData 2개).
+- **proapply 게시판**(관리자 생성): 1:1문의형, **무조건 비밀글**, 파일첨부(10MB), 말머리 `사업자(원장)`/`디자이너`, **자동등록방지 OFF**(안 끄면 제출 거부).
+- **게이트 정리**: 다른 탭(index/store/articles/product) **게이트 제거 → 공개**. Product는 **회원전용가**(등급별 가격, 상세 goods_view에서 노출). PRO 메뉴만 pro.html 진입.
+- **푸터**: 기존 달바 푸터 그대로 + **우측 로고만 professional**(Figma 310-11). `footer_logo`에서 gThisDirName 분기.
+- CSS 크기 축소(pro/verify ~15%), verify width는 `wrapper` 클래스 제거로 해결.
+
+### B. 진위확인 + 중복확인 자동화 (코드 완성 · **배포 보류**)
+- **진위확인** = 국세청 상태조회 API (`api.odcloud.kr/.../v1/status`, 공공데이터포털 무료·1일100만건). 사업자번호만으로 계속/휴업/폐업/미등록. **키 발급+실호출 검증 완료**(계속사업자 반환). ⚠️ **일반 인증키(Encoding)** 그대로 사용, 추가 urlencode 금지.
+- **중복확인** = 고도몰 Open API `Board_List.php`(`openhub.godo.co.kr`). `partner_key`+`key`, `bdId=proapply&searchField=subject_contents&searchWord=사업자번호` → 응답 XML `<total>`>0 = 중복. **키 발급+실호출 검증 완료**(사업자번호 검색 total=1 매칭, 비밀글도 본사키로 조회됨).
+- **컨트롤러**: `professional/php/ProVerifyController.php` — **Front 컨트롤러(같은 도메인)**, 국세청 진위 + proapply 중복 → JSON. 로그인 회원만. 수동 JSON 출력.
+  - 배치: `data/module/Controller/Front/Professional/ProVerifyController.php`
+  - URL: `https://www.dalba.co.kr/professional/pro_verify.php`
+- **서버리스 대안**: `professional/serverless/pro-verify.js` (동일 로직, Vercel 등 외부배포용, CORS 포함).
+- **verify.js 토글** `VERIFY_API_URL`: 비면 국세청 직접(진위만), 채우면 진위+중복 통합.
+
+### C. 배포 블로커 (보류 사유)
+- **WebFTP = 스킨(img/css/js/html)만, PHP 업로드 불가**.
+- **개발소스관리(data/module) = 커스터마이징 접속 권한 없음**(대표운영자 권한 필요, "커스터마이징 현황" 접근 차단 확인).
+- → PHP 배포 = **(A) 개발사/대표운영자가 배포** or **(B) 외부 서버리스(사용자 인프라)**. 결정 보류.
+
+### D. 키 (배포본에만 입력, git 커밋 금지)
+- `ProVerifyController.php`의 `$ntsKey`(국세청 Encoding), `$partnerKey`(제휴사), `$mallKey`(쇼핑몰). 실제 값은 사용자 보관(문서/깃엔 미기재).
+
+### E. 고도몰5 라우팅 규칙 (학습)
+- **Front**: `Controller\Front\{Folder}\{Name}Controller` → `/{folder소문자}/{name_snake}.php` (같은 도메인). 예: `Goods\AddtionalInfoController`→`/goods/addtionalInfo.php`.
+- **Api**: `Controller\Api\{Folder}\{Name}Controller` → `api.{도메인}/{folder}/{name_snake}` (서브도메인 → CORS/세션 이슈로 브라우저 호출엔 부적합 → **Front 선택**).
+- 배포: `data/module`에 파일 배치 → 개발소스관리>개발작업소스 보기>"운영소스로 적용하기".
+
+### F. 재개 시 할 일 (체크리스트)
+- [ ] PHP 배포 결정 (개발사 vs 서버리스) → **엔드포인트 URL 확보**
+- [ ] `verify.js` `VERIFY_API_URL` = 그 URL → WebFTP 업로드
+- [ ] URL 자가테스트: GET → `{"ok":false,"message":"허용되지 않은 접근 방식입니다."}` 뜨면 정상
+- [ ] 관리자: 프로페셔널 등급별 **제휴가/상품노출**, 승인 **SMS/알림톡**
+- [ ] **거래동의 약관 페이지** `professional/terms_deal.html` (약관 텍스트 대기)
+- [ ] (선택) 사업자번호 **제목에 포함** 시켜 관리자 중복 스캔 편의
+
+### G. 미업로드(WebFTP) 파일 — 재개 시 올릴 것 (`data/skin/front/dalba_main/` 아래)
+- `js/professional/verify.js` · `professional/verify.html` · `css/professional/verify.css` · `css/professional/pro.css` · `outline/footer/standard.html`(⚠️공용)
+- 나머지 professional 스킨/이미지는 기존 업로드 상태(라이브 확인됨).

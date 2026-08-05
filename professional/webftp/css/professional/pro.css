@@ -5,35 +5,35 @@
 @import "./common/common.css";
 
 .pro-gate {
-    min-height: 80vh;
+    min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8rem 2rem;
+    padding: 6rem 2rem;
     background: #e9cdd4 url("/data/img/professional/pro/PRO-BG.png") center/cover no-repeat;
 }
 
 /* ===== 중앙 카드 ===== */
 .pro-card {
     width: 100%;
-    max-width: 46rem;
-    padding: 5.5rem 4.5rem;
+    max-width: 40rem;
+    padding: 4rem 3.6rem;
     background: var(--color-white);
     border-radius: 0.6rem;
-    box-shadow: 0 2rem 6rem rgba(60, 20, 30, 0.18);
+    box-shadow: 0 1.6rem 5rem rgba(60, 20, 30, 0.16);
     text-align: center;
 }
 
 .pro-card__title {
-    font-size: 2.2rem;
+    font-size: 1.9rem;
     letter-spacing: 0.02em;
     color: var(--color-gray-900);
-    margin-bottom: 2.4rem;
+    margin-bottom: 2rem;
 }
 
 .pro-card__lead {
-    font-size: 1.5rem;
-    line-height: 1.7;
+    font-size: 1.35rem;
+    line-height: 1.65;
     color: var(--color-gray-800);
 }
 .pro-card__lead strong {
@@ -43,11 +43,11 @@
 .pro-card__kakao {
     position: relative;
     display: inline-block;
-    margin-top: 2.4rem;
-    padding-left: 3.4rem;
+    margin-top: 2rem;
+    padding-left: 3rem;
     text-align: left;
-    font-size: 1.35rem;
-    line-height: 1.6;
+    font-size: 1.2rem;
+    line-height: 1.55;
     color: var(--color-gray-750);
 }
 .pro-card__kakao strong {
@@ -57,12 +57,12 @@
     position: absolute;
     left: 0;
     top: 0.1rem;
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.1rem;
+    height: 2.1rem;
     background: #fae100;
     color: #3c1e1e;
-    border-radius: 0.6rem;
-    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -71,19 +71,19 @@
 
 /* ===== 버튼 ===== */
 .pro-card__btns {
-    margin-top: 3.6rem;
+    margin-top: 2.8rem;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1rem;
 }
 
 .pro-btn {
     display: block;
     width: 100%;
-    height: 5rem;
-    line-height: 5rem;
+    height: 4.4rem;
+    line-height: 4.4rem;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     border-radius: 0.3rem;
     text-decoration: none;
     cursor: pointer;
@@ -128,23 +128,23 @@
 .pro-modal__box {
     position: relative;
     width: 100%;
-    max-width: 46rem;
-    padding: 5rem 4rem;
+    max-width: 40rem;
+    padding: 4rem 3.4rem;
     background: var(--color-white);
     border-radius: 0.6rem;
-    box-shadow: 0 2rem 6rem rgba(60, 20, 30, 0.28);
+    box-shadow: 0 1.6rem 5rem rgba(60, 20, 30, 0.26);
     text-align: center;
 }
 .pro-modal__box .pro-btn {
-    margin-top: 3.2rem;
+    margin-top: 2.6rem;
 }
 
 @media (max-width: 600px) {
     .pro-gate {
-        padding: 6rem 1.6rem;
+        padding: 5rem 1.6rem;
     }
     .pro-card,
     .pro-modal__box {
-        padding: 4rem 2.4rem;
+        padding: 3.4rem 2.2rem;
     }
 }

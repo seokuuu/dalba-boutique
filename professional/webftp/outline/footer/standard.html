@@ -1,11 +1,11 @@
 {*** 하단 기본타입 | main/index.php ***}
 <div id="footer">
     <div class="footer_logo">
-        <!--{ ? gThisDirName == 'professional'}-->
-        <!-- professional: 시그니처 푸터와 동일, 로고만 교체 (요구프레임 60:1662) -->
-        <img src="/data/img/professional/common/professional-logo.png" alt="d'Alba PROFESSIONAL" class="footer-original-logo footer-professional-logo" />
-        <!--{ : }-->
+        <!-- 기존 달바 푸터 그대로. professional은 우측(시그니처 자리) 로고만 PROFESSIONAL로 교체 (Figma 310-11) -->
         <img src="/data/skin/front/dalba2/img/logo_b.svg" alt="logo" class="footer-original-logo" />
+        <!--{ ? gThisDirName == 'professional'}-->
+        <img src="/data/img/professional/common/professional-logo.png" alt="d'Alba PROFESSIONAL" class="footer-signature-logo footer-professional-logo" />
+        <!--{ : }-->
         <img src="/data/logo/logo-signature-white.png" alt="logo" class="footer-signature-logo" />
         <!--{ / }-->
     </div>
