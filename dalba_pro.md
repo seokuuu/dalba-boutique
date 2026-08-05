@@ -1,6 +1,6 @@
 # 달바 프로페셔널(PRO) 몰 구축 — 마스터 개발 문서
 
-> 최종 갱신: 2026-07-27
+> 최종 갱신: 2026-08-05
 > 이 파일 하나로 프로젝트 파악 + 개발 착수 + 진행도 확인이 가능하도록 정리한 단일 문서.
 > 새 세션에서 작업 시작할 때 **이 파일부터 읽으면 됨.** (관련: `달바프로페셔널_구축기획_260703.md`, `CLAUDE.md`, 견적서 `~/Downloads/달바_프로페셔널_견적서_260703.xlsx`)
 
@@ -358,7 +358,9 @@ professional/
 
 ---
 
-## 10. 작업 로그 — 축2 신청흐름 완성 + 진위/중복 자동화 (260803, 진위/중복은 배포 보류)
+## 10. 작업 로그 — 축2 신청흐름 완성 + 진위/중복 자동화 (260803~260805, PHP만 배포 대기)
+
+> **260805 요약**: WebFTP로 올릴 스킨 파일(verify.js/html/css·pro.css·footer)은 **전부 업로드 완료**. 남은 건 **`ProVerifyController.php`(PHP) 배포 1건**뿐이며, 이는 **웹앤모바일 PHP 8.2 업그레이드 종료 후**로 대기 중(사유 §C). 배포 경로는 규명 완료(=관리자 SFTP, §C/§E).
 
 ### A. 완료 (작동 검증됨)
 - **축2 신청 흐름 확정·구현**: 회원가입은 달바 일반가입으로 **일원화**(별도 pro 가입 없음) → 로그인 회원이 **인증 신청(서류 업로드)** → 관리자 서류확인 → **"프로페셔널" 등급 부여**. (등급 단일축, 상세는 §3, `member/README-pro-join.md`)
@@ -379,10 +381,22 @@ professional/
 - **서버리스 대안**: `professional/serverless/pro-verify.js` (동일 로직, Vercel 등 외부배포용, CORS 포함).
 - **verify.js 토글** `VERIFY_API_URL`: 비면 국세청 직접(진위만), 채우면 진위+중복 통합.
 
-### C. 배포 블로커 (보류 사유)
-- **WebFTP = 스킨(img/css/js/html)만, PHP 업로드 불가**.
-- **개발소스관리(data/module) = 커스터마이징 접속 권한 없음**(대표운영자 권한 필요, "커스터마이징 현황" 접근 차단 확인).
-- → PHP 배포 = **(A) 개발사/대표운영자가 배포** or **(B) 외부 서버리스(사용자 인프라)**. 결정 보류.
+### C. PHP 배포 경로 규명 + 현재 블로커 (260805 갱신)
+
+**PHP 배포 방법 = 관리자 SFTP 직접 접속 (규명 완료).**
+- **WebFTP(관리자 스킨 위젯) = img/css/js/html만, PHP 업로드 어디서든 거부** ("이미지 혹은 스타일시트, 스크립트, HTML 파일만 업로드하실 수 있습니다"). data/module 경로로 가도 동일하게 막힘.
+- **개발소스관리(원본/개발작업/운영소스 보기) = "새 파일/폴더 추가" 버튼 없음.** '복사하기'는 **기존 원본만** 복제 → 원본에 없는 신규 파일 생성 불가. (= 기존 파일 커스텀 전용 도구. 신규 컨트롤러엔 부적합)
+- ✅ **진짜 경로 = 관리자 [FTP/DB 관리]의 SFTP 계정** (WebFTP 위젯과 별개, .php 업로드 가능):
+  - 프로토콜 **SFTP** / 포트 **17662** / host `gdadmin-dalbapiedmot.godomall.com` / id `bmonument` / pw는 최초 접속 전 설정(90일 만료).
+  - ⚠️ **접속 허용 IP 등록 필수**(휴대폰 인증) — 안 하면 접속 거부. 접속 실패 1순위 원인.
+  - **개발 FTP → `/data/module/`(개발소스) / 운영 FTP → `/module/`(운영소스)** 로 분리돼 있음.
+- **배포 절차(권장)**: 개발 FTP로 `/data/module/Controller/Front/Professional/ProVerifyController.php` 업로드(폴더 707) → 개발소스관리>"운영소스 적용하기". (또는 운영 FTP로 `/module/...` 직접 업로드 = 적용하기 불필요)
+- **근거**: NHN이 "별도 신규 페이지 추가 = '사용자 페이지 추가하기' 가이드대로" 확인. 우리 컨트롤러가 그 가이드 규칙(원본 class 상속 / use / index()) 준수 = 자동패치에도 안전(how-to-tuning 문서).
+
+**현재 블로커 = 웹앤모바일 PHP 8.2 업그레이드 (배포 타이밍 대기)**
+- 웹앤모바일 측 **PHP 7 → 8.2 업그레이드 진행 중**, 그 기간엔 별도 개발 자제 요청.
+- 우리 파일은 **기존 소스 무수정 + 신규 독립 파일 1개**라 기능 충돌 위험은 낮고, 코드도 **8.2 호환**(속성 명시 선언 → dynamic property deprecated 무관, 표준 함수만). → 담당자에 문의: ① 신규 독립 파일도 지금은 피할지 ② **업그레이드가 커스텀 소스(/module,/data/module)를 초기화/덮어쓰는지**(그렇다면 지금 올려도 날아감 → 완료 후 배포).
+- → 결론: **업그레이드 완료(+커스텀 소스 보존 확인) 후 SFTP로 배포.** 파일·verify.js는 준비 완료, GO 사인만 대기.
 
 ### D. 키 (배포본에만 입력, git 커밋 금지)
 - `ProVerifyController.php`의 `$ntsKey`(국세청 Encoding), `$partnerKey`(제휴사), `$mallKey`(쇼핑몰). 실제 값은 사용자 보관(문서/깃엔 미기재).
@@ -390,16 +404,19 @@ professional/
 ### E. 고도몰5 라우팅 규칙 (학습)
 - **Front**: `Controller\Front\{Folder}\{Name}Controller` → `/{folder소문자}/{name_snake}.php` (같은 도메인). 예: `Goods\AddtionalInfoController`→`/goods/addtionalInfo.php`.
 - **Api**: `Controller\Api\{Folder}\{Name}Controller` → `api.{도메인}/{folder}/{name_snake}` (서브도메인 → CORS/세션 이슈로 브라우저 호출엔 부적합 → **Front 선택**).
-- 배포: `data/module`에 파일 배치 → 개발소스관리>개발작업소스 보기>"운영소스로 적용하기".
+- 배포: 관리자 SFTP로 `/data/module/`(개발소스)에 파일 배치 → 개발소스관리>개발작업소스 보기>"운영소스로 적용하기". (또는 운영 FTP로 `/module/` 직접 업로드) — 상세 §C. WebFTP 위젯은 PHP 불가라 사용 안 함.
 
-### F. 재개 시 할 일 (체크리스트)
-- [ ] PHP 배포 결정 (개발사 vs 서버리스) → **엔드포인트 URL 확보**
-- [ ] `verify.js` `VERIFY_API_URL` = 그 URL → WebFTP 업로드
-- [ ] URL 자가테스트: GET → `{"ok":false,"message":"허용되지 않은 접근 방식입니다."}` 뜨면 정상
+### F. 재개 시 할 일 (체크리스트, 260805 갱신)
+- [ ] **(대기) PHP 8.2 업그레이드 종료 + 커스텀 소스 보존 확인** → 담당자 GO 사인
+- [ ] SFTP 접속 준비: **비밀번호 설정 + 접속 허용 IP 등록**(휴대폰 인증)
+- [ ] `ProVerifyController.php`에 **키 3개 입력**(배포본만) → 개발 FTP `/data/module/Controller/Front/Professional/`(707) 업로드 → "운영소스 적용하기" (또는 운영 FTP `/module/...` 직접)
+- [ ] URL 자가테스트: GET `https://www.dalba.co.kr/professional/pro_verify.php`(안 되면 `proVerify.php`) → `{"ok":false,"message":"허용되지 않은 접근 방식입니다."}` 뜨면 정상. (빈화면/500이면 빈 스킨 `professional/pro_verify.html` 추가)
+- [ ] `verify.js` `VERIFY_API_URL` = 확정 URL → WebFTP 업로드
 - [ ] 관리자: 프로페셔널 등급별 **제휴가/상품노출**, 승인 **SMS/알림톡**
 - [ ] **거래동의 약관 페이지** `professional/terms_deal.html` (약관 텍스트 대기)
 - [ ] (선택) 사업자번호 **제목에 포함** 시켜 관리자 중복 스캔 편의
 
-### G. 미업로드(WebFTP) 파일 — 재개 시 올릴 것 (`data/skin/front/dalba_main/` 아래)
-- `js/professional/verify.js` · `professional/verify.html` · `css/professional/verify.css` · `css/professional/pro.css` · `outline/footer/standard.html`(⚠️공용)
-- 나머지 professional 스킨/이미지는 기존 업로드 상태(라이브 확인됨).
+### G. WebFTP 스킨 업로드 — ✅ 전부 완료 (260805)
+- ✅ 업로드 완료: `js/professional/verify.js` · `professional/verify.html` · `css/professional/verify.css` · `css/professional/pro.css` · `outline/footer/standard.html`(⚠️공용) + 나머지 professional 스킨/이미지(라이브 확인됨).
+- **WebFTP로 올릴 건 남은 게 없음.** 유일한 잔여 = PHP 컨트롤러 1건(§C, SFTP·8.2 대기).
+- (재배포 시) `verify.js`는 `VERIFY_API_URL` 확정값 반영 후 **1회 재업로드**만 남음.
