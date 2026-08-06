@@ -1,0 +1,58 @@
+/* 거래동의 약관 전체보기 (terms_deal.html) — 게시판(salonterms) 최신 글 본문 표시 */
+@import "./common/common.css";
+
+#professional-terms .terms {
+    padding: 8rem 1.6rem;
+}
+
+#professional-terms .terms__container {
+    max-width: 72rem;
+    margin: 0 auto;
+}
+
+#professional-terms .terms__title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    margin-bottom: 3.2rem;
+    word-break: keep-all;
+}
+
+/* 게시판 본문(에디터 HTML) 가독성 */
+#professional-terms .terms__body {
+    font-size: 1.4rem;
+    line-height: 1.85;
+    color: #333;
+    word-break: keep-all;
+}
+
+#professional-terms .terms__body img {
+    max-width: 100%;
+    height: auto;
+}
+
+#professional-terms .terms__body table {
+    max-width: 100%;
+}
+
+#professional-terms .terms__loading,
+#professional-terms .terms__empty {
+    text-align: center;
+    color: #888;
+    padding: 4rem 0;
+}
+
+#professional-terms .terms__empty a {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    #professional-terms .terms {
+        padding: 5rem 1.6rem;
+    }
+    #professional-terms .terms__title {
+        font-size: 2rem;
+        margin-bottom: 2.4rem;
+    }
+}

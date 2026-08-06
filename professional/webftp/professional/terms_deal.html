@@ -1,0 +1,20 @@
+{***  거래동의 약관 | professional/terms_deal.php ***} { # header }
+<script defer src="{=setBrowserCache(c.PATH_SKIN+'js/'+gThisDirName+'/terms_deal.js')}"></script>
+<!-- terms_deal.js = 거래동의 약관 게시판(bdId=salonterms) 최신 글 본문 AJAX 렌더 -->
+<main id="professional-terms" class="main-content font-kr">
+    <section class="terms section_theme" data-theme="light">
+        <div class="terms__container">
+            <h1 class="terms__title">살롱 · 헤어디자이너 거래 동의 약관</h1>
+            <!--
+              약관 본문 = 거래동의 약관 게시판(bdId=salonterms)의 "최신 글" 본문.
+              terms_deal.js 가 /board/list.php → 최신 sno → /board/view.php 본문(.seem_cont)을 주입.
+              운영: salonterms 게시판 생성 + 약관 글 등록 필요. 수정 시 새 글을 등록하면 최신 글이 노출됨.
+            -->
+            <div id="termsBody" class="terms__body" data-bdid="salonterms">
+                <p class="terms__loading">약관을 불러오는 중…</p>
+            </div>
+        </div>
+    </section>
+</main>
+<div class="breadcrumb"></div>
+{ # footer }
