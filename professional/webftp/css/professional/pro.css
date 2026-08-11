@@ -148,3 +148,79 @@
         padding: 3.4rem 2.2rem;
     }
 }
+
+/* ===== 인증 완료: 헤어샵 전용 제품 리스트 ===== */
+.pro-exclusive {
+    padding: 8rem 1.6rem;
+    background: var(--color-white);
+}
+.pro-exclusive__inner {
+    text-align: center;
+}
+.pro-exclusive__title {
+    font-size: 2.4rem;
+    letter-spacing: 0.02em;
+    color: var(--color-gray-900);
+    margin-bottom: 0.8rem;
+}
+.pro-exclusive__lead {
+    font-size: 1.35rem;
+    color: var(--color-gray-750);
+    margin-bottom: 4rem;
+}
+.pro-exclusive__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.pro-exclusive__item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+.pro-exclusive__picture {
+    display: block;
+    aspect-ratio: 1 / 1;
+    background: #f5f5f5;
+    overflow: hidden;
+}
+.pro-exclusive__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.pro-exclusive__name {
+    margin-top: 1.2rem;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: var(--color-gray-900);
+}
+.pro-exclusive__empty {
+    grid-column: 1 / -1;
+    padding: 6rem 0;
+    text-align: center;
+    color: var(--color-gray-750);
+    font-size: 1.4rem;
+}
+
+@media (max-width: 1024px) {
+    .pro-exclusive__list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .pro-exclusive {
+        padding: 5rem 1.6rem;
+    }
+    .pro-exclusive__list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.4rem 1.2rem;
+    }
+    .pro-exclusive__lead {
+        margin-bottom: 2.8rem;
+    }
+}

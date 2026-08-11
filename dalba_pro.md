@@ -1,6 +1,6 @@
 # 달바 프로페셔널(PRO) 몰 구축 — 마스터 개발 문서
 
-> 최종 갱신: 2026-08-05
+> 최종 갱신: 2026-08-06
 > 이 파일 하나로 프로젝트 파악 + 개발 착수 + 진행도 확인이 가능하도록 정리한 단일 문서.
 > 새 세션에서 작업 시작할 때 **이 파일부터 읽으면 됨.** (관련: `달바프로페셔널_구축기획_260703.md`, `CLAUDE.md`, 견적서 `~/Downloads/달바_프로페셔널_견적서_260703.xlsx`)
 
@@ -413,10 +413,60 @@ professional/
 - [ ] URL 자가테스트: GET `https://www.dalba.co.kr/professional/pro_verify.php`(안 되면 `proVerify.php`) → `{"ok":false,"message":"허용되지 않은 접근 방식입니다."}` 뜨면 정상. (빈화면/500이면 빈 스킨 `professional/pro_verify.html` 추가)
 - [ ] `verify.js` `VERIFY_API_URL` = 확정 URL → WebFTP 업로드
 - [ ] 관리자: 프로페셔널 등급별 **제휴가/상품노출**, 승인 **SMS/알림톡**
-- [ ] **거래동의 약관 페이지** `professional/terms_deal.html` (약관 텍스트 대기)
+- [x] ~~거래동의 약관 페이지~~ → **완료(260806)**: 게시판형(salonterms)으로 구현, terms_deal.html/js/css 업로드+표시 확인 (§11)
 - [ ] (선택) 사업자번호 **제목에 포함** 시켜 관리자 중복 스캔 편의
 
 ### G. WebFTP 스킨 업로드 — ✅ 전부 완료 (260805)
 - ✅ 업로드 완료: `js/professional/verify.js` · `professional/verify.html` · `css/professional/verify.css` · `css/professional/pro.css` · `outline/footer/standard.html`(⚠️공용) + 나머지 professional 스킨/이미지(라이브 확인됨).
 - **WebFTP로 올릴 건 남은 게 없음.** 유일한 잔여 = PHP 컨트롤러 1건(§C, SFTP·8.2 대기).
 - (재배포 시) `verify.js`는 `VERIFY_API_URL` 확정값 반영 후 **1회 재업로드**만 남음.
+- (260806 추가) `professional/terms_deal.html` · `js/professional/terms_deal.js` · `css/professional/terms_deal.css` **업로드 완료**(거래동의 약관, §11).
+
+---
+
+## 11. 작업 로그 — 거래동의 약관 게시판화 + 할일 최신화 (260806)
+
+### 완료 (260806)
+- **거래동의 약관 = 게시판형 확정·구현**: 이용약관/개인정보는 고도몰 기존 약관 사용, "살롱·헤어디자이너 거래동의 약관"만 신규 → **게시판(bdId=`salonterms`)** 로 관리(아티클 패턴). 관리자가 약관 글 등록 → `terms_deal.html`이 게시판 **최신 글 본문**(`.seem_cont`)을 fetch해 표시.
+  - 신규 파일: `professional/terms_deal.html` · `js/professional/terms_deal.js` · `css/professional/terms_deal.css` — WebFTP 업로드 + 표시 확인 완료.
+  - salonterms 게시판 생성 완료(일반형 / 리스트·읽기 **전체공개** / 쓰기 관리자 / 비밀글X / 에디터 미사용 / 3년 자동삭제 off). **에디터 미사용 → 줄바꿈(엔터)으로 작성, `<br>` 태그는 이스케이프됨.**
+  - verify.html 전체보기 → terms_deal.html (기존 링크 유지, 재업로드 불필요). ※ 중간에 service/agreement.php(약관관리)로 바꿨다가 **롤백** — 게시판 방식으로 최종 확정.
+- **기능정의서 작성**: `professional/기능정의서_프로페셔널_260805.md` (영업팀·개발사 공유용, 작성자 장석원). 페이지/회원구조/게시판4종(proapply·article·salon·salonterms)/파일경로/DB무영향/배포·PHP8.2 호환.
+- **Store 스플릿뷰 = 이미 구현 확인**: `store.js` = 검색리스트 + 상시 지도(전 매장 마커) 스플릿뷰(모달 아님). 이전 §5-5 "재작업 필요"는 완료 상태 → 남은 건 salon 게시판 데이터.
+
+### 제품 연결 구조 확정 (260806) — product 탭(공개) vs pro 탭(인증 전용)
+프로페셔널 라인 제품은 **두 갈래로 분리**된다. (구매는 둘 다 기존 달바몰 상세로 연결 — 구매로직 재사용, §3)
+- **product 탭** (`professional/product.html`) = **공개 제품 페이지** (일반 소비자·디자이너·비로그인 전부 열람)
+  - 연결: 달바 > product > **헤어/바디 카테고리**의 제품 상세
+- **pro 탭** (`pro.html` 인증 후 진입) = **인증 완료 디자이너 전용 제품 페이지** (**제휴가·디자이너 구매 품목 노출 필수**)
+  - 연결: 달바 > product > **헤어샵 전용 카테고리**의 제품 상세
+  - **쇼핑백·GWP 등 product 탭엔 없는 디자이너 전용 품목**이 추가될 수 있음
+  - `pro.html` 로그인/인증 페이지 = **비인증 유저 차단 "대문"** 역할
+- → 기존 "product 공개 + 가격만 등급차등"에서 **"product(공개=헤어/바디) / pro(전용=헤어샵전용) 카테고리 분리"로 구체화.** 선행: 달바몰 헤어/바디 + 헤어샵전용 카테고리 상품 등록(goodsNo).
+- **구현 방식 확정(260806)**: pro 전용 제품은 **별도 페이지 없이 `pro.html` 안에서 등급 분기로 노출**한다. 인증 완료(프로페셔널 등급) 시 대문 대신 **헤어샵 전용 제품 리스트 섹션**을 보여주고, 비인증(비로그인/프로X)은 대문(게이트) 노출. `pro.html`의 기존 "index.html 자동 진입"은 **제거.** 스캐폴드(제품 섹션 + `pro.css .pro-exclusive` 그리드) 완성 — goodsNo 확보 후 `.pro-exclusive__list`에 카드만 채우면 됨. (pro.html/pro.css 재업로드 필요)
+
+### 할일 최신화 (260806 기준)
+**🟢 지금 할 수 있음** (코드 준비 완료 — 관리자 게시판/데이터만 넣으면 동작):
+- [ ] **salon(매장) 게시판 생성** + 매장 글 등록(제목=매장명 / 본문 라벨 `주소:`·`전화:`·`영업시간:`·`좌표:` / **좌표 직접 입력 권장**) → Store 동작. store.html `data-bdid="salon"` 이미 설정됨.
+- [ ] **article(아티클) 게시판 생성** + 기사 글(말머리 NEWS/EVENT/COLLABORATION) → Articles 동작. articles.html `data-bdid="article"` 설정됨.
+
+**🟣 제품 연결 구조 (product 공개 / pro 전용 분리, 260806 신규 — 위 "제품 연결 구조 확정" 참조)**:
+- [ ] product 탭 → 달바 **헤어/바디 카테고리** 제품 연결 (공개)
+- [ ] pro 탭 → 달바 **헤어샵 전용 카테고리** 제품 연결 (인증 전용, 제휴가·디자이너 품목 노출 필수)
+- [x] ~~pro 전용 제품 페이지 분리~~ → **pro.html 내 등급분기로 구현(260806)**: 인증 시 헤어샵 전용 제품 섹션 노출(스캐폴드 완료), index 자동진입 제거. **남은 것 = 헤어샵전용 goodsNo 카드 채우기** + pro.html/pro.css 재업로드
+- 선행: 달바몰 헤어/바디 + 헤어샵전용 카테고리 상품 등록(goodsNo)
+
+**🔵 관리자 세팅 (달바 권한)**:
+- [ ] 프로페셔널 **등급 신설** + 등급별 **제휴가** + **상품 노출** 설정
+- [ ] 승인 알림 — 신청접수→관리자(게시판 기본 알림 확인됨) / 승인완료→신청자(등급변경 SMS·알림톡)
+- [ ] 네이버 **Geocoding API 사용신청** (salon 좌표 직접 입력 시 생략 가능)
+
+**🟡 자산·확정 대기 (축1)**:
+- [ ] 성분소개 POINT 01~04 (엔젤링 성분 최종 카피 확정 후)
+- [ ] Product hover 2번째컷 / 인물아바타 영상롤링 / 히어로 영상(mp4) / 브랜드스토리 심볼 루프 — 자산
+- [ ] 최종 카피 확정 (엔젤링/로제 엔젤링 vs 로제 프리지아/Peptide Exosome™)
+- [ ] goodsNo — 상품 6종 등록 후 product.html 링크
+- [ ] Product 카드 용량·가격 / 바탕 #FAFAFB / 흰 로고
+
+**⚪ PHP 배포 대기 (웹앤모바일 PHP 8.2 업그레이드 후)**:
+- [ ] ProVerifyController.php SFTP 배포 → verify.js `VERIFY_API_URL` 연결 → URL 테스트 (상세 §C/§F)
