@@ -5,7 +5,23 @@
 }
 
 .hero {
+    /* index .hero 와 동일하게 뷰포트 풀높이 (기존엔 높이 미지정 → 이미지 원본비율로 초과됨) */
+    position: relative;
+    height: 100vh;
+    min-height: 100vh;
     color: var(--color-white);
+}
+
+.hero__container {
+    position: relative;
+    height: 100%;
+}
+
+.hero__picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .hero__image {
@@ -53,8 +69,14 @@
     letter-spacing: -0.3px;
 }
 
+.product__list--main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px 10px;
+}
+
 .product__item--main + .product__item--main {
-    margin-top: min(25vw, 100px);
+    margin-top: 0;
 }
 
 .product__picture {
@@ -197,14 +219,8 @@
     }
 
     .product__list--main {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        gap: 10px;
-    }
-
-    .product__item--main + .product__item--main {
-        margin-top: 0;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px 15px;
     }
 
     .product__info {

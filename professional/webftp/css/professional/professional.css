@@ -20,6 +20,8 @@
 .footer-professional-logo {
     height: 2.4rem;
     width: auto;
+    /* 히어로용 검정 로고(professional-logo.png)를 어두운 푸터에서 보이도록 흰색화 (hero__logo--white 패턴) */
+    filter: brightness(0) invert(1);
 }
 
 .fade-in-text {

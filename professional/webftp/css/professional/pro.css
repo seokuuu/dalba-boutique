@@ -5,7 +5,8 @@
 @import "./common/common.css";
 
 .pro-gate {
-    min-height: 70vh;
+    /* 메인 히어로처럼 뷰포트 풀높이로 채움 (기존 70vh = "너무 크다"고 %로 줄인 밴드에이드였음) */
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
