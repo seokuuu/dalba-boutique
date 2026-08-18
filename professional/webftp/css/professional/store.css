@@ -27,6 +27,12 @@
     gap: 4rem;
     align-items: stretch;
     max-width: var(--container-max);
+    margin: 0 auto;
+}
+/* 공용 .wrapper{display:block} 을 확실히 이기도록 결합 선택자로 flex 고정
+   (PC: 목록 왼쪽 / 지도 오른쪽. 모바일은 아래 @media 에서 flex-direction:column) */
+.store_split.wrapper {
+    display: flex;
 }
 
 /* 왼쪽 패널 */

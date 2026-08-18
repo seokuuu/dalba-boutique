@@ -72,7 +72,9 @@
                             category: category,
                             date: date,
                             image: img,
-                            url: "/board/view.php?bdId=" + bdid + "&sno=" + sno,
+                            // 상세(고도몰 게시판 뷰)로 이동. returnUrl 을 articles.html 로 지정 → 상세의 '목록' 버튼이 우리 목록으로 복귀
+                            url: "/board/view.php?bdId=" + bdid + "&sno=" + sno +
+                                "&returnUrl=" + encodeURIComponent("/main/html.php?htmid=professional/articles.html"),
                         });
                     });
                     state.items = items;
@@ -97,12 +99,10 @@
                 var imgHtml = it.image
                     ? '<img loading="lazy" class="articles__image" src="' + it.image + '" alt="' + esc(it.name) + '" />'
                     : '<span class="articles__noimg" aria-hidden="true"></span>';
-                // 상세페이지 미기획 → 카드 클릭 라우팅 비활성.
-                // 기획 확정되면 아래 href 를 it.url 로 복원 (URL 은 data-url 로 보존).
+                // 카드 클릭 → 상세(고도몰 게시판 뷰). url 에 returnUrl 포함 → 상세 '목록' 버튼이 articles.html 로 복귀
                 return (
                     '<li class="articles__item" data-category="' + esc(it.category) + '">' +
-                    '<a href="javascript:void(0)" data-url="' + it.url + '">' +
-                    // '<a href="' + it.url + '">' +   // ← 상세페이지 기획되면 이 줄로 교체
+                    '<a href="' + it.url + '">' +
                     '<picture class="articles__picture">' + imgHtml + "</picture>" +
                     (it.category ? '<p class="articles__category">' + it.category + "</p>" : "") +
                     '<p class="articles__title">' + it.name + "</p>" +
