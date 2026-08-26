@@ -12,7 +12,7 @@
  *   ※ Api(api.도메인)가 아니라 Front(같은 도메인)로 둬서 CORS/세션 문제 없음
  *
  * 배포: 개발소스관리 > 개발작업소스 보기 > "운영소스로 적용하기"
- * ⚠️ 키 3개는 배포본에만 입력(git 커밋 금지)
+ * ⚠️ 파일명 = 클래스명(ProVerifyController) 반드시 일치. 키 3개는 배포본에만 입력(git 커밋 금지)
  */
 namespace Controller\Front\Professional;
 
