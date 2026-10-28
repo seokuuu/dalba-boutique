@@ -246,3 +246,145 @@
         margin-left: 0;
     }
 }
+
+/* ===== 거래 동의 약관 팝업 (PC 모달 / MO 바텀시트) · Figma 6-3, 6-5 ===== */
+/* 전체보기 버튼: 링크(a) → button 으로 변경되어 기본 버튼 스타일 리셋 */
+button.verify__agree-more {
+    border: 0;
+    background: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+.js-agree-open {
+    cursor: pointer;
+}
+body.is-terms-open {
+    overflow: hidden;
+}
+
+.verify-terms {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.verify-terms[hidden] {
+    display: none;
+}
+.verify-terms__dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.verify-terms.is-open .verify-terms__dim {
+    opacity: 1;
+}
+
+/* PC: 중앙 모달 */
+.verify-terms__sheet {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(56rem, 92vw);
+    max-height: 80vh;
+    background: var(--color-white, #fff);
+    border-radius: 0.8rem;
+    overflow: hidden;
+    transform: translateY(1.6rem);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.verify-terms.is-open .verify-terms__sheet {
+    transform: translateY(0);
+    opacity: 1;
+}
+.verify-terms__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 2.4rem;
+    border-bottom: 1px solid var(--color-gray-100, #f0f0f0);
+}
+.verify-terms__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+.verify-terms__close {
+    border: 0;
+    background: none;
+    font-size: 2.8rem;
+    line-height: 1;
+    color: var(--color-gray-800, #333);
+    cursor: pointer;
+    padding: 0 0.4rem;
+}
+.verify-terms__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2.4rem;
+    font-size: 1.4rem;
+    line-height: 1.85;
+    color: var(--color-gray-800, #333);
+    word-break: keep-all;
+    -webkit-overflow-scrolling: touch;
+}
+.verify-terms__body img {
+    max-width: 100%;
+    height: auto;
+}
+.verify-terms__loading {
+    text-align: center;
+    color: #888;
+    padding: 4rem 0;
+}
+.verify-terms__foot {
+    padding: 1.6rem 2.4rem 2.4rem;
+    border-top: 1px solid var(--color-gray-100, #f0f0f0);
+}
+.verify-terms__agree {
+    width: 100%;
+    padding: 1.6rem;
+    border: 0;
+    border-radius: 0.4rem;
+    background: var(--color-gray-900, #1a1a1a);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.verify-terms__agree:hover {
+    opacity: 0.9;
+}
+
+/* MO: 바텀시트 (아래서 슬라이드업) */
+@media (max-width: 600px) {
+    .verify-terms {
+        align-items: flex-end;
+        justify-content: stretch;
+    }
+    .verify-terms__sheet {
+        width: 100%;
+        max-height: 85vh;
+        border-radius: 1.6rem 1.6rem 0 0;
+        transform: translateY(100%);
+    }
+    .verify-terms.is-open .verify-terms__sheet {
+        transform: translateY(0);
+    }
+    .verify-terms__head {
+        padding: 1.8rem 2rem;
+    }
+    .verify-terms__body {
+        padding: 2rem;
+    }
+    .verify-terms__foot {
+        padding: 1.4rem 2rem calc(2rem + env(safe-area-inset-bottom, 0px));
+    }
+}

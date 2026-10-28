@@ -59,6 +59,76 @@
         });
     });
 
+    // ===== 거래 동의 약관 팝업 (PC 모달 / MO 바텀시트) · Figma 6-3, 6-5 =====
+    // 체크박스 직접 토글 불가 → 팝업에서 '약관 동의' 클릭 시에만 checked. X/딤 클릭은 미동의 닫힘.
+    var termsModal = document.getElementById("verifyTermsModal");
+    var agreeCheck = document.getElementById("agreeDeal");
+    if (termsModal && agreeCheck) {
+        var termsBody = termsModal.querySelector(".js-terms-body");
+        var termsLoaded = false;
+        var TERMS_URL = "/main/html.php?htmid=professional/terms_deal.html";
+
+        function loadTerms() {
+            if (termsLoaded) return;
+            fetch(TERMS_URL, { credentials: "same-origin" })
+                .then(function (r) { return r.text(); })
+                .then(function (html) {
+                    // terms_deal 페이지의 약관 본문(.terms__body)만 추출
+                    var doc = new DOMParser().parseFromString(html, "text/html");
+                    var body = doc.querySelector("#professional-terms .terms__body") || doc.querySelector(".terms__body");
+                    if (body && body.innerHTML.trim()) {
+                        termsBody.innerHTML = body.innerHTML;
+                        termsLoaded = true;
+                    } else {
+                        termsBody.innerHTML = '<p class="verify-terms__loading">약관 내용을 불러올 수 없습니다. <a href="' + TERMS_URL + '" target="_blank">전체보기</a></p>';
+                    }
+                })
+                .catch(function () {
+                    termsBody.innerHTML = '<p class="verify-terms__loading">약관을 불러오지 못했습니다. <a href="' + TERMS_URL + '" target="_blank">전체보기</a></p>';
+                });
+        }
+
+        function openTerms() {
+            loadTerms();
+            termsModal.hidden = false;
+            termsModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("is-terms-open");
+            // 다음 프레임에 열림 클래스(트랜지션)
+            requestAnimationFrame(function () { termsModal.classList.add("is-open"); });
+            var b = termsModal.querySelector(".js-terms-body");
+            if (b) b.scrollTop = 0;
+        }
+        function closeTerms() {
+            termsModal.classList.remove("is-open");
+            termsModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("is-terms-open");
+            // 트랜지션 후 hidden
+            setTimeout(function () { if (!termsModal.classList.contains("is-open")) termsModal.hidden = true; }, 300);
+        }
+
+        // 라벨/전체보기 클릭 → 팝업 오픈 (체크박스 직접 토글은 막음)
+        Array.prototype.forEach.call(termsModal.ownerDocument.querySelectorAll(".js-agree-open"), function (el) {
+            el.addEventListener("click", function (e) { e.preventDefault(); openTerms(); });
+        });
+        // 체크박스 자체 클릭 방지 → 항상 팝업 경유
+        agreeCheck.addEventListener("click", function (e) { e.preventDefault(); openTerms(); });
+
+        // '약관 동의' → 체크 활성화 + 닫기
+        termsModal.querySelector(".js-terms-agree").addEventListener("click", function () {
+            agreeCheck.checked = true;
+            clearError();
+            closeTerms();
+        });
+        // X / 딤 클릭 → 미동의 닫기
+        Array.prototype.forEach.call(termsModal.querySelectorAll(".js-terms-dismiss"), function (el) {
+            el.addEventListener("click", closeTerms);
+        });
+        // ESC 닫기
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && !termsModal.hidden) closeTerms();
+        });
+    }
+
     // ===== 사업자등록번호 진위확인 (국세청 상태조회 API, 브라우저 직접 호출) =====
     // 공공데이터포털 "국세청_사업자등록정보 진위확인 및 상태조회" → CORS 허용됨.
     // ⚠️ 발급받은 serviceKey(Decoding 키)를 아래에 넣어야 동작함. JS에 노출되지만 read-only·1일100만건이라 저위험.
